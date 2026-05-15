@@ -22,7 +22,6 @@ Currently packages are tested on the following architectures:
 <details>
 <summary><b> Manually building </b></summary>
 
-> Recommended for the `manual` branch
 
 1. Clone both this repository and [void-packages](https://github.com/void-linux/void-packages):
 
