@@ -17,7 +17,7 @@ This repository provides:
 ```
 sudo touch /etc/xbps.d/d77void.conf
 su
-echo "repositorry=https://sourceforge.net/projects/d77void/files/d77void-repo" >> /etc/xbps.d/d77void.conf
+echo "repository=https://sourceforge.net/projects/d77void/files/d77void-repo" >> /etc/xbps.d/d77void.conf
 ```
 Update the system and accept repo key.
 
