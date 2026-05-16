@@ -45,3 +45,4 @@ post_install() {
 		vcompletion "niri.${sh}" "${sh}"
 	done
 }
+
