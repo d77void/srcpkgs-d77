@@ -43,3 +43,4 @@ kdelibs4support-devel_package() {
 		vmove usr/lib/*.so
 	}
 }
+
