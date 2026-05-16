@@ -12,6 +12,17 @@ This repository provides:
 
 - **fully working templates without binaries**
 
+- **for full binaries** do this:
+
+```
+sudo touch /etc/xbps.d/d77void.conf
+su
+echo "repositorry=https://sourceforge.net/projects/d77void/files/d77void-repo" >> /etc/xbps.d/d77void.conf
+```
+Update the system and accept repo key.
+
+you are now able to install the pkgs from d77void repo.
+ 
 <hr>
 
 ## Installation
@@ -62,6 +73,3 @@ Currently packages are tested on the following architectures:
 
 - [Nizarjh: blackhole-vl](https://github.com/Event-Horizon-VL/blackhole-vl): Inspiration on README file
 
-## Support My Work
-
-- [BuyMeaCoffee](https://buymeacoffee.com/d77void)
