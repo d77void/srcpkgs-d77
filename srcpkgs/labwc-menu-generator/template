@@ -13,3 +13,4 @@ homepage="https://labwc.github.io/"
 distfiles="https://github.com/labwc/labwc-menu-generator/archive/refs/tags/${version}.tar.gz"
 checksum=5c66b12234aa7d5797a4d3ebbf7011ea29ad7d66b26ff4c250df08700fdc630d
 repository=d77
+
