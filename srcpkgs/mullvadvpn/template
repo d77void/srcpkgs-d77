@@ -55,3 +55,4 @@ do_install() {
 pkg_install() {
     vmove usr/local/share/zsh/site-functions/*
 }
+
