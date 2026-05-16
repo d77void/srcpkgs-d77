@@ -2,14 +2,7 @@
 pkgname=leftwm-theme
 version=0.1.2
 revision=1
-#archs="i686 x86_64"
-#build_wrksrc=
 build_style=cargo
-#configure_args=""
-#make_build_args=""
-#make_install_args=""
-#conf_files=""
-#make_dirs="/var/log/dir 0755 root root"
 hostmakedepends="libgit2-devel openssl-devel pkg-config"
 makedepends=""
 depends=""
