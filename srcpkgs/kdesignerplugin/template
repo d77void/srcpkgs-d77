@@ -33,4 +33,3 @@ kdesignerplugin-devel_package() {
 		vmove usr/lib/cmake
 	}
 }
-
