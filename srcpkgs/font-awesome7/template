@@ -2,17 +2,7 @@
 pkgname=font-awesome7
 version=7.2.0
 revision=1
-#archs="i686 x86_64"
-#build_wrksrc=
-#build_style=gnu-configure
-#configure_args=""
-#make_build_args=""
-#make_install_args=""
-#conf_files=""
-#make_dirs="/var/log/dir 0755 root root"
 hostmakedepends="font-util"
-#makedepends=""
-#depends=""
 short_desc="Iconic SVG, font, and CSS toolkit - desktop fonts"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="GPL-3.0-or-later"
@@ -25,4 +15,3 @@ repository=d77
 do_install() {
         install -Dm644 otfs/*.otf -t ${DESTDIR}/usr/share/fonts/OTF
 }
-
