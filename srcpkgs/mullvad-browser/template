@@ -2,17 +2,8 @@
 pkgname=mullvad-browser
 version=15.0.12
 revision=1
-#archs="i686 x86_64"
-#build_wrksrc=
 build_style="fetch"
-#configure_args=""
-#make_build_args=""
-#make_install_args=""
-#conf_files=""
-#make_dirs="/var/log/dir 0755 root root"
 hostmakedepends="tar xz"
-#makedepends=""
-#depends=""
 short_desc="Privacy-focused browser for Linux, macOS and Windows. Made in collaboration between @torproject and @mullvad"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="GPL-3.0-or-later"
