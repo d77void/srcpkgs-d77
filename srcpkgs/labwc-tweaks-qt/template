@@ -18,3 +18,4 @@ changelog="https://github.com/labwc/labwc-tweaks/releases"
 distfiles="https://github.com/labwc/labwc-tweaks/archive/refs/tags/${version}.tar.gz"
 checksum=a742250c7e8ea363758a024688226a4296a6798adc57abe0903d580ab195b749
 repository=d77
+
