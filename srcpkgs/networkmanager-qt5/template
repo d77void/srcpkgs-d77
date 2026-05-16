@@ -27,3 +27,4 @@ networkmanager-qt5-devel_package() {
 		vmove "usr/lib/*.so"
 	}
 }
+
