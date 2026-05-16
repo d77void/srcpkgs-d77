@@ -16,3 +16,4 @@ repository=d77
 post_install() {
 	vlicense LICENSE.md
 }
+
