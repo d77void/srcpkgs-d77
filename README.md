@@ -21,7 +21,7 @@ echo "repository=https://sourceforge.net/projects/d77void/files/d77void-repo" >>
 ```
 Update the system and accept repo key.
 
-you are now able to install the pkgs from d77void repo.
+You are now able to install the pkgs from d77void repo.
  
 <hr>
 
