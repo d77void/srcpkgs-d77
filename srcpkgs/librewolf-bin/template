@@ -24,3 +24,4 @@ do_install() {
 	# correct path in launcher
 	vsed -i 's|usr/share|usr/lib|g' ${DESTDIR}/usr/share/applications/${_pkgname}.desktop
 }
+
