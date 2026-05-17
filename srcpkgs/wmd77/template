@@ -1,7 +1,7 @@
 # Template file for 'wmd77'
 pkgname=wmd77
 version=0.4.0
-revision=2
+revision=3
 #archs="i686 x86_64"
 #build_wrksrc=
 build_style=cargo
@@ -34,4 +34,5 @@ do_install() {
 	vcopy target/release/wmd77 /usr/bin/
 	vcopy wmd77.desktop /usr/share/xsessions/
 	vcopy etc/xdg/wmd77/'*' /etc/xdg/wmd77/
+	vlicense LICENSE 
 }
