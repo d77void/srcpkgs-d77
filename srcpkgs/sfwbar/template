@@ -13,3 +13,4 @@ homepage="https://github.com/LBCrion/sfwbar"
 distfiles="https://github.com/LBCrion/sfwbar/archive/refs/tags/${version}_beta16.1.tar.gz"
 checksum=98f3d77713a2e3a10fcb09c365c92fa96ab84bf157e59bd3f4d4d274ce0496e8
 repository=d77
+
