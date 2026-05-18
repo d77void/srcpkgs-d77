@@ -44,3 +44,4 @@ st-terminfo_package() {
 		vmove usr/share/terminfo
 	}
 }
+
