@@ -21,3 +21,4 @@ homepage="https://tools.suckless.org/slstatus"
 distfiles="https://github.com/dani-77/${pkgname}/archive/refs/tags/${version}.tar.gz"
 checksum=cd3334f7ada12f4ea353df1f384cf87a743868c62dbbb3b064796983fb8a526d
 repository=d77
+
