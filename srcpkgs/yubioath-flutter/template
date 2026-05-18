@@ -36,3 +36,4 @@ do_install() {
 	vmkdir /opt/yubioath-flutter
 	vcopy '*' /opt/yubioath-flutter/
 }
+
