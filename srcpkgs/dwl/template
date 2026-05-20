@@ -1,0 +1,29 @@
+# Template file for 'dwl'
+pkgname=dwl
+version=0.8
+revision=1
+#archs="i686 x86_64"
+#build_wrksrc=
+build_style=gnu-makefile
+configure_args="-DXWAYLAND"
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+#hostmakedepends=""
+makedepends="libinput-devel wayland-devel wlroots0.19-devel libxkbcommon-devel xorg-server-xwayland libxcb-devel xcb-util-wm-devel pkg-config"
+depends="wayland wayland-protocols xorg-server-xwayland xwayland-satellite wlroots0.19"
+short_desc="compact, hackable compositor for Wayland based on wlroots"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="GPL-3.0-or-later"
+homepage="https://codeberg.org/dwl/dwl"
+changelog="https://codeberg.org/${pkgname}/${pkgname}/releases/tag/v${version}"
+distfiles="https://codeberg.org/${pkgname}/${pkgname}/releases/download/v${version}/${pkgname}-v${version}.tar.gz"
+checksum=ccc8bbb3fb66a7e6f0392693533ac9c8bd4e6283dd1f66992e68ec4d4a9cdee7
+repository=d77
+
+do_install() {
+	make PREFIX=/usr DESTDIR=$DESTDIR install
+	vlicense LICENSE
+	vinstall ${FILESDIR}/dwl.desktop 644 usr/share/wayland-sessions/
+}
