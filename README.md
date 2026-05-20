@@ -62,7 +62,7 @@ Currently packages are tested on the following architectures:
 5. Install the built packages:
 
     ```
-    sudo xbps-install --repository /hostdir/binpkgs/ <package1> <package2> ...
+    sudo xbps-install --repository /hostdir/binpkgs/d77/ <package1> <package2> ...
     ```
 
 </details>
