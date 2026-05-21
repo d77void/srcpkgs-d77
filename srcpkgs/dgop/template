@@ -1,7 +1,7 @@
 # Template file for 'dgop'
 pkgname=dgop
 version=0.2.2
-revision=1
+revision=2
 build_style=gnu-makefile
 makedepends="go"
 short_desc="API & CLI for System & Process Monitoring"
@@ -14,6 +14,5 @@ checksum=2e45d94d2227bb596844681e66f948aeea4a09be3f7ee88dcbbf38938cabec32
 repository=d77
 
 do_install() {
-	vmkdir /usr/bin
-	vcopy bin/dgop  /usr/bin/
+	vinstall bin/dgop 755 usr/bin/
 }
