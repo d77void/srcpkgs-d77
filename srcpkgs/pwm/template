@@ -1,7 +1,7 @@
 # Template file for 'pwm'
 pkgname=pwm
 version=0.2.1
-revision=2
+revision=3
 #archs="i686 x86_64"
 #build_wrksrc=
 build_style=cargo
@@ -28,11 +28,9 @@ do_build() {
 
 do_install() {
 	sed -i '3i conky -c ~/.conkyrc1 &' etc/xdg/pwm/startup.sh
-	vmkdir /usr/bin
-	vmkdir /usr/share/xsessions
+	vinstall target/release/pwm 755 usr/bin/
+	vinstall pwm.desktop 755 usr/share/xsessions/
 	vmkdir /etc/xdg/pwm
-	vcopy target/release/pwm /usr/bin/
-	vcopy pwm.desktop /usr/share/xsessions/
 	vcopy etc/xdg/pwm/'*' /etc/xdg/pwm/
 	vlicense LICENSE
 }
