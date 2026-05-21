@@ -1,7 +1,7 @@
 # Template file for 'joshuto'
 pkgname=joshuto
 version=0.9.9
-revision=2
+revision=3
 build_style=fetch
 hostmakedepends=""
 makedepends=""
@@ -17,8 +17,6 @@ repository=d77
 
 do_install() {
     vextract joshuto-*
-    vmkdir /usr/bin
-    vcopy joshuto /usr/bin/
-    vmkdir /usr/share/applications
-    vcopy ${FILESDIR}/joshuto.desktop /usr/share/applications/
+    vinstall joshuto 755 usr/bin/
+    vinstall ${FILESDIR}/joshuto.desktop 755 usr/share/applications/
 }
