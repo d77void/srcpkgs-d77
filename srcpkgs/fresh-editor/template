@@ -24,10 +24,10 @@ repository=d77
 
 do_install() {
     vextract fresh-editor*
-    vmkdir /usr/share/fresh-editor/plugins
     vinstall fresh 755 usr/bin/
     vinstall README.md 644 usr/share/doc/fresh-editor/
-    vlicense LICENSE
-    vcopy plugins/'*' /usr/share/fresh-editor/plugins/
     vinstall ${FILESDIR}/fresh-editor.desktop 644 usr/share/applications/
+    vlicense LICENSE
+    vmkdir /usr/share/fresh-editor/plugins
+    vcopy plugins/'*' /usr/share/fresh-editor/plugins/
 }

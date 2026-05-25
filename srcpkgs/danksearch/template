@@ -22,6 +22,5 @@ do_install() {
 	echo 'exec /usr/bin/dsearch serve' >> ${DESTDIR}/etc/sv/dsearch/run
 	chmod 755 ${DESTDIR}/etc/sv/dsearch/run
 
-	vmkdir /usr/bin
-	vcopy bin/dsearch /usr/bin
+	vinstall bin/dsearch 755 usr/bin
 }
