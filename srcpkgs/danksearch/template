@@ -1,6 +1,6 @@
 # Template file for 'danksearch'
 pkgname=danksearch
-version=0.2.1
+version=0.3.1
 revision=1
 build_style=gnu-makefile
 hostmakedepends="go"
@@ -10,8 +10,8 @@ short_desc="Fast, configurable filesystem search with fuzzy matching"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="GPL-3.0-or-later"
 homepage="https://danklinux.com"
-distfiles="https://github.com/AvengeMedia/danksearch/archive/refs/tags/v0.2.1.tar.gz"
-checksum=e2c263a233e45661e55bd841ee1395b9241132091f1b1e3d98caebb26d455727
+distfiles="https://github.com/AvengeMedia/${pkgname}/archive/refs/tags/v${version}.tar.gz"
+checksum=d6e34db26bb3a48eae6fb86164bd6745f4539e9ba62064a99adf6a58038253a1
 repository=d77
 
 do_install() {
@@ -22,5 +22,11 @@ do_install() {
 	echo 'exec /usr/bin/dsearch serve' >> ${DESTDIR}/etc/sv/dsearch/run
 	chmod 755 ${DESTDIR}/etc/sv/dsearch/run
 
-	vinstall bin/dsearch 755 usr/bin
+	vbin bin/dsearch 
+	vcompletion ${FILESDIR}/completion.bash bash dsearch
+	vcompletion ${FILESDIR}/completion.zsh zsh _dsearch
+	vcompletion ${FILESDIR}/completion.fish fish dsearch.fish
+
+	vlicense LICENSE
+	vdoc README.md
 }

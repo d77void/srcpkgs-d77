@@ -17,7 +17,7 @@ repository=d77
 
 do_install() {
 	vextract dms-full-amd64.tar.gz
-	vinstall ./bin/dms 755 /usr/bin/
+	vbin ./bin/dms
 	vcompletion ./completions/completion.bash bash dms 
 	vcompletion ./completions/completion.zsh zsh _dms
 	vcompletion ./completions/completion.fish fish dms.fish
