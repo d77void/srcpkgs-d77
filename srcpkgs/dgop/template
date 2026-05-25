@@ -14,5 +14,10 @@ checksum=2e45d94d2227bb596844681e66f948aeea4a09be3f7ee88dcbbf38938cabec32
 repository=d77
 
 do_install() {
-	vinstall bin/dgop 755 usr/bin/
+	vbin bin/dgop
+	vcompletion ${FILESDIR}/completion.bash bash
+	vcompletion ${FILESDIR}/completion.zsh zsh
+	vcompletion ${FILESDIR}/completion.fish fish
+	vlicense LICENSE
+	vdoc README.md
 }
