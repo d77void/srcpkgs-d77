@@ -1,6 +1,6 @@
 # Template file for 'wayle'
 pkgname=wayle
-version=0.4.0
+version=0.4.1
 revision=1
 #archs="i686 x86_64"
 #build_wrksrc=
@@ -19,7 +19,7 @@ license="MIT"
 homepage="https://wayle.app"
 changelog="https://github.com/wayle-rs/wayle/releases"
 distfiles="https://github.com/wayle-rs/${pkgname}/archive/refs/tags/v${version}.tar.gz"
-checksum=3adc1d501e19f54bd9ea9cabef1ea8f78e0b2acf978a5ff519b7394b60205597
+checksum=b64ada6c750a78a1194e86167b607ac69e8df45a405bd3636a067057e15b14cd
 repository=d77
 
 do_build() {
@@ -28,8 +28,8 @@ do_build() {
 }
 
 do_install() {
-	vinstall  target/release/${pkgname} 755 usr/bin
-	vinstall  target/release/${pkgname}-settings 755 usr/bin
+	vbin  target/release/${pkgname}
+	vbin  target/release/${pkgname}-settings
 
 	vmkdir /usr/share/${pkgname}/icons
     	vcopy resources/icons/hicolor /usr/share/${pkgname}/icons/
