@@ -15,6 +15,7 @@ repository=d77
 
 do_install() {
 	vbin bin/dgop
+	vbin bin/dgop dankgop
 	vcompletion ${FILESDIR}/completion.bash bash
 	vcompletion ${FILESDIR}/completion.zsh zsh
 	vcompletion ${FILESDIR}/completion.fish fish
