@@ -1,0 +1,30 @@
+# Template file for 'somewm'
+pkgname=somewm
+version=1.4.1
+revision=1
+#archs="i686 x86_64"
+#build_wrksrc=
+build_style=meson
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="git meson ninja pkg-config"
+makedepends="cairo-devel pango-devel gdk-pixbuf-devel libdrm-devel eudev-libudev-devel libinput-devel libxkbcommon-devel LuaJIT-devel lua51-devel lua51-lgi wayland-protocols wayland-devel wlroots0.19-devel"
+depends=""
+short_desc="Not quite awesome...just some."
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="GPL-3.0-or-later"
+homepage="https://somewm.org/"
+changelog="https://github.com/trip-zip/${pkgname}/releases/tag/v${version}"
+distfiles="https://github.com/trip-zip/${pkgname}/archive/refs/tags/v${version}.tar.gz"
+checksum=a9cec46c38184b5141bc7bc6f72838f3ae0428bcaec7ee558839f08e518d0369
+repository=d77
+
+post_install() {
+	vlicense LICENSE
+	vdoc README.md
+	vmkdir /usr/share/${pkgname}
+	vcopy themes/ usr/share/${pkgname}
+}
