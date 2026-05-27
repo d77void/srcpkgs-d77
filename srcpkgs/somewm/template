@@ -2,15 +2,8 @@
 pkgname=somewm
 version=1.4.1
 revision=1
-#archs="i686 x86_64"
-#build_wrksrc=
 build_style=meson
-#configure_args=""
-#make_build_args=""
-#make_install_args=""
-#conf_files=""
-#make_dirs="/var/log/dir 0755 root root"
-hostmakedepends="git meson ninja pkg-config"
+hostmakedepends="git pkg-config"
 makedepends="cairo-devel pango-devel gdk-pixbuf-devel libdrm-devel eudev-libudev-devel libinput-devel libxkbcommon-devel LuaJIT-devel lua51-devel lua51-lgi wayland-protocols wayland-devel wlroots0.19-devel"
 depends="lua51-lgi"
 short_desc="Not quite awesome...just some."
