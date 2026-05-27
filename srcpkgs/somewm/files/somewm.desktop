@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=somewm
+Comment=AwesomeWM-compatible Wayland compositor
+Exec=dbus-launch somewm
+TryExec=somewm
+Type=Application
+DesktopNames=somewm

@@ -12,7 +12,7 @@ build_style=meson
 #make_dirs="/var/log/dir 0755 root root"
 hostmakedepends="git meson ninja pkg-config"
 makedepends="cairo-devel pango-devel gdk-pixbuf-devel libdrm-devel eudev-libudev-devel libinput-devel libxkbcommon-devel LuaJIT-devel lua51-devel lua51-lgi wayland-protocols wayland-devel wlroots0.19-devel"
-depends=""
+depends="lua51-lgi"
 short_desc="Not quite awesome...just some."
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="GPL-3.0-or-later"
@@ -25,6 +25,5 @@ repository=d77
 post_install() {
 	vlicense LICENSE
 	vdoc README.md
-	vmkdir /usr/share/${pkgname}
-	vcopy themes/ usr/share/${pkgname}
+	vinstall ${FILESDIR}/somewm.desktop 644 usr/share/wayland-sessions/
 }
