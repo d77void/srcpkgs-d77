@@ -3,7 +3,6 @@ pkgname=dankmaterial-shell
 version=1.4.6
 revision=2
 build_style="fetch"
-hostmakedepends="pulseaudio-devel pipewire-devel"
 makedepends="pulseaudio-devel pipewire-devel"
 depends="accountsservice cava cliphist i2c-tools qt6-multimedia power-profiles-daemon"
 short_desc="Desktop shell for wayland compositors built with Quickshell & GO"
