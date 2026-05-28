@@ -1,22 +1,21 @@
 # Template file for 'joshuto'
 pkgname=joshuto
 version=0.9.9
-revision=3
-build_style=fetch
-hostmakedepends=""
-makedepends=""
-depends=""
+revision=1
+build_style=cargo
+hostmakedepends="pkg-config"
+makedepends="libgit2-devel"
+depends="xsel wl-clipboard fzf zoxide"
 short_desc="ranger-like terminal file manager written in Rust"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="GPL-3.0-or-later"
 homepage="https://crates.io/crates/joshuto"
 changelog="https://github.com/kamiyaa/${pkgname}/releases/tag/v${version}"
-distfiles="https://github.com/kamiyaa/${pkgname}/releases/download/v${version}/${pkgname}-v${version}-x86_64-unknown-linux-gnu.tar.gz"
-checksum=b87574ca6c1765c0a2465d44d4b317768e51aedbeba09355f9ae20655248c9b0
+distfiles="https://github.com/kamiyaa/${pkgname}/archive/refs/tags/v${version}.tar.gz"
+checksum=85a230183f7478dee7c29229d78313ee07b759e596e19292acf024d2e5735efa
 repository=d77
 
 do_install() {
-    vextract joshuto-*
-    vinstall joshuto 755 usr/bin/
-    vinstall ${FILESDIR}/joshuto.desktop 755 usr/share/applications/
+	vbin target/x86_64-unknown-linux-gnu/release/joshuto
+	vinstall ${FILESDIR}/joshuto.desktop 644 usr/share/applications/
 }
