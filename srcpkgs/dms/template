@@ -1,0 +1,40 @@
+# Template file for 'dms'
+pkgname=dms
+version=1.4.6
+revision=1
+archs="x86_64"
+build_style=gnu-makefile
+build_helper="qemu"
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="go pkg-config automake"
+makedepends="accountsservice-devel"
+depends="cava i2c-tools matugen qt6-multimedia power-profiles-daemon qt6ct wtype cups-pk-helper"
+short_desc="Desktop shell for wayland compositors built with Quickshell & GO"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="MIT"
+homepage="https://danklinux.com"
+changelog="https://github.com/AvengeMedia/DankMaterialShell/releases/tag/v${version}"
+distfiles="https://github.com/AvengeMedia/DankMaterialShell/archive/refs/tags/v${version}.tar.gz"
+checksum=f54601e522c883fa9cce02bec070e4321e47389a1cf453e7ad0bb7379ad91b61
+repository=d77
+
+do_install() {
+	vbin core/bin/dms
+
+	vmkdir usr/share/quickshell/dms
+	vcopy "quickshell/*" usr/share/quickshell/dms
+
+	vmkdir usr/share/doc/dms
+	vcopy "docs/*" usr/share/doc/dms/
+
+	vinstall assets/dms-open.desktop 644 usr/share/applications
+	vinstall assets/danklogo.svg 644 usr/share/icons/hicolor/scalable/apps
+	vlicense LICENSE
+}
+
+post_install() {
+	for sh in bash fish zsh; do
+	vtargetrun core/bin/dms completion "$sh" > "dms.$sh"
+	vcompletion "dms.$sh" "$sh"
+	done
+}
