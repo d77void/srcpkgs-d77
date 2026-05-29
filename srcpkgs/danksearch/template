@@ -3,6 +3,7 @@ pkgname=danksearch
 version=0.3.1
 revision=1
 build_style=gnu-makefile
+build_helper="qemu"
 hostmakedepends="go"
 short_desc="Fast, configurable filesystem search with fuzzy matching"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
@@ -20,11 +21,15 @@ do_install() {
 	echo 'exec /usr/bin/dsearch serve' >> ${DESTDIR}/etc/sv/dsearch/run
 	chmod 755 ${DESTDIR}/etc/sv/dsearch/run
 
-	vbin bin/dsearch 
-	vcompletion ${FILESDIR}/completion.bash bash dsearch
-	vcompletion ${FILESDIR}/completion.zsh zsh _dsearch
-	vcompletion ${FILESDIR}/completion.fish fish dsearch.fish
+	vbin bin/dsearch
 
 	vlicense LICENSE
 	vdoc README.md
+}
+
+post_install() {
+	for sh in bash fish zsh; do
+	vtargetrun bin/dsearch completion "$sh" > "dsearch.$sh"
+	vcompletion "dsearch.$sh" "$sh" dsearch
+	done
 }

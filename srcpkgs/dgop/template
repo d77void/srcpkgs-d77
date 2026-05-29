@@ -1,8 +1,9 @@
 # Template file for 'dgop'
 pkgname=dgop
 version=0.2.2
-revision=2
+revision=1
 build_style=gnu-makefile
+build_helper="qemu"
 makedepends="go"
 short_desc="API & CLI for System & Process Monitoring"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
@@ -16,9 +17,12 @@ repository=d77
 do_install() {
 	vbin bin/dgop
 	vbin bin/dgop dankgop
-	vcompletion ${FILESDIR}/completion.bash bash
-	vcompletion ${FILESDIR}/completion.zsh zsh
-	vcompletion ${FILESDIR}/completion.fish fish
 	vlicense LICENSE
 	vdoc README.md
+}
+ post_install() {
+        for sh in bash fish zsh; do
+        vtargetrun bin/dgop completion "$sh" > "dankgop.$sh"
+        vcompletion "dankgop.$sh" "$sh" dankgop
+        done
 }
