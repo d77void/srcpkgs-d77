@@ -4,9 +4,9 @@ version=0.6.2
 revision=1
 archs="x86_64"
 build_style=gnu-configure
-hostmakedepends="bspwm alsa-lib-devel libxcb pkg-config xcb-util-devel xcb-util-wm-devel xcb-util-image-devel xcb-util-renderutil-devel freetype-devel cairo-devel harfbuzz-devel fontconfig-devel"
-makedepends="make"
-depends="bspwm sxhkd nerd-fonts-symbols-ttf alsa-lib libxcb xcb-util xcb-util-wm xcb-util-image xcb-util-renderutil freetype cairo harfbuzz fontconfig"
+hostmakedepends="git gettext pkg-config"
+makedepends="alsa-lib-devel libxcb-devel xcb-util-devel xcb-util-wm-devel xcb-util-image-devel xcb-util-renderutil-devel freetype-devel cairo-devel harfbuzz-devel fontconfig-devel"
+depends="bspwm sxhkd nerd-fonts-symbols-ttf"
 short_desc="A lightweight status bar for bspwm"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="ISC"
@@ -16,8 +16,8 @@ checksum=ac5414238c4f195f761c33a7ba87b1a13d4b72fb3f5b7f6a513cf83112345c6f
 repository=d77
 
 do_build() {
+	cp ${FILESDIR}/config.def.h ./
 	./configure
-	vsed -i 's|/usr/local|/usr|' Makefile
 	make
 }
 
