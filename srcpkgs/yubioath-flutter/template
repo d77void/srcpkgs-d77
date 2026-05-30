@@ -2,7 +2,6 @@
 pkgname=yubioath-flutter
 version=7.3.0
 revision=1
-build_style="fetch"
 hostmakedepends="tar"
 depends="libpcsclite libyubikey-devel libyubikey-utils pam_yubico pcsc-ccid pcsc-tools pcsclite yubico-piv-tool yubikey-manager"
 short_desc="Yubico Authenticator for Desktop"
@@ -16,16 +15,12 @@ nopie=yes
 repository=d77
 
 do_build() {
-	vextract yubico-authenticator-${version}-linux.tar.gz
 	sed -i 's|@EXEC_PATH/authenticator|/opt/yubioath-flutter/authenticator|' linux_support/com.yubico.yubioath.desktop
 	sed -i 's|@EXEC_PATH/linux_support/com.yubico.yubioath.png|/opt/yubioath-flutter/linux_support/com.yubico.yubioath.png|' linux_support/com.yubico.yubioath.desktop
-	vmkdir /usr/share/applications
-	vcopy linux_support/com.yubico.yubioath.desktop /usr/share/applications/
+	vinstall linux_support/com.yubico.yubioath.desktop 644 /usr/share/applications/
 }	
 
 do_install() {
-	rm yubico-authenticator-${version}-linux.tar.gz
 	vmkdir /opt/yubioath-flutter
 	vcopy '*' /opt/yubioath-flutter/
 }
-
