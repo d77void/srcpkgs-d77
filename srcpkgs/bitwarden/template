@@ -2,6 +2,7 @@
 pkgname=bitwarden
 version=2026.3.1
 revision=2
+archs="x86_64"
 hostmakedepends="bsdtar"
 short_desc="Bitwarden desktop client"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
