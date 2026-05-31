@@ -42,7 +42,7 @@ module_t left_modules[] = {
 		.text = {
 			.func = text,
 			.label = " ",
-			.fg = "#1793d1",
+			.fg = "#478060",
 		},
 	},
 	{ /* bspwm desktop state */
@@ -107,15 +107,15 @@ module_t right_modules[] = {
 			.func = volume,
 			.handler = volume_ev,
 			.suffix = "%",
-			.muted = " ",
-			.unmuted = "󰕾 ",
+			.muted = "  ",
+			.unmuted = "󰕾  ",
 		},
 	},
 	{ /* used space of root file system */
 		.fs = {
 			.func = filesystem,
 			.mountpoint = "/",
-			.prefix = " ",
+			.prefix = "  ",
 			.suffix = "%",
 		},
 	},
@@ -130,7 +130,7 @@ module_t right_modules[] = {
 	{ /* clock */
 		.date = {
 			.func = datetime,
-			.prefix = " ",
+			.prefix = "  ",
 			.format = "%H:%M",
 		},
 	},
