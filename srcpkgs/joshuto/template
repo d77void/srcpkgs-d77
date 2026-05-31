@@ -2,7 +2,9 @@
 pkgname=joshuto
 version=0.9.9
 revision=1
+archs="x86_64"
 build_style=cargo
+build_helper="qemu"
 hostmakedepends="pkg-config"
 makedepends="libgit2-devel"
 depends="xsel wl-clipboard fzf zoxide"
@@ -18,4 +20,11 @@ repository=d77
 do_install() {
 	vbin target/x86_64-unknown-linux-gnu/release/joshuto
 	vinstall ${FILESDIR}/joshuto.desktop 644 usr/share/applications/
+}
+
+ post_install() {
+        for sh in bash fish zsh; do
+        vtargetrun target/x86_64-unknown-linux-gnu/release/joshuto completions "$sh" > "joshuto.$sh"
+        vcompletion "joshuto.$sh" "$sh" 
+        done
 }
