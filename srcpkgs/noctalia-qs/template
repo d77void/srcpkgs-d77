@@ -13,5 +13,5 @@ license="LGPL-3.0-only"
 homepage="https://github.com/noctalia-dev/noctalia-qs"
 changelog="https://github.com/noctalia-dev/${pkgname}/releases/tag/v${version}"
 distfiles="https://github.com/noctalia-dev/${pkgname}/archive/refs/tags/v${version}.tar.gz"
-checksum=2a56bd693945957cd112a7eadc38b719cc85f485b8f377565ba25f8708377088
+checksum=5de37541537307d141618aa0d782d3c34e42a6ad21c73533cce80c0e71ee9693
 repository=d77
