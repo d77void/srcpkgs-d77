@@ -13,5 +13,5 @@ checksum=5717251cdd7b3f3df989f9fada0ca65b6609045c04a0c1bd78fb27acb3bf84cb
 repository=d77
 
 do_install() {
-        install -Dm644 otfs/*.otf -t ${DESTDIR}/usr/share/fonts/OTF
+	install -Dm644 otfs/*.otf -t ${DESTDIR}/usr/share/fonts/OTF
 }

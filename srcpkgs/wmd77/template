@@ -2,23 +2,16 @@
 pkgname=wmd77
 version=0.4.0
 revision=4
-#archs="i686 x86_64"
-#build_wrksrc=
+archs="x86_64"
 build_style=cargo
-#configure_args=""
-#make_build_args=""
-#make_install_args=""
-#conf_files=""
-#make_dirs="/var/log/dir 0755 root root"
 hostmakedepends="pkg-config libXft-devel libX11-devel"
-#makedepends=""
 depends="dmenu libX11 libXft st"
-short_desc="wmd77 is a Penrose Lib Tiling Window Manager"
+short_desc="Penrose Lib Tiling Window Manager"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://github.com/dani-77/wmd77"
-#changelog=""
-distfiles=""https://github.com/dani-77/${pkgname}/archive/refs/tags/${version}.tar.gz
+changelog="https://github.com/dani-77/${pkgname}/archive/refs/tags/${version}"
+distfiles="https://github.com/dani-77/${pkgname}/archive/refs/tags/${version}.tar.gz"
 checksum=d40837b8c97735eae1c4d63ee850ee1e44b06c4765beb765d06573e6d2ea0c23
 repository=d77
 
@@ -28,9 +21,9 @@ do_build() {
 
 do_install() {
 	sed -i '3i conky -c ~/.conkyrc1 &' etc/xdg/wmd77/startup.sh
-	vinstall target/release/wmd77 755 usr/bin/
-	vinstall wmd77.desktop 755 usr/share/xsessions/
+	vbin target/release/wmd77
+	vinstall wmd77.desktop 644 usr/share/xsessions/
 	vmkdir /etc/xdg/wmd77
 	vcopy etc/xdg/wmd77/'*' /etc/xdg/wmd77/
-	vlicense LICENSE 
+	vlicense LICENSE
 }

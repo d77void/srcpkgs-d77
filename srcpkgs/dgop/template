@@ -21,9 +21,9 @@ do_install() {
 	vlicense LICENSE
 	vdoc README.md
 }
- post_install() {
-        for sh in bash fish zsh; do
-        vtargetrun bin/dgop completion "$sh" > "dankgop.$sh"
-        vcompletion "dankgop.$sh" "$sh" dankgop
-        done
+post_install() {
+	for sh in bash fish zsh; do
+	vtargetrun bin/dgop completion "$sh" > "dankgop.$sh"
+	vcompletion "dankgop.$sh" "$sh" dankgop
+	done
 }

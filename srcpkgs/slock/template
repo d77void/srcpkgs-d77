@@ -2,23 +2,16 @@
 pkgname=slock
 version=1.6
 revision=77
-#archs="i686 x86_64"
-#build_wrksrc=
+archs="x86_64"
 build_style=gnu-makefile
-#configure_args=""
-#make_build_args=""
-#make_install_args=""
-#conf_files=""
-#make_dirs="/var/log/dir 0755 root root"
 hostmakedepends="libXrandr-devel imlib2-devel"
 makedepends="libXrandr-devel imlib2-devel"
-depends=""
-short_desc="slock with patches"
+short_desc="Slock with patches"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://suckless.org"
 #changelog=""
-distfiles="https://dl.suckless.org/tools/slock-1.6.tar.gz"
+distfiles="https://dl.suckless.org/tools/slock-${version}.tar.gz"
 checksum=233d22b8fa65fbdf8a05302863ee5b768ef425c57c88d12059ff15133ebc0e5c
 repository=d77
 
@@ -38,4 +31,3 @@ do_install() {
 	make PREFIX=/usr DESTDIR=$DESTDIR install
 	vlicense LICENSE
 }
-

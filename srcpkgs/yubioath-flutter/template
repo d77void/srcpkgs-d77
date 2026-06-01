@@ -18,7 +18,7 @@ do_build() {
 	sed -i 's|@EXEC_PATH/authenticator|/opt/yubioath-flutter/authenticator|' linux_support/com.yubico.yubioath.desktop
 	sed -i 's|@EXEC_PATH/linux_support/com.yubico.yubioath.png|/opt/yubioath-flutter/linux_support/com.yubico.yubioath.png|' linux_support/com.yubico.yubioath.desktop
 	vinstall linux_support/com.yubico.yubioath.desktop 644 /usr/share/applications/
-}	
+}
 
 do_install() {
 	vmkdir /opt/yubioath-flutter

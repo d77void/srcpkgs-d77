@@ -24,4 +24,3 @@ pre_install() {
 post_install() {
 	vlicense LICENSE
 }
-

@@ -20,4 +20,3 @@ post_install() {
 	cp surf.png suckless-surf.png
 	install -Dm644 suckless-surf.png -t ${DESTDIR}/usr/share/pixmaps
 }
-

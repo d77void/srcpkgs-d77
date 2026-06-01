@@ -1,4 +1,4 @@
-# Template file for 'dwm_icon'
+# Template file for 'dwm'
 pkgname=dwm
 version=6.8
 revision=77
@@ -6,7 +6,7 @@ build_style="gnu-makefile"
 hostmakedepends="libXinerama-devel libXft-devel freetype-devel"
 makedepends="libXinerama-devel libXft-devel freetype-devel"
 depends="libXinerama-devel libXft-devel freetype-devel"
-short_desc="dwm patched"
+short_desc="DWM patched"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://suckless.org"

@@ -5,9 +5,9 @@ revision=1
 build_style=cargo
 hostmakedepends="pkg-config"
 makedepends="libgcc-devel glibc-devel oniguruma-devel"
-short_desc="A terminal text editor you can just use."
+short_desc="Terminal text editor you can just use"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
-license="GPL-3.0-or-later"
+license="GPL-2.0-only"
 homepage="https://sinelaw.github.io/fresh/"
 changelog="https://github.com/sinelaw/fresh/releases/tag/v${version}"
 distfiles="https://github.com/sinelaw/fresh/archive/refs/tags/v${version}.tar.gz"
@@ -15,8 +15,8 @@ checksum=1e4592e19cf7a95df5901e21d350f88534caf7fec9348801b76eabbf8d8d9c1d
 repository=d77
 
 do_install() {
-    vbin target/x86_64-unknown-linux-gnu/release/fresh
-    vdoc README.md
-    vlicense LICENSE
-    vinstall ${FILESDIR}/fresh-editor.desktop 644 usr/share/applications/
+	vbin target/x86_64-unknown-linux-gnu/release/fresh
+	vinstall ${FILESDIR}/fresh-editor.desktop 644 usr/share/applications/
+	vmkdir usr/share/doc/fresh-editor
+	vcopy docs/'*' usr/share/doc/fresh-editor/
 }

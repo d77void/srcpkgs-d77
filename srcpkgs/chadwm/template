@@ -8,7 +8,7 @@ makedepends="fontconfig-devel freetype-devel imlib2-devel libX11-devel libXft-de
 depends="fontconfig freetype imlib2 libX11 libXft libXinerama libXrender"
 short_desc="Embellished DWM v6.5"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
-license="GPL-3.0-or-later"
+license="MIT"
 homepage="https://github.com/dani-77/chadwm"
 distfiles="https://github.com/dani-77/${pkgname}/archive/refs/tags/${version}.tar.gz"
 checksum=c42cc6780a6ead8e17c6df839ae23e58d477e533c503fe744bb8908ca9dfeabb
@@ -22,9 +22,9 @@ do_build() {
 }
 
 do_install() {
-        make PREFIX=/usr DESTDIR=$DESTDIR install
-        vinstall ${FILESDIR}/chadwm.desktop 644 usr/share/xsessions
+	make PREFIX=/usr DESTDIR=$DESTDIR install
+	vinstall ${FILESDIR}/chadwm.desktop 644 usr/share/xsessions
 	vmkdir etc/xdg/chadwm
-        vcopy ${FILESDIR}/scripts etc/xdg/chadwm
-        vlicense LICENSE
+	vcopy ${FILESDIR}/scripts etc/xdg/chadwm
+	vlicense LICENSE
 }

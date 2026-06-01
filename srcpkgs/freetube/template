@@ -28,4 +28,3 @@ freetube_package() {
 	depends="freetube-bin"
 	short_desc+=" - transitional dummy package"
 }
-

@@ -13,12 +13,12 @@ build_style=gnu-makefile
 hostmakedepends="pkg-config"
 makedepends="fontconfig-devel libX11-devel libXft-devel"
 depends="ncurses st-terminfo-${version}_${revision}"
-short_desc="st patched with alpha and dracula"
+short_desc="Version of st patched with alpha and dracula"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://suckless.org"
 #changelog=""
-distfiles="https://dl.suckless.org/st/st-0.9.3.tar.gz"
+distfiles="https://dl.suckless.org/st/st-${version}.tar.gz"
 checksum=9ed9feabcded713d4ded38c8cebf36a3b08f0042ef7934a0e2b2409da56e649b
 repository=d77
 
@@ -44,4 +44,3 @@ st-terminfo_package() {
 		vmove usr/share/terminfo
 	}
 }
-

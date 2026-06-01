@@ -33,4 +33,3 @@ post_install() {
 	vcompletion misc/_ncspot zsh
 	vcompletion misc/ncspot.fish fish
 }
-

@@ -4,7 +4,7 @@ version=4.7.7
 revision=1
 archs="x86_64"
 depends="ImageMagick brightnessctl ffmpeg qt6-multimedia cliphist cava wlsunset power-profiles-daemon ddcutil"
-short_desc="A sleek and minimal desktop shell thoughtfully crafted for Wayland, built with Quickshell."
+short_desc="Sleek and minimal desktop shell"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://github.com/noctalia-dev/noctalia-shell"
@@ -16,4 +16,5 @@ repository=d77
 do_install() {
 	vmkdir /etc/xdg/quickshell/noctalia-shell
 	vcopy '*' /etc/xdg/quickshell/noctalia-shell/
+	vlicense LICENSE
 }

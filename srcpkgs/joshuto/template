@@ -8,7 +8,7 @@ build_helper="qemu"
 hostmakedepends="pkg-config"
 makedepends="libgit2-devel"
 depends="xsel wl-clipboard fzf zoxide"
-short_desc="ranger-like terminal file manager written in Rust"
+short_desc="Ranger-like terminal file manager written in Rust"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="GPL-3.0-or-later"
 homepage="https://crates.io/crates/joshuto"
@@ -22,9 +22,9 @@ do_install() {
 	vinstall ${FILESDIR}/joshuto.desktop 644 usr/share/applications/
 }
 
- post_install() {
-        for sh in bash fish zsh; do
-        vtargetrun target/x86_64-unknown-linux-gnu/release/joshuto completions "$sh" > "joshuto.$sh"
-        vcompletion "joshuto.$sh" "$sh" 
-        done
+post_install() {
+	for sh in bash fish zsh; do
+	vtargetrun target/x86_64-unknown-linux-gnu/release/joshuto completions "$sh" > "joshuto.$sh"
+	vcompletion "joshuto.$sh" "$sh"
+	done
 }

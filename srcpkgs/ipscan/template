@@ -9,13 +9,13 @@ short_desc="Fast and friendly network scanner"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="GPL-3.0-or-later"
 homepage="https://angryip.org"
-distfiles="https://github.com/angryip/ipscan/releases/download/3.9.3/ipscan_3.9.3_amd64.deb"
+distfiles="https://github.com/angryip/ipscan/releases/download/${version}/ipscan_${version}_amd64.deb"
 checksum=44b76572bb6959c3b8cfb70a48dfb2f54273301b67962da602fb8949708ca095
 repository=d77
 
 do_install() {
 	metapackage=yes
 	ar x ipscan_${version}_amd64.deb
-        tar xf data.tar.xz -C ${DESTDIR}
+	tar xf data.tar.xz -C ${DESTDIR}
 	vsed -i 's|sh /usr/bin/ipscan|java -jar /usr/lib64/ipscan/ipscan-linux64-3.9.3.jar|' ${DESTDIR}/usr/share/applications/ipscan.desktop
 }

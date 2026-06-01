@@ -5,7 +5,7 @@ revision=1
 build_style=gnu-makefile
 configure_args="-DXWAYLAND"
 makedepends="libinput-devel wayland-devel wlroots0.19-devel libxkbcommon-devel xorg-server-xwayland libxcb-devel xcb-util-wm-devel pkg-config"
-short_desc="compact, hackable compositor for Wayland based on wlroots"
+short_desc="Compact, hackable compositor for Wayland based on wlroots"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="GPL-3.0-or-later"
 homepage="https://codeberg.org/dwl/dwl"
@@ -16,6 +16,5 @@ repository=d77
 
 do_install() {
 	make PREFIX=/usr DESTDIR=$DESTDIR install
-	vlicense LICENSE
 	vinstall ${FILESDIR}/dwl.desktop 644 usr/share/wayland-sessions/
 }
