@@ -1,19 +1,19 @@
 # Template file for 'mullvadvpn'
 pkgname=mullvadvpn
-version=2026.2
-revision=2
+version=2026.3
+revision=1
 archs="x86_64* aarch64*"
 hostmakedepends="tar xz"
 short_desc="Mullvad VPN client"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="custom:mullvadvpn"
 homepage="https://mullvad.net/"
-distfiles="https://github.com/mullvad/mullvadvpn-app/releases/download/${version}/MullvadVPN-${version}_amd64.deb"
-checksum=7b027f5f1ab054b177fccb2237e019fa342874cafe2663eda5b71d5dee8734fa
+distfiles="https://github.com/mullvad/mullvadvpn-app/releases/download/${version}-beta2/MullvadVPN-${version}-beta2_amd64.deb"
+checksum=b213a49199808efc9b5b25ec1b0fe18d7decf2f39b5873de3c149c81e6f16fc8
 repository=d77
 
 do_extract() {
-	ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/MullvadVPN-${version}_amd64.deb
+	ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/MullvadVPN-${version}-beta2_amd64.deb
 	tar xf data.tar.xz -C ${wrksrc}
 	mv ${wrksrc}/opt/Mullvad\ VPN ${wrksrc}/opt/Mullvad\VPN
 }
@@ -28,12 +28,7 @@ do_install() {
 	vmkdir /usr/share/doc/mullvad-vpn
 	vmkdir /usr/share/zsh/site-functions
 
-	vmkdir /etc/sv/mullvad
-	echo '#!/bin/sh' > ${DESTDIR}/etc/sv/mullvad/run
-	echo 'exec 2>&1' >> ${DESTDIR}/etc/sv/mullvad/run
-	echo 'sv check dbus > /dev/null || exit 1' >> ${DESTDIR}/etc/sv/mullvad/run
-	echo 'exec /usr/bin/mullvad-daemon -v --disable-stdout-timestamps' >> ${DESTDIR}/etc/sv/mullvad/run
-	chmod 755 ${DESTDIR}/etc/sv/mullvad/run
+	vsv mullvad
 
 	vcopy usr/bin/* /usr/bin/
 	vcopy usr/lib/systemd/system/* /usr/lib/systemd/system/
