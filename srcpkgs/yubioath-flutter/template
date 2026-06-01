@@ -6,7 +6,7 @@ hostmakedepends="tar"
 depends="libpcsclite libyubikey-devel libyubikey-utils pam_yubico pcsc-ccid pcsc-tools pcsclite yubico-piv-tool yubikey-manager"
 short_desc="Yubico Authenticator for Desktop"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
-license="GPL-3.0-or-later"
+license="Apache-2.0"
 homepage="https://developers.yubico.com/yubioath-flutter/"
 changelog="https://github.com/Yubico/${pkgname}/releases/tag/${version}"
 distfiles="https://github.com/Yubico/${pkgname}/releases/download/${version}/yubico-authenticator-${version}-linux.tar.gz"
@@ -23,4 +23,8 @@ do_build() {
 do_install() {
 	vmkdir /opt/yubioath-flutter
 	vcopy '*' /opt/yubioath-flutter/
+}
+
+post_install() {
+	vlicense LICENSE
 }
