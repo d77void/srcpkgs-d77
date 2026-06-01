@@ -15,15 +15,8 @@ checksum=d6e34db26bb3a48eae6fb86164bd6745f4539e9ba62064a99adf6a58038253a1
 repository=d77
 
 do_install() {
-	vmkdir /etc/sv/dsearch
-	echo '#!/bin/sh' > ${DESTDIR}/etc/sv/dsearch/run
-	echo 'exec 2>&1' >> ${DESTDIR}/etc/sv/dsearch/run
-	echo 'sv check dbus > /dev/null || exit 1' >> ${DESTDIR}/etc/sv/dsearch/run
-	echo 'exec /usr/bin/dsearch serve' >> ${DESTDIR}/etc/sv/dsearch/run
-	chmod 755 ${DESTDIR}/etc/sv/dsearch/run
-
+	vsv dsearch
 	vbin bin/dsearch
-
 	vlicense LICENSE
 	vdoc README.md
 }
