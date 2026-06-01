@@ -1,14 +1,18 @@
 # Template file for 'leftwm-theme'
 pkgname=leftwm-theme
-version=0.1.2
+version=0.1.3
 revision=1
 build_style=cargo
-hostmakedepends="libgit2-devel openssl-devel pkg-config"
+hostmakedepends="libgit2-1.9-devel openssl-devel pkg-config"
 short_desc="Theme manager for LeftWM"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
-license="GPL-3.0-or-later"
+license="BSD-3-Clause"
 homepage="https://github.com/leftwm/leftwm"
 changelog="https://github.com/leftwm/$pkgname/releases/tag/v$version"
 distfiles="https://github.com/leftwm/$pkgname/archive/refs/tags/v$version.tar.gz"
-checksum=3225eadf6b18eaa53beb7676be61f52378214c1ec49fb251604e9f5dc505fb57
+checksum=d9c1d5eb54838618eadab74709ab136a19bea39d181424746cb64f41a8fc9296
 repository=d77
+
+post_install() {
+	vlicense LICENSE
+}
