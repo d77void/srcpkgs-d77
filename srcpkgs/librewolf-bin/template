@@ -1,7 +1,7 @@
 # Template file for 'librewolf-bin'
 pkgname=librewolf-bin
 _pkgname=${pkgname%-bin}
-version=150.0.1
+version=151.0.2
 revision=1
 _pkgrel=1
 archs="x86_64 i686"
@@ -11,7 +11,7 @@ maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MPL-2.0"
 homepage="https://codeberg.org/librewolf"
 distfiles="https://dl.librewolf.net/librewolf/${version}-1/librewolf-${version}-1-linux-x86_64-deb.deb"
-checksum=640ed237058cfc26d9fa3078e5845b93e7c484b7154605a9984747848f867b11
+checksum=9a5ff642e71f3fc9615896d2073a7dc2c48d5aaa145de75f9881a14f8d48b17c
 conflicts="librewolf"
 repository=d77
 
