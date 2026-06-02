@@ -4,6 +4,7 @@ version=2026.3
 revision=1
 archs="x86_64* aarch64*"
 hostmakedepends="tar xz"
+noverifyrdeps="libexpat.so.1"
 short_desc="Mullvad VPN client"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="custom:mullvadvpn"

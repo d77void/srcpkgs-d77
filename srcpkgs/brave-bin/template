@@ -5,6 +5,7 @@ revision=1
 archs="x86_64"
 build_style="fetch"
 hostmakedepends="tar xz"
+noverifyrdeps="libexpat.so.1"
 short_desc="Secure, fast and private web browser with ad blocker"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MPL-2.0"
