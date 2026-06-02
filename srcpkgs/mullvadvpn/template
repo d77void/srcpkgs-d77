@@ -4,13 +4,13 @@ version=2026.3
 revision=1
 archs="x86_64* aarch64*"
 hostmakedepends="tar xz"
-noverifyrdeps="libexpat.so.1"
 short_desc="Mullvad VPN client"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="custom:mullvadvpn"
 homepage="https://mullvad.net/"
 distfiles="https://github.com/mullvad/mullvadvpn-app/releases/download/${version}-beta2/MullvadVPN-${version}-beta2_amd64.deb"
 checksum=b213a49199808efc9b5b25ec1b0fe18d7decf2f39b5873de3c149c81e6f16fc8
+noverifyrdeps="libexpat.so.1"
 repository=d77
 
 do_extract() {

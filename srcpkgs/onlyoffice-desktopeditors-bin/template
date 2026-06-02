@@ -7,7 +7,6 @@ revision=1
 archs="x86_64"
 depends="curl xdg-utils dejavu-fonts-ttf liberation-fonts-ttf
  gst-plugins-ugly1 desktop-file-utils hicolor-icon-theme"
-noverifyrdeps="libexpat.so.1"
 short_desc="Office suite with text, spreadsheet & presentation editors (precompiled)"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="AGPL-3.0-only"
@@ -16,6 +15,7 @@ changelog="https://github.com/ONLYOFFICE/DesktopEditors/blob/master/CHANGELOG.md
 distfiles="https://github.com/ONLYOFFICE/DesktopEditors/releases/download/v${version}/${_pkgname}_amd64.deb"
 checksum=c0ee2df6513b8079aee35fd0da5607559bbfa05c1a04b63606776899a15d621a
 nopie=yes
+noverifyrdeps="libexpat.so.1"
 repository=d77
 
 skip_extraction="${_pkgname}_amd64.deb"
