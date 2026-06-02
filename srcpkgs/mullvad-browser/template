@@ -2,7 +2,6 @@
 pkgname=mullvad-browser
 version=15.0.14
 revision=1
-build_style="fetch"
 hostmakedepends="tar xz"
 short_desc="Privacy-focused browser"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
@@ -14,8 +13,6 @@ checksum=31413647fcf4a365c4a0ebf299e973a401f705e34871c1628c730548ec3eebda
 repository=d77
 
 do_install() {
-	vextract ${pkgname}_${version}-1_amd64.deb
 	rm usr/lib/mullvad-browser/abicheck
-	rm ${pkgname}_${version}-1_amd64.deb
 	vcopy '*' /
 }
