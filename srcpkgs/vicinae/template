@@ -1,0 +1,17 @@
+# Template file for 'vicinae'
+pkgname=vicinae
+version=0.21.5
+revision=1
+archs="x86_64"
+build_style=cmake
+configure_args="-DPROJECT_VERSION=${version} -DVICINAE_VERSION=${version} -DCMAKE_INSTALL_PREFIX=/usr -DEXTERNAL_LIB_DIR=/usr/lib"
+hostmakedepends="git pnpm"
+makedepends="icu-devel qt6-base-devel qt6-svg-devel qt6-declarative-devel qt6-base-private-devel qt6-shadertools-devel kf6-syntax-highlighting-devel layer-shell-qt-devel sqlcipher-devel qtkeychain-qt6-devel glyphy-devel libqalculate-devel cmark-devel cmark-gfm-devel"
+short_desc="Focused launcher for your desktop"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="GPL-3.0-or-later"
+homepage="https://vicinae.com/"
+changelog="https://github.com/vicinaehq/vicinae/releases/tag/v${version}"
+distfiles="https://github.com/vicinaehq/vicinae/archive/refs/tags/v${version}.tar.gz"
+checksum=5dacaf56b084c9d130c5c145d22fb049d2545195d637e66161e7b639f227be9c
+repository=d77
