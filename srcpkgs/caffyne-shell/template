@@ -1,0 +1,31 @@
+# Template file for 'caffyne-shell'
+pkgname=caffyne-shell
+version=1
+revision=1
+python_version=3
+hostmakedepends="python3-devel python3-pip cmake git pkg-config"
+makedepends="gtk+3-devel cairo-devel libgirepository-devel libdbusmenu-glib-devel libbluetooth-devel python3-cairo-devel libglib-devel"
+depends="awww matugen cinnamon-desktop playerctl fabric-cli gnome-bluetooth bluez brightnessctl NetworkManager python3-loguru python3-click"
+short_desc="New, lightweight, desktop shell for linux, powered by Fabric"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="GPL-3.0-or-later"
+homepage="https://caffyne.org/"
+_commit="47136a4"
+distfiles="https://github.com/caffyne-org/caffyne-shell/archive/${_commit}.tar.gz"
+checksum=5b846c7de0edbba7ea90bf3310b5c56b01d50b1543bd77512e4a2443321691c2
+repository=d77
+
+do_install() {
+	vsed -i '3i python3 -m venv ~/.config/caffyne-shell/venv' start.sh
+	python -m venv venv
+	source venv/bin/activate
+	pip install --upgrade pip
+	pip install pycairo
+	pip install -r requirements.txt
+	cd snippets/blur/lib
+	make && cd ../../../
+	cd snippets/hacktk/lib
+	make && cd ../../../
+	vmkdir etc/xdg/caffyne-shell
+	vcopy '*' etc/xdg/caffyne-shell/
+}
