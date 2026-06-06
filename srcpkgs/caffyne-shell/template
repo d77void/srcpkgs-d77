@@ -2,7 +2,6 @@
 pkgname=caffyne-shell
 version=1
 revision=1
-python_version=3
 hostmakedepends="python3-devel python3-pip cmake git pkg-config"
 makedepends="gtk+3-devel cairo-devel libgirepository-devel libdbusmenu-glib-devel libbluetooth-devel python3-cairo-devel libglib-devel"
 depends="awww matugen cinnamon-desktop playerctl fabric-cli gnome-bluetooth bluez brightnessctl NetworkManager python3-loguru python3-click"
@@ -13,6 +12,7 @@ homepage="https://caffyne.org/"
 _commit="47136a4"
 distfiles="https://github.com/caffyne-org/caffyne-shell/archive/${_commit}.tar.gz"
 checksum=5b846c7de0edbba7ea90bf3310b5c56b01d50b1543bd77512e4a2443321691c2
+python_version=3
 repository=d77
 
 do_install() {
