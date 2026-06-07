@@ -1,6 +1,6 @@
 # Template file for 'vicinae'
 pkgname=vicinae
-version=0.21.5
+version=0.21.6
 revision=1
 archs="x86_64"
 build_style=cmake
@@ -13,5 +13,5 @@ license="GPL-3.0-or-later"
 homepage="https://vicinae.com/"
 changelog="https://github.com/vicinaehq/vicinae/releases/tag/v${version}"
 distfiles="https://github.com/vicinaehq/vicinae/archive/refs/tags/v${version}.tar.gz"
-checksum=5dacaf56b084c9d130c5c145d22fb049d2545195d637e66161e7b639f227be9c
+checksum=a4314c4fd26f39ce250d025a5840e6b78f2cdda377b7fc0f996f23c2c8a43d2f
 repository=d77
