@@ -1,6 +1,6 @@
 # Template file for 'caffyne-shell'
 pkgname=caffyne-shell
-version=1
+version=1.0.0.b8a2433
 revision=1
 hostmakedepends="python3-devel python3-pip cmake git pkg-config"
 makedepends="gtk+3-devel cairo-devel libgirepository-devel libdbusmenu-glib-devel libbluetooth-devel python3-cairo-devel libglib-devel"
@@ -9,9 +9,9 @@ short_desc="New, lightweight, desktop shell for linux, powered by Fabric"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="GPL-3.0-or-later"
 homepage="https://caffyne.org/"
-_commit="47136a4"
+_commit="b8a2433"
 distfiles="https://github.com/caffyne-org/caffyne-shell/archive/${_commit}.tar.gz"
-checksum=5b846c7de0edbba7ea90bf3310b5c56b01d50b1543bd77512e4a2443321691c2
+checksum=ca672e03022fd6f2081230cff50b6d5b104b78022c59301bb247ab185cc76580
 python_version=3
 repository=d77
 
