@@ -1,0 +1,24 @@
+# Template file for 'qsd77'
+pkgname=qsd77
+version=1.0.0
+revision=1
+makedepends="go"
+short_desc="Cli bridge for quickshell-d77"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="MIT"
+homepage="https://github.com/dani-77/qsd77"
+changelog="https://github.com/dani-77/qsd77/releases/tag/${version}"
+distfiles="https://github.com/dani-77/qsd77/archive/refs/tags/${version}.tar.gz"
+checksum=447d0bb65be57dd0ae4e034fbc04f5c81fb461fea9f9c5c5a46ee4ce2ee013b3
+nopie=yes
+repository=d77
+
+pre_build() {
+	go get github.com/spf13/cobra@latest
+	go build
+}
+
+do_install() {
+	vbin qsd77
+	vlicense LICENSE
+}
