@@ -13,3 +13,7 @@ changelog="https://github.com/InioX/${pkgname}/releases/tag/v${version}"
 distfiles="https://github.com/InioX/${pkgname}/archive/refs/tags/v${version}.tar.gz"
 checksum=b46507be24d01a6233597077512501f21075fe4ce19b60b410354f439f569ddf
 repository=d77
+
+if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
+	repository=musld77
+fi

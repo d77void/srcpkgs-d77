@@ -15,6 +15,10 @@ distfiles="https://github.com/dani-77/${pkgname}/archive/refs/tags/${version}.ta
 checksum=d40837b8c97735eae1c4d63ee850ee1e44b06c4765beb765d06573e6d2ea0c23
 repository=d77
 
+if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
+	repository=musld77
+fi
+
 do_build() {
 	cargo build --release
 }

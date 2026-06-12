@@ -15,6 +15,10 @@ distfiles="https://github.com/trip-zip/${pkgname}/archive/refs/tags/v${version}.
 checksum=a9cec46c38184b5141bc7bc6f72838f3ae0428bcaec7ee558839f08e518d0369
 repository=d77
 
+if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
+	repository=musld77
+fi
+
 post_install() {
 	vdoc README.md
 	vinstall ${FILESDIR}/somewm.desktop 644 usr/share/wayland-sessions/

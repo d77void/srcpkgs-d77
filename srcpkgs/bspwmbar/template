@@ -15,6 +15,10 @@ distfiles="https://github.com/odknt/${pkgname}/archive/v${version}.tar.gz"
 checksum=ac5414238c4f195f761c33a7ba87b1a13d4b72fb3f5b7f6a513cf83112345c6f
 repository=d77
 
+if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
+	repository=musld77
+fi
+
 do_build() {
 	cp ${FILESDIR}/config.def.h ./
 	./configure

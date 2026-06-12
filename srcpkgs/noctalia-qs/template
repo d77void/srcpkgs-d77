@@ -15,3 +15,7 @@ changelog="https://github.com/noctalia-dev/${pkgname}/releases/tag/v${version}"
 distfiles="https://github.com/noctalia-dev/${pkgname}/archive/refs/tags/v${version}.tar.gz"
 checksum=5de37541537307d141618aa0d782d3c34e42a6ad21c73533cce80c0e71ee9693
 repository=d77
+
+if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
+	repository=musld77
+fi

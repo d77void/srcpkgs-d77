@@ -11,3 +11,7 @@ distfiles="https://github.com/sharedordaz/Shared-AwesomeAppMenu/archive/refs/tag
 checksum=b9635dd20c80ccca44538e44fc7e06b3c2ce40ffc01f0baae7e943e20302b1b3
 python_version=3
 repository=d77
+
+if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
+	repository=musld77
+fi

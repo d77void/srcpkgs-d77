@@ -18,6 +18,10 @@ distfiles="https://github.com/wayle-rs/wayle/archive/refs/tags/v${version}.tar.g
 checksum=1d887b9378d04dcf29057d4c8fb8323341f4f0e7ef094feea8ddbdcbf4dfa72e
 repository=d77
 
+if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
+	repository=musld77
+fi
+
 do_install() {
 	cargo auditable install --path wayle
 	cargo auditable install --path crates/wayle-settings

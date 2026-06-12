@@ -15,3 +15,7 @@ changelog="https://github.com/vicinaehq/vicinae/releases/tag/v${version}"
 distfiles="https://github.com/vicinaehq/vicinae/archive/refs/tags/v${version}.tar.gz"
 checksum=a4314c4fd26f39ce250d025a5840e6b78f2cdda377b7fc0f996f23c2c8a43d2f
 repository=d77
+
+if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
+	repository=musld77
+fi

@@ -13,6 +13,10 @@ checksum=447d0bb65be57dd0ae4e034fbc04f5c81fb461fea9f9c5c5a46ee4ce2ee013b3
 nopie=yes
 repository=d77
 
+if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
+	repository=musld77
+fi
+
 pre_build() {
 	go get github.com/spf13/cobra@latest
 	go build

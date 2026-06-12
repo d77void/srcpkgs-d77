@@ -15,6 +15,10 @@ distfiles="https://dl.suckless.org/tools/slock-${version}.tar.gz"
 checksum=233d22b8fa65fbdf8a05302863ee5b768ef425c57c88d12059ff15133ebc0e5c
 repository=d77
 
+if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
+	repository=musld77
+fi
+
 if [ "$XBPS_TARGET_LIBC" = "glibc" ]; then
 	makedepends+=" libxcrypt-devel"
 fi

@@ -15,6 +15,10 @@ distfiles="https://github.com/Fabric-Development/fabric/archive/${_commit}.tar.g
 checksum=a220fc4da735a1280f7afb9213b935943eb248aec7d00c5dc84a5624219d292a
 repository=d77
 
+if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
+	repository=musld77
+fi
+
 post_install() {
 	vlicense LICENSE
 }
