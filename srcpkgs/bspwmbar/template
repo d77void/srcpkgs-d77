@@ -2,7 +2,7 @@
 pkgname=bspwmbar
 version=0.6.2
 revision=1
-archs="x86_64"
+archs="x86_64 x86_64-musl"
 build_style=gnu-configure
 hostmakedepends="git gettext pkg-config"
 makedepends="alsa-lib-devel libxcb-devel xcb-util-devel xcb-util-wm-devel xcb-util-image-devel xcb-util-renderutil-devel freetype-devel cairo-devel harfbuzz-devel fontconfig-devel"
