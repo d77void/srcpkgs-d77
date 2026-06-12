@@ -2,6 +2,7 @@
 pkgname=mullvad-browser
 version=15.0.14
 revision=1
+archs="x86_64"
 hostmakedepends="tar xz"
 short_desc="Privacy-focused browser"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
