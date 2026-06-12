@@ -2,7 +2,7 @@
 pkgname=sxbar
 version=1.0
 revision=3
-archs="x86_64"
+archs="x86_64 x86_64-musl"
 build_style=gnu-makefile
 hostmakedepends="fontconfig-devel freetype-devel libX11-devel libXft-devel libXinerama-devel pkg-config"
 makedepends="fontconfig-devel freetype-devel libX11-devel libXft-devel libXinerama-devel pkg-config"

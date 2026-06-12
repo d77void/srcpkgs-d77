@@ -2,7 +2,7 @@
 pkgname=wmd77
 version=0.4.0
 revision=4
-archs="x86_64"
+archs="x86_64 x86_64-musl"
 build_style=cargo
 hostmakedepends="pkg-config libXft-devel libX11-devel"
 depends="dmenu libX11 libXft st"

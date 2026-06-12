@@ -2,7 +2,7 @@
 pkgname=wayle
 version=0.6.0
 revision=1
-archs="x86_64"
+archs="x86_64 x86_64-musl"
 build_style=cargo
 build_helper="qemu"
 _llvmver=22 # matches rust

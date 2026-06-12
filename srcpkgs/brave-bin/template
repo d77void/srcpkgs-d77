@@ -2,7 +2,7 @@
 pkgname=brave-bin
 version=1.90.128
 revision=1
-archs="x86_64"
+archs="x86_64 x86_64-musl"
 build_style="fetch"
 hostmakedepends="tar xz"
 short_desc="Secure, fast and private web browser with ad blocker"

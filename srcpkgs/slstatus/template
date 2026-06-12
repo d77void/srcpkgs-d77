@@ -2,7 +2,7 @@
 pkgname=slstatus
 version=1.1
 revision=77
-archs="x86_64"
+archs="x86_64 x86_64-musl"
 build_style=gnu-makefile
 makedepends="make alsa-lib-devel libX11 libX11-devel"
 depends="alsa-lib-devel libX11 libX11-devel"

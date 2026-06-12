@@ -2,7 +2,7 @@
 pkgname=noctalia-shell
 version=4.7.7
 revision=1
-archs="x86_64"
+archs="x86_64 x86_64-musl"
 depends="ImageMagick brightnessctl ffmpeg qt6-multimedia cliphist cava wlsunset power-profiles-daemon ddcutil"
 short_desc="Sleek and minimal desktop shell"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"

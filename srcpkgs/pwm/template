@@ -2,7 +2,7 @@
 pkgname=pwm
 version=0.2.1
 revision=3
-archs="x86_64"
+archs="x86_64 x86_64-musl"
 build_style=cargo
 hostmakedepends="pkg-config libXft-devel libX11-devel"
 depends="dmenu libX11 libXft st wireless_tools"

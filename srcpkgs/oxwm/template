@@ -2,7 +2,7 @@
 pkgname=oxwm
 version=0.9.0
 revision=3
-archs="x86_64"
+archs="x86_64 x86_64-musl"
 build_style=cargo
 hostmakedepends="make libX11-devel libXft-devel freetype-devel fontconfig-devel pkg-config"
 depends="libX11 libXft freetype fontconfig"

@@ -2,7 +2,7 @@
 pkgname=slock
 version=1.6
 revision=77
-archs="x86_64"
+archs="x86_64 x86_64-musl"
 build_style=gnu-makefile
 hostmakedepends="libXrandr-devel imlib2-devel"
 makedepends="libXrandr-devel imlib2-devel"

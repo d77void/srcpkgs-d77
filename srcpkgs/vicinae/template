@@ -2,7 +2,7 @@
 pkgname=vicinae
 version=0.21.6
 revision=1
-archs="x86_64"
+archs="x86_64 x86_64-musl"
 build_style=cmake
 configure_args="-DPROJECT_VERSION=${version} -DVICINAE_VERSION=${version} -DCMAKE_INSTALL_PREFIX=/usr -DEXTERNAL_LIB_DIR=/usr/lib"
 hostmakedepends="git pnpm"

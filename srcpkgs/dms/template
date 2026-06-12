@@ -2,7 +2,7 @@
 pkgname=dms
 version=1.4.6
 revision=1
-archs="x86_64"
+archs="x86_64 x86_64-musl"
 build_style=gnu-makefile
 build_helper="qemu"
 #make_dirs="/var/log/dir 0755 root root"
