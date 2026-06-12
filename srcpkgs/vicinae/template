@@ -2,7 +2,7 @@
 pkgname=vicinae
 version=0.21.6
 revision=1
-archs="x86_64 x86_64-musl"
+archs="x86_64"
 build_style=cmake
 configure_args="-DPROJECT_VERSION=${version} -DVICINAE_VERSION=${version} -DCMAKE_INSTALL_PREFIX=/usr -DEXTERNAL_LIB_DIR=/usr/lib"
 hostmakedepends="git pnpm"
@@ -15,7 +15,3 @@ changelog="https://github.com/vicinaehq/vicinae/releases/tag/v${version}"
 distfiles="https://github.com/vicinaehq/vicinae/archive/refs/tags/v${version}.tar.gz"
 checksum=a4314c4fd26f39ce250d025a5840e6b78f2cdda377b7fc0f996f23c2c8a43d2f
 repository=d77
-
-if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
-	repository=musld77
-fi
