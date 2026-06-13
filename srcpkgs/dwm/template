@@ -11,7 +11,7 @@ maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://suckless.org"
 distfiles="https://dl.suckless.org/$pkgname/$pkgname-$version.tar.gz"
-checksum=91ffbaa148bf63e965b21eb94597edbba53431c19f5061874e04ef3c58c1f192
+checksum=bcf540589ad174d4073f4efa658828411e2f5ba63196cfaf6b71363700f590b7
 repository=d77
 
 if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
