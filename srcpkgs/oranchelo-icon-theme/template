@@ -10,7 +10,3 @@ homepage="http://zayronxio.deviantart.com/"
 distfiles="https://github.com/OrancheloTeam/${pkgname}/archive/refs/tags/v${version}.tar.gz"
 checksum=8d15f8e16772d3cb585d1dd7334ff5a5c0fa6ba59d737c165d707281b4b4f969
 repository=d77
-
-if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
-	repository=musld77
-fi
