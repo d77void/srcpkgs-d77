@@ -14,7 +14,3 @@ _commit="5cb8680"
 distfiles="https://github.com/labwc/labwc-tweaks-gtk/archive/${_commit}.tar.gz"
 checksum=d38dbebfe75c394ca2ab04dda40a1bfe16a3929d8aa4bad6933954122026ad3d
 repository=d77
-
-if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
-	repository=musld77
-fi

@@ -14,10 +14,6 @@ distfiles="https://dl.suckless.org/$pkgname/$pkgname-$version.tar.gz"
 checksum=bcf540589ad174d4073f4efa658828411e2f5ba63196cfaf6b71363700f590b7
 repository=d77
 
-if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
-	repository=musld77
-fi
-
 do_build() {
 	[ -e ${FILESDIR}/config.h ] && cp ${FILESDIR}/config.h config.h
 	vsed -e "/CFLAGS/s|\${CPPFLAGS}|& $CFLAGS|g" -i config.mk

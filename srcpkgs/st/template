@@ -22,10 +22,6 @@ distfiles="https://dl.suckless.org/st/st-${version}.tar.gz"
 checksum=9ed9feabcded713d4ded38c8cebf36a3b08f0042ef7934a0e2b2409da56e649b
 repository=d77
 
-if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
-	repository=musld77
-fi
-
 pre_build() {
 	mkdir -p ${DESTDIR}/usr/share/terminfo
 	sed -i 's|Liberation Mono|Hack|' config.def.h

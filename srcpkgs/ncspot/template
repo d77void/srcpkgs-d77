@@ -17,10 +17,6 @@ distfiles="https://github.com/hrkfdn/ncspot/archive/refs/tags/v${version}.tar.gz
 checksum=93c4448b2c027c08c02295b2ffb1a48b684b65100cf4730b1dc9ae35afe06ea6
 repository=d77
 
-if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
-	repository=musld77
-fi
-
 post_build() {
 	cargo auditable build --release --target ${RUST_TARGET} --package xtask
 	vtargetrun target/${RUST_TARGET}/release/xtask generate-shell-completion

@@ -20,10 +20,6 @@ distfiles="https://github.com/YaLTeR/niri/archive/refs/tags/v${version}.tar.gz"
 checksum=134c602d8e0d53413a52d6cd58f9ce7e79a07d03288ee0a51ba1abd5db1b1ad9
 repository=d77
 
-if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
-	repository=musld77
-fi
-
 pre_check() {
 	export XDG_RUNTIME_DIR=$(mktemp -d "$wrksrc/runtime.XXXXXX")
 	ulimit -n 4096

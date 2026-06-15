@@ -12,10 +12,6 @@ distfiles="https://github.com/FortAwesome/Font-Awesome/releases/download/$versio
 checksum=5717251cdd7b3f3df989f9fada0ca65b6609045c04a0c1bd78fb27acb3bf84cb
 repository=d77
 
-if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
-	repository=musld77
-fi
-
 do_install() {
 	install -Dm644 otfs/*.otf -t ${DESTDIR}/usr/share/fonts/OTF
 }

@@ -16,10 +16,6 @@ checksum=879f38c12e345f7d0f4c160e03bde05bd4226e30b2b8db486e2831835c265e22
 make_check=no
 repository=d77
 
-if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
-	repository=musld77
-fi
-
 post_install() {
 	vlicense LICENSE
 }

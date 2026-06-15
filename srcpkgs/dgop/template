@@ -15,10 +15,6 @@ distfiles="https://github.com/AvengeMedia/${pkgname}/archive/refs/tags/v${versio
 checksum=2e45d94d2227bb596844681e66f948aeea4a09be3f7ee88dcbbf38938cabec32
 repository=d77
 
-if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
-	repository=musld77
-fi
-
 do_install() {
 	vbin bin/dgop
 	vbin bin/dgop dankgop

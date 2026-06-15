@@ -14,10 +14,6 @@ distfiles="https://github.com/noctalia-dev/${pkgname}/archive/refs/tags/v${versi
 checksum=0eec6e6949c0d2434a029a432806f07a41c678ea73418f5e205ee14b09fef9b5
 repository=d77
 
-if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
-	repository=musld77
-fi
-
 post_install() {
 	vlicense LICENSE
 }

@@ -14,10 +14,6 @@ distfiles="https://github.com/tonybanters/${pkgname}/archive/refs/tags/v${versio
 checksum=bc92d0bc56ece22a7393bb32ab5ecad92a90d75b8d6e7a86250bf608b436d6f3
 repository=d77
 
-if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
-	repository=musld77
-fi
-
 pre_install() {
 	metapackage=yes
 	cp ${FILESDIR}/battery.rs src/bar/blocks/
