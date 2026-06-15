@@ -1,0 +1,18 @@
+# Template file for 'ad'
+pkgname=ad
+version=0.4.0
+revision=1
+build_style=cargo
+short_desc="Adaptable text editor"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/sminez/ad"
+changelog="https://github.com/sminez/ad/releases/tag/${version}"
+distfiles="https://github.com/sminez/ad/archive/refs/tags/${version}.tar.gz"
+checksum=e35cf1030bc24bf336066fcd367e8a022d097357b896cb316183993951d4ffb8
+repository=d77
+
+post_install() {
+	cargo xtask setup-dotfiles
+	vlicense LICENSE
+}
