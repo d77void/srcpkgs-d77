@@ -8,13 +8,13 @@ short_desc="Mullvad VPN client"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="custom:mullvadvpn"
 homepage="https://mullvad.net/"
-distfiles="https://github.com/mullvad/mullvadvpn-app/releases/download/${version}-beta2/MullvadVPN-${version}-beta2_amd64.deb"
-checksum=b213a49199808efc9b5b25ec1b0fe18d7decf2f39b5873de3c149c81e6f16fc8
+distfiles="https://github.com/mullvad/mullvadvpn-app/releases/download/${version}/MullvadVPN-${version}_amd64.deb"
+checksum=38c6ee73ae80870688560922a28525b6d0dacc62c2e410938863d7038e931aca
 noverifyrdeps="libexpat.so.1"
 repository=d77
 
 do_extract() {
-	ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/MullvadVPN-${version}-beta2_amd64.deb
+	ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/MullvadVPN-${version}_amd64.deb
 	tar xf data.tar.xz -C ${wrksrc}
 	mv ${wrksrc}/opt/Mullvad\ VPN ${wrksrc}/opt/Mullvad\VPN
 }
