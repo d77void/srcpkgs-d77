@@ -1,6 +1,6 @@
 # Template file for 'qsd77'
 pkgname=qsd77
-version=1.0.0
+version=1.1.0
 revision=1
 makedepends="go"
 short_desc="Cli bridge for quickshell-d77"
@@ -9,7 +9,7 @@ license="MIT"
 homepage="https://github.com/dani-77/qsd77"
 changelog="https://github.com/dani-77/qsd77/releases/tag/${version}"
 distfiles="https://github.com/dani-77/qsd77/archive/refs/tags/${version}.tar.gz"
-checksum=447d0bb65be57dd0ae4e034fbc04f5c81fb461fea9f9c5c5a46ee4ce2ee013b3
+checksum=07cb20099fe2fb3156ab2e939ce383335481afb8beecf9d203409739969c0aa5
 nopie=yes
 repository=d77
 
