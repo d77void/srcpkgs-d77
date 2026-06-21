@@ -1,0 +1,20 @@
+# Template file for 'musl-locales'
+pkgname=musl-locales
+version=2026.04.24
+revision=1
+_commit="f6f3cf5f"
+archs="*-musl"
+build_style=cmake
+makedepends="gettext-devel musl-devel"
+short_desc="Musl C library - locale data files"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="MIT AND LGPL-3.0-or-later"
+homepage="https://gitlab.com/rilian-la-te/musl-locales"
+distfiles="${homepage}/-/archive/${_commit}.tar.gz"
+checksum=f8a21d05e7c94335e77a16a2e4855b03d44e1835ac758eef0cb9c01e6735a7c1
+repository=d77
+
+post_install() {
+	vlicense LICENSE
+	vlicense LICENSE.MIT
+}
