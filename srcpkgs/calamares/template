@@ -29,6 +29,11 @@ distfiles="https://codeberg.org/Calamares/calamares/releases/download/v${version
 checksum=733bbbb00dc9f84874bd5c22960952f317ea2537565431179fa2152b2fbfdccc
 repository=d77
 
+case ${XBPS_TARGET_MACHINE} in
+	x86_64-musl)
+		depends+=" musl-locales" ;;
+esac
+
 pre_configure() {
 	vsed -i -e "s/desired_size = 512 \* 1024 \* 1024  \# 512MiB/desired_size = 512 \* 1024 \* 1024 \* 4  \# 2048MiB/" src/modules/fstab/main.py
 	vsed -i 's/services-systemd/services-runit/g' settings.conf
