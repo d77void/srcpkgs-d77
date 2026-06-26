@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=AbacusAI
+Icon=/opt/Abacus/abacus.png
+Exec=/opt/Abacus/abacusai-desktop
+Categories=AI
+Keywords=AI

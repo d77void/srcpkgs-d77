@@ -1,0 +1,21 @@
+# Template file for 'abacusai'
+pkgname=abacusai
+version=1.106.22502
+revision=1
+short_desc="Abacus AI desktop app"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="GPL-3.0-or-later"
+homepage="https://abacus.ai"
+distfiles=""https://static.abacus.ai/abacusai/releases/${version}/AbacusAI-linux-x64-${version}.tar.gz
+checksum=12d7705b6ab95be3b6029f29eae18f670e435500f63e611c62fa2e038ae93ba1
+python_version="3.14"
+nopie=yes
+noverifyrdeps="musl"
+repository=d77
+
+do_install() {
+	vmkdir /opt/Abacus
+	vcopy '*' /opt/Abacus/
+	vinstall ${FILESDIR}/AbacusAI.desktop 644 /usr/share/applications/
+	vinstall ${FILESDIR}/abacus.png 644 /opt/Abacus/
+}
