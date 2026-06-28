@@ -16,7 +16,17 @@ repository=d77
 
 do_install() {
 	vbin target/x86_64-unknown-linux-gnu/release/fresh
-	vinstall ${FILESDIR}/fresh-editor.desktop 644 usr/share/applications/
-	vmkdir usr/share/doc/fresh-editor
-	vcopy docs/'*' usr/share/doc/fresh-editor/
+	vmkdir usr/libexec/${pkgname}
+	vcopy crates/fresh-editor/plugins usr/libexec/${pkgname}/
+	vcopy crates/fresh-editor/keymaps usr/libexec/${pkgname}/
+	vinstall crates/fresh-editor/resources/fresh.desktop 644 usr/share/applications
+
+	for icon in crates/fresh-gui/resources/icon_*x*.png; do
+		size=${icon##*icon_}
+		size=${size%.png}
+		vinstall "$icon" 644 "usr/share/icons/hicolor/${size}/apps" fresh.png
+	done
+
+	vman crates/fresh-editor/resources/fresh.1
+	vdoc README.md
 }
