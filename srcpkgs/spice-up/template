@@ -1,12 +1,12 @@
 # Template file for 'spice-up'
 pkgname=spice-up
 version=1.9.1
-revision=1
+revision=2
 archs="x86_64"
 build_style=meson
-hostmakedepends="cmake cmake-vala glib-devel glibc-devel extra-cmake-modules granite-devel libevdev-devel libgee-devel libsoup-devel meson ninja pkg-config vala"
-makedepends="cmake cmake-vala glib-devel glibc-devel extra-cmake-modules granite-devel libevdev-devel libgee-devel libsoup-devel meson ninja pkg-config vala"
-depends="glib granite libevdev libsoup"
+hostmakedepends="meson extra-cmake-modules cmake cmake-vala pkg-config"
+makedepends="glib-devel gtk+3-devel granite-devel json-glib-devel libgee-devel libgudev-devel libevdev-devel libsoup-devel"
+depends="glib granite libevdev libsoup3"
 short_desc="Create simple and beautiful presentations"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="GPL-3.0-or-later"
