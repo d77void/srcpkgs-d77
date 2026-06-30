@@ -1,6 +1,6 @@
 # Template file for 'bitwarden'
 pkgname=bitwarden
-version=2026.5.0
+version=2026.6.1
 revision=1
 archs="x86_64"
 short_desc="Bitwarden desktop client"
@@ -8,7 +8,7 @@ maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="GPL-3.0-or-later"
 homepage="https://bitwarden.com"
 distfiles="https://github.com/bitwarden/clients/releases/download/desktop-v${version}/Bitwarden-${version}-amd64.deb"
-checksum=2ea59874bac7f67f5663828d028449168050d4538b5e6adea69e13b199249226
+checksum=421bfc6d787d842406909d393c2a9044791e957aa234718ae5670e87ae4deba7
 noverifyrdeps="libc.musl-x86_64.so.1"
 repository=d77
 
