@@ -4,10 +4,9 @@ version=5.0.0
 revision=1
 archs="x86_64 x86_64-musl"
 build_style=meson
-hostmakedepends="just meson"
-makedepends="pkg-config sdbus-c++-devel cmake ninja wayland-devel wayland-protocols freetype-devel fontconfig-devel cairo-devel pango-devel librsvg-devel libxkbcommon-devel polkit-devel pipewire-devel wireplumber-devel libcurl-devel libqalculate-devel pam-devel libepoxy-devel"
+hostmakedepends="just meson ninja pkg-config"
+makedepends="sdbus-c++-devel cmake wayland-devel wayland-protocols freetype-devel fontconfig-devel cairo-devel pango-devel librsvg-devel libxkbcommon-devel polkit-devel pipewire-devel wireplumber-devel libcurl-devel libqalculate-devel pam-devel libepoxy-devel"
 depends="ImageMagick brightnessctl ffmpeg qt6-multimedia cliphist cava wlsunset power-profiles-daemon ddcutil"
-CXXFLAGS+=" -std=c++23"
 short_desc="Sleek and minimal desktop shell"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
@@ -15,6 +14,7 @@ homepage="https://github.com/noctalia-dev/noctalia-shell"
 changelog="https://github.com/noctalia-dev/${pkgname}/releases/tag/v${version}"
 distfiles="https://github.com/noctalia-dev/${pkgname}/releases/download/v${version}-beta1/noctalia-v${version}-beta1.tar.gz"
 checksum=bdd8600d15689439edc1c7c3c3167993b7d92fbb92ba283eb522511194c0514a
+CXXFLAGS+=" -std=c++23"
 repository=d77
 
 post_install() {
