@@ -1,6 +1,6 @@
 # Template file for 'font-awesome7'
 pkgname=font-awesome7
-version=7.2.0
+version=7.3.0
 revision=1
 hostmakedepends="font-util"
 short_desc="Iconic SVG, font, and CSS toolkit - desktop fonts"
@@ -9,7 +9,7 @@ license="GPL-3.0-or-later"
 homepage="https://fontawesome.com/"
 changelog="https://fontawesome.com/docs/changelog/"
 distfiles="https://github.com/FortAwesome/Font-Awesome/releases/download/$version/fontawesome-free-$version-desktop.zip"
-checksum=5717251cdd7b3f3df989f9fada0ca65b6609045c04a0c1bd78fb27acb3bf84cb
+checksum=719c61d1b2b595d166af27dac1fdce1391726b6eed7986076aa13b232976cfcd
 repository=d77
 
 do_install() {
