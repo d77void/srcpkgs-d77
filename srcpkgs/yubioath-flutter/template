@@ -1,6 +1,6 @@
 # Template file for 'yubioath-flutter'
 pkgname=yubioath-flutter
-version=7.4.0
+version=7.4.1
 revision=1
 hostmakedepends="tar"
 depends="libpcsclite libyubikey-devel libyubikey-utils pam_yubico pcsc-ccid pcsc-tools pcsclite yubico-piv-tool yubikey-manager"
@@ -10,7 +10,7 @@ license="Apache-2.0"
 homepage="https://developers.yubico.com/yubioath-flutter/"
 changelog="https://github.com/Yubico/${pkgname}/releases/tag/${version}"
 distfiles="https://github.com/Yubico/${pkgname}/releases/download/${version}/yubico-authenticator-${version}-linux.tar.gz"
-checksum=842ea3255d1c879631ad5475aaf96963d2209f57a21f18ff299ac72a07354139
+checksum=5c8f49cf3653ae9dd3911b53ca60475b03c8c957eb7385b1bd3d49ec4767ddac
 nopie=yes
 repository=d77
 
