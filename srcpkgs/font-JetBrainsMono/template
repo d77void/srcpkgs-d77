@@ -1,0 +1,17 @@
+# Template file for 'font-JetBrainsMono'
+pkgname=font-JetBrainsMono
+version=2.304
+revision=1
+short_desc="JetBrainsMono Nerd Font"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="GPL-3.0-or-later"
+homepage="https://www.jetbrains.com/lp/mono/"
+changelog="https://github.com/JetBrains/JetBrainsMono/releases/latest"
+distfiles="https://download.jetbrains.com/fonts/JetBrainsMono-${version}.zip"
+checksum=6f6376c6ed2960ea8a963cd7387ec9d76e3f629125bc33d1fdcd7eb7012f7bbf
+repository=d77
+
+do_install() {
+	vmkdir /usr/share/fonts
+	vcopy ./fonts/* /usr/share/fonts/
+}
