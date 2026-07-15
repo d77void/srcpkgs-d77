@@ -18,7 +18,7 @@
 #define BAR_HEIGHT  24
 
 /* set font pattern for find fonts, see fonts-conf(5) */
-const char *fontname = "sans-serif:size=10";
+const char *fontname = "sans-serif:size=12";
 
 /*
  * color settings by index of color map
