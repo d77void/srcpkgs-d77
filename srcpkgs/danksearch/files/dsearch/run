@@ -2,5 +2,6 @@
 exec 2>&1
 sv check dbus > /dev/null || exit 1
 export HOME=/root
+mkdir -p /run/danksearch
 exec /usr/bin/dsearch serve
 
