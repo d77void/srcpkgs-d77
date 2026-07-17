@@ -1,7 +1,7 @@
 # Template file for 'danksearch'
 pkgname=danksearch
 version=0.3.2
-revision=3
+revision=4
 archs="x86_64 x86_64-musl"
 build_style=gnu-makefile
 build_helper="qemu"
@@ -19,6 +19,7 @@ do_install() {
 	vbin bin/dsearch
 	vlicense LICENSE
 	vdoc README.md
+	vinstall "${FILESDIR}/config.example.toml" 644 usr/share/examples/danksearch
 }
 
 post_install() {

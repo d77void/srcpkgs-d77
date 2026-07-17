@@ -1,0 +1,38 @@
+# DankSearch Configuration File
+# Default location for the dsearch runit service: /root/.config/danksearch/config.toml
+# (the service runs as root -- see /etc/sv/dsearch/run -- so it reads root's
+# config, not a regular user's). Copy this there and adjust the path(s)
+# below to whichever user's home you want indexed.
+#
+#   install -Dm644 /usr/share/examples/danksearch/config.example.toml \
+#       /root/.config/danksearch/config.toml
+
+index_path = "/root/.cache/danksearch/index"
+
+listen_addr = "127.0.0.1:43654"
+
+max_file_bytes = 2097152  # 2MB
+
+worker_count = 4
+
+index_all_files = true
+
+text_extensions = [
+    ".txt", ".md", ".go", ".py", ".js", ".ts",
+    ".jsx", ".tsx", ".json", ".yaml", ".yml",
+    ".toml", ".html", ".css", ".rs", ".c",
+    ".cpp", ".h", ".java", ".rb", ".php", ".sh",
+]
+
+[[index_paths]]
+path = "/home/dani77"
+max_depth = 6
+exclude_hidden = true
+extract_exif = true
+exclude_dirs = [
+    "node_modules", "bower_components", "__pycache__", "site-packages",
+    "venv", ".venv", "target", "dist", "build", "vendor", ".cache",
+    # xbps-src build chroots -- huge, low value to search
+    "masterdir-x86_64", "masterdir-x86_64-musl", "hostdir",
+    "xbps-cachedir-x86_64", "xbps-cachedir-x86_64-musl"
+]
