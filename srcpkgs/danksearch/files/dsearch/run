@@ -1,5 +1,6 @@
 #!/bin/sh
 exec 2>&1
 sv check dbus > /dev/null || exit 1
+export HOME=/root
 exec /usr/bin/dsearch serve
 
