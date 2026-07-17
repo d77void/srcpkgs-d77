@@ -1,11 +1,11 @@
 # Template file for 'fabric'
 pkgname=fabric
 version=0.0.2
-revision=1
+revision=2
 build_style=python3-pep517
 hostmakedepends="git python3-setuptools python3-wheel python3-build python3-installer python3-poetry-core pkg-config"
 makedepends="gtk+3-devel python3-cairo-devel gtk-layer-shell-devel python3-gobject-devel libgirepository-devel libwebkit2gtk41-devel libdbusmenu-gtk3-devel wayland-devel"
-depends="python3-loguru python3-click gobject-introspection"
+depends="python3-cairo python3-gobject python3-loguru python3-click gobject-introspection"
 short_desc="Desktop Widgets System you can customize using Python"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="AGPL-3.0-or-later"
