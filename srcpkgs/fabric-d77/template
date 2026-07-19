@@ -1,0 +1,38 @@
+# Template file for 'fabric-d77'
+# See void/README.md in the fabric-d77 repo for how to build this with xbps-src.
+pkgname=fabric-d77
+version=1.0.0
+revision=2
+depends="python3 python3-gobject python3-cairo python3-cffi python3-click
+ python3-loguru python3-Pillow python3-psutil python3-rapidfuzz
+ python3-setproctitle python3-six python3-pam python3-thefuzz
+ fabric gtk-session-lock alsa-utils brightnessctl"
+short_desc="GTK desktop shell for Wayland compositors, built on Fabric"
+maintainer="Daniel Azevedo <daniazevedo77@gmail.com>"
+license="MIT"
+homepage="https://github.com/dani-77/fabric-d77"
+
+# Pinned snapshot of the repo (no upstream release tags yet). Bump _commit
+# and recompute checksum (`./xbps-src pkg fabric-d77` prints the real one on
+# a mismatch) whenever you want to package a newer revision.
+_commit=08467eb087f944bd7044c29e52f7ba581900d48a
+distfiles="https://github.com/dani-77/fabric-d77/archive/${_commit}.tar.gz"
+checksum=eb3773f37b6333eb224c9b41860fc290f7d75d83fa1d672f8a9d4003aca4bd2e
+wrksrc="fabric-d77-${_commit}"
+repository=d77
+
+do_install() {
+	vmkdir usr/share/fabric-d77
+	vcopy "*.py" usr/share/fabric-d77
+	vcopy assets usr/share/fabric-d77
+	vcopy style.css usr/share/fabric-d77
+
+	vbin ${FILESDIR}/fabric-d77
+	vbin bin/fabric-d77-signal
+
+	vinstall pam/fabric-d77 644 etc/pam.d fabric-d77
+
+	vlicense LICENSE
+}
+
+conf_files="/etc/pam.d/fabric-d77"
