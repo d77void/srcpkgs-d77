@@ -1,6 +1,6 @@
 # Template file for 'helium-d77'
 pkgname=helium-d77
-version=0.1.1
+version=0.1.2
 revision=1
 build_style=cargo
 hostmakedepends="pkg-config"
@@ -11,11 +11,11 @@ maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://github.com/dani-77/helium-d77"
 distfiles="https://github.com/dani-77/helium-d77/archive/refs/tags/${version}.tar.gz"
-checksum=d08d581360aa071af34df82bf5e8b9e07db57be7040c7cbe6402a3727ff2bfb4
+checksum=4db6b2aef0e39f3141f0bc109c518b677fc6281c8365115e3b65a2902c9069e8
 repository=d77
 
 # build_style=cargo's default do_install only installs a single binary named
-# ${pkgname}. This crate produces four -- mirrors the Makefile's BINS, which
+# ${pkgname}. This crate produces six -- mirrors the Makefile's BINS, which
 # deliberately leaves out helium-locker (see the README's Locker section for
 # the upstream niri/layer-shika incompatibility that keeps it out of
 # `make install` too).
@@ -24,6 +24,8 @@ do_install() {
 	vbin target/x86_64-unknown-linux-gnu/release/helium-launcher
 	vbin target/x86_64-unknown-linux-gnu/release/helium-session
 	vbin target/x86_64-unknown-linux-gnu/release/helium-osd
+	vbin target/x86_64-unknown-linux-gnu/release/helium-wallpaper
+	vbin target/x86_64-unknown-linux-gnu/release/helium-backdrop
 	vlicense LICENSE
 	vdoc README.md
 }
