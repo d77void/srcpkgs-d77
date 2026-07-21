@@ -1,17 +1,17 @@
 # Template file for 'helium-d77'
 pkgname=helium-d77
-version=0.1.2
+version=0.1.4
 revision=1
 build_style=cargo
 hostmakedepends="pkg-config"
 makedepends="wayland-devel libxkbcommon-devel fontconfig-devel freetype-devel pam-devel"
 depends="pam-libs"
-short_desc="Personal Wayland status bar built with the Helium shell framework"
+short_desc="Wayland shell built with the Helium shell framework"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://github.com/dani-77/helium-d77"
 distfiles="https://github.com/dani-77/helium-d77/archive/refs/tags/${version}.tar.gz"
-checksum=4db6b2aef0e39f3141f0bc109c518b677fc6281c8365115e3b65a2902c9069e8
+checksum=0fac87a6050a1b4122a48ccf54d771696daf7254c03c6926a786f5ab58222734
 repository=d77
 
 # build_style=cargo's default do_install only installs a single binary named
