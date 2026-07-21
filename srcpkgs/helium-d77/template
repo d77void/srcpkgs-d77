@@ -26,6 +26,7 @@ do_install() {
 	vbin target/x86_64-unknown-linux-gnu/release/helium-osd
 	vbin target/x86_64-unknown-linux-gnu/release/helium-wallpaper
 	vbin target/x86_64-unknown-linux-gnu/release/helium-backdrop
+	vinstall assets/d77-logo.svg 644 usr/share/helium-d77/
 	vlicense LICENSE
 	vdoc README.md
 }
