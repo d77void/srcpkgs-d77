@@ -1,0 +1,21 @@
+# Template file for 'quickshell-d77'
+pkgname=quickshell-d77
+version=1.0.0
+revision=1
+build_style=gnu-makefile
+hostmakedepends="make rsync"
+makedepends="wayland-devel"
+depends="quickshell power-profiles-daemon alsa-utils alsa-tools brightnessctl wireless_tools"
+short_desc="Quickshell d77 shell for wayland compositors"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="MIT"
+homepage="https://github.com/dani-77/quickshell-d77"
+changelog="https://github.com/dani-77/quickshell-d77/releases"
+distfiles="https://github.com/dani-77/quickshell-d77/archive/refs/tags/${version}.tar.gz"
+checksum=991ed6923ac12109e7b067770560b2528c75385811068b922f997a1f2b0f1ae3
+repository=d77
+
+post_install() {
+	vlicense LICENSE
+	vdoc README.md
+}
