@@ -1,0 +1,30 @@
+# Template file for 'scenefx'
+pkgname=scenefx
+version=0.5
+revision=1
+build_style=meson
+configure_args="-Dwerror=false -Db_ndebug=false"
+hostmakedepends="pkg-config wayland-devel scdoc"
+makedepends="wlroots0.20-devel"
+short_desc="Drop-in replacement for the wlroots scene API"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="MIT"
+homepage="https://github.com/wlrfx/scenefx"
+changelog="https://github.com/wlrfx/scenefx/releases/"
+distfiles="https://github.com/wlrfx/scenefx/archive/refs/tags/${version}.tar.gz"
+checksum=0fa8ecca0e310f813efd052624c5ed7d9153d6a0fdead5cc957d34c07f9a86c6
+repository=d77
+
+post_install() {
+	vlicense LICENSE
+}
+
+scenefx-devel_package() {
+	short_desc+=" - development files"
+	depends="${sourcepkg}>=${version}_${revision}"
+
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+	}
+}
