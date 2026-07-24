@@ -72,4 +72,4 @@ Currently packages are tested on the following architectures:
 ## Credits
 
 - [Nizarjh: blackhole-vl](https://github.com/Event-Horizon-VL/blackhole-vl): Inspiration on README file
-
+- [Bella109: Cosmic-repo}(https://codeberg.org/Bella109/void-cosmic-repo): The whole templates for CosmicDE
