@@ -2,7 +2,7 @@
 # See void/README.md in the fabric-d77 repo for how to build this with xbps-src.
 pkgname=fabric-d77
 version=1.0.0
-revision=2
+revision=3
 depends="python3 python3-gobject python3-cairo python3-cffi python3-click
  python3-loguru python3-Pillow python3-psutil python3-rapidfuzz
  python3-setproctitle python3-six python3-pam python3-thefuzz
@@ -15,9 +15,9 @@ homepage="https://github.com/dani-77/fabric-d77"
 # Pinned snapshot of the repo (no upstream release tags yet). Bump _commit
 # and recompute checksum (`./xbps-src pkg fabric-d77` prints the real one on
 # a mismatch) whenever you want to package a newer revision.
-_commit=08467eb087f944bd7044c29e52f7ba581900d48a
+_commit=ac97bcc20585fd06d1c3d1a40f236b45158cfe17
 distfiles="https://github.com/dani-77/fabric-d77/archive/${_commit}.tar.gz"
-checksum=eb3773f37b6333eb224c9b41860fc290f7d75d83fa1d672f8a9d4003aca4bd2e
+checksum="<preencher depois do primeiro build com xbps-src>"
 wrksrc="fabric-d77-${_commit}"
 repository=d77
 
