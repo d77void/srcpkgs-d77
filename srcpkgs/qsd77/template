@@ -9,7 +9,7 @@ license="MIT"
 homepage="https://github.com/dani-77/qsd77"
 changelog="https://github.com/dani-77/qsd77/releases/tag/${version}"
 distfiles="https://github.com/dani-77/qsd77/archive/refs/tags/${version}.tar.gz"
-checksum="<preencher depois do primeiro build com xbps-src>"
+checksum=507508dfd0fd33aaf095ad75d454340dfec4db0a9824197345dfe08a8fd4c0d8
 nopie=yes
 repository=d77
 

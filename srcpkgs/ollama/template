@@ -12,7 +12,7 @@ maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://ollama.com/"
 distfiles="https://github.com/ollama/ollama/archive/refs/tags/v${version}.tar.gz"
-checksum="<preencher depois do primeiro build com xbps-src>"
+checksum=41cd7d9204540223a53371443f7dad2ffadae56475375945d465ad898e60c27a
 
 system_accounts="_ollama"
 _ollama_homedir="/var/lib/ollama"

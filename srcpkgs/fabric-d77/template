@@ -17,7 +17,7 @@ homepage="https://github.com/dani-77/fabric-d77"
 # a mismatch) whenever you want to package a newer revision.
 _commit=ac97bcc20585fd06d1c3d1a40f236b45158cfe17
 distfiles="https://github.com/dani-77/fabric-d77/archive/${_commit}.tar.gz"
-checksum="<preencher depois do primeiro build com xbps-src>"
+checksum=e1fa7da2304e852d00d21846d7f0e0dbf12e12421f073b1a98ec0f0d142a0647
 wrksrc="fabric-d77-${_commit}"
 repository=d77
 

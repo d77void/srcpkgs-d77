@@ -11,7 +11,7 @@ maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://github.com/dani-77/helium-d77"
 distfiles="https://github.com/dani-77/helium-d77/archive/refs/tags/${version}.tar.gz"
-checksum="<preencher depois do primeiro build com xbps-src>"
+checksum=0fac87a6050a1b4122a48ccf54d771696daf7254c03c6926a786f5ab58222734
 repository=d77
 
 # build_style=cargo's default do_install only installs a single binary named
