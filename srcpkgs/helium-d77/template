@@ -1,7 +1,7 @@
 # Template file for 'helium-d77'
 pkgname=helium-d77
-version=0.1.4
-revision=2
+version=0.1.5
+revision=1
 build_style=cargo
 hostmakedepends="pkg-config"
 makedepends="wayland-devel libxkbcommon-devel fontconfig-devel freetype-devel pam-devel"
@@ -11,11 +11,11 @@ maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://github.com/dani-77/helium-d77"
 distfiles="https://github.com/dani-77/helium-d77/archive/refs/tags/${version}.tar.gz"
-checksum=0fac87a6050a1b4122a48ccf54d771696daf7254c03c6926a786f5ab58222734
+checksum=97b903493a5739e4f30b4a7c1c86cb7c48f0ade0758e420668f64173973c2204
 repository=d77
 
 # build_style=cargo's default do_install only installs a single binary named
-# ${pkgname}. This crate produces six -- mirrors the Makefile's BINS, which
+# ${pkgname}. This crate produces seven -- mirrors the Makefile's BINS, which
 # deliberately leaves out helium-locker (see the README's Locker section for
 # the upstream niri/layer-shika incompatibility that keeps it out of
 # `make install` too).
@@ -26,6 +26,7 @@ do_install() {
 	vbin target/x86_64-unknown-linux-gnu/release/helium-osd
 	vbin target/x86_64-unknown-linux-gnu/release/helium-wallpaper
 	vbin target/x86_64-unknown-linux-gnu/release/helium-backdrop
+	vbin target/x86_64-unknown-linux-gnu/release/helium-ollama
 	vinstall assets/d77-logo.svg 644 usr/share/helium-d77/
 	vlicense LICENSE
 	vdoc README.md
