@@ -1,0 +1,24 @@
+# Template file for 'd77run'
+pkgname=d77run
+version=0.1.0
+revision=1
+build_style=cargo
+hostmakedepends="pkg-config"
+makedepends="gtk4-devel"
+depends="gtk4"
+short_desc="Minimal GTK4 run-dialog launcher (a rejuvenation of gmrun), with .desktop icon rendering"
+maintainer="Daniel Azevedo <daniazevedo77@gmail.com>"
+license="MIT"
+homepage="https://github.com/dani-77/d77run"
+repository=d77
+
+# No upstream release tags yet; pinned to a commit snapshot instead. Bump
+# _commit and recompute checksum whenever a newer revision should be packaged.
+_commit=ae8cb740dc9805cbfa2de612b7f31c70c41aeca5
+distfiles="https://github.com/dani-77/d77run/archive/${_commit}.tar.gz"
+wrksrc="d77run-${_commit}"
+checksum=bfb13a6ffd2aa7ef3cbdaf732640b8d4773bfa6d12f80f28bcb0afa7f83f7490
+
+post_install() {
+	vlicense LICENSE
+}

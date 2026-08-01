@@ -1,0 +1,29 @@
+# Template file for 'ollama'
+pkgname=ollama
+version=0.32.5
+revision=1
+archs="x86_64 aarch64"
+build_style=go
+go_import_path="github.com/ollama/ollama"
+hostmakedepends="cmake git"
+short_desc="Get up and running with large language models, locally"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="MIT"
+homepage="https://ollama.com/"
+distfiles="https://github.com/ollama/ollama/archive/refs/tags/v${version}.tar.gz"
+checksum=41cd7d9204540223a53371443f7dad2ffadae56475375945d465ad898e60c27a
+repository=d77
+
+system_accounts="_ollama"
+_ollama_homedir="/var/lib/ollama"
+make_dirs="${_ollama_homedir} 0750 _ollama _ollama"
+
+pre_build() {
+	go generate ./...
+}
+
+do_install() {
+	vlicense LICENSE
+	vbin _build-ollama-xbps/bin/ollama
+	vsv ollama
+}

@@ -1,0 +1,5 @@
+#!/bin/sh
+exec 2>&1
+export HOME=/var/lib/ollama
+export OLLAMA_HOST=127.0.0.1:11434
+exec chpst -u _ollama:_ollama ollama serve
