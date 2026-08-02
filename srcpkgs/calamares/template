@@ -16,7 +16,7 @@ configure_args="
 	-DSKIP_MODULES='webview;interactiveterminal;services-systemd;dummyprocess;dummypython;dummycpp;dummypythonqt;oemid;tracking;packagechooser;'"
 hostmakedepends="git extra-cmake-modules pkg-config gettext
 	ckbcomp kf6-kcoreaddons kf6-frameworkintegration python3-yaml clang qt6-tools qt6-translations"
-makedepends="python3-devel python3-jsonschema yaml-cpp-devel qt6-base-devel python3-devel kpmcore-devel
+makedepends="python3-devel python3-jsonschema yaml-cpp-devel qt6-base-devel kpmcore-devel
 	qt6-tools-devel qt6-translations qt6-svg-devel libpwquality-devel"
 depends="kf6-kconfig kf6-kcoreaddons kf6-kiconthemes kf6-ki18n kf6-kio yaml-cpp kpmcore boost ckbcomp
 	qt6-svg polkit-qt6 gtk-update-icon-cache

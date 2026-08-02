@@ -2,7 +2,7 @@
 pkgname=qsd77
 version=1.3.3
 revision=1
-makedepends="go"
+hostmakedepends="go"
 short_desc="Cli bridge for quickshell-d77"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
