@@ -15,6 +15,7 @@ distfiles="https://hackage.haskell.org/package/${pkgname}-${version}/${pkgname}-
 checksum=988b5f3104ac03aa078248afea7efcaed86661dfb239efd44995f58cd4f7a1f0
 nopie_files="/usr/bin/xmonad"
 nocross=yes
+repository=d77
 
 post_install() {
 	vlicense LICENSE

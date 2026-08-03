@@ -27,6 +27,7 @@ skip_extraction="alexandria-20241012-git.tgz cl-ppcre-20250622-git.tgz
  clx-20260101-git.tgz stumpwm-contrib-${_contrib_commit}.tar.gz"
 conf_files="/etc/stumpwmrc"
 nocross=yes
+repository=d77
 
 post_extract() {
 	vsrcextract -C alexandria alexandria-20241012-git.tgz

@@ -16,6 +16,7 @@ license="BSD-3-Clause"
 homepage="https://xmonad.org"
 nopie_files="/usr/bin/xmonad"
 nocross=yes
+repository=d77
 
 do_extract() {
 	cp ${FILESDIR}/xmonad-d77.cabal ${wrksrc}/
