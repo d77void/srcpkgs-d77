@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=XMonad (d77)
+Comment=Tiling window manager, Daniel Azevedo's config
+Exec=dbus-launch xmonad
+Type=Application

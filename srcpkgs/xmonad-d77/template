@@ -1,0 +1,32 @@
+# Template file for 'xmonad-d77'
+pkgname=xmonad-d77
+version=0.1.0
+revision=2
+build_style=cabal
+cabal_index_state=2025-07-05T14:01:16Z
+hostmakedepends="pkg-config"
+makedepends="libX11-devel libXext-devel libXinerama-devel libXrandr-devel
+ libXft-devel libXScrnSaver-devel"
+depends="xmobar dbus dmenu dunst feh NetworkManager redshift rofi st slock
+ trayer-srg udiskie xautolock xcompmgr xf86-input-synaptics"
+conflicts="xmonad"
+short_desc="XMonad tiling window manager, Daniel Azevedo's personal build"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="BSD-3-Clause"
+homepage="https://xmonad.org"
+nopie_files="/usr/bin/xmonad"
+nocross=yes
+
+do_extract() {
+	cp ${FILESDIR}/xmonad-d77.cabal ${wrksrc}/
+	cp -r ${FILESDIR}/app ${wrksrc}/
+}
+
+post_install() {
+	vinstall ${FILESDIR}/xmonad-d77.desktop 644 usr/share/xsessions
+
+	vmkdir usr/share/examples/xmonad-d77
+	cp -r ${FILESDIR}/xmobar ${DESTDIR}/usr/share/examples/xmonad-d77/
+	cp -r ${FILESDIR}/Wallpaper ${DESTDIR}/usr/share/examples/xmonad-d77/
+	vlicense LICENSE
+}

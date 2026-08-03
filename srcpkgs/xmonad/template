@@ -1,0 +1,22 @@
+# Template file for 'xmonad'
+pkgname=xmonad
+version=0.18.1
+revision=1
+build_style=cabal
+cabal_index_state=2025-07-05T14:01:16Z
+hostmakedepends="pkg-config"
+makedepends="libX11-devel libXext-devel libXinerama-devel libXrandr-devel
+ libXft-devel libXScrnSaver-devel"
+short_desc="Tiling window manager written in Haskell"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="BSD-3-Clause"
+homepage="https://xmonad.org"
+distfiles="https://hackage.haskell.org/package/${pkgname}-${version}/${pkgname}-${version}.tar.gz"
+checksum=988b5f3104ac03aa078248afea7efcaed86661dfb239efd44995f58cd4f7a1f0
+nopie_files="/usr/bin/xmonad"
+nocross=yes
+
+post_install() {
+	vlicense LICENSE
+	vman man/xmonad.1
+}

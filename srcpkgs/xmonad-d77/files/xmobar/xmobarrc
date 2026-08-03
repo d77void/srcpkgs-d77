@@ -1,0 +1,51 @@
+Config { overrideRedirect = False
+       , font     = "xft:iosevka-10"
+       , iconRoot = ".config/xmobar/icons"
+       , bgColor  = "#5f5f5f"
+       , fgColor  = "#f8f8f2"
+       , position = TopW L 100
+       , commands = [ Run Weather "LPPR"
+                        [ "--template", "<weather> <tempC>°C"
+                        , "-L", "0"
+                        , "-H", "25"
+                        , "--low"   , "lightblue"
+                        , "--normal", "#f8f8f2"
+                        , "--high"  , "red"
+                        ] 36000
+		    , Run Battery [
+			"-t", "<acstatus>: <left>% - <timeleft>",
+			"--",
+			--"-c", "charge_full",
+			"-O", "AC",
+			"-o", "Bat",
+			"-h", "green",
+			"-l", "red"
+			] 10
+                    , Run Cpu
+                        [ "-L", "3"
+                        , "-H", "50"
+                        , "--high"  , "red"
+                        , "--normal", "green"
+                        ] 10
+		    , Run Wireless "wlp3s0" [ "-t", "<essid> - <quality>%" ] 10
+                    , Run Alsa "default" "Master"
+                        [ "--template", "Vol: <volumestatus>"
+                        , "--suffix"  , "True"
+                        , "--"
+                        , "--on", ""
+                        ]
+                    , Run Memory ["--template", "Mem: <usedratio>%"]
+			10
+                    , Run Swap [] 10
+                    , Run Date "%A, %d %B %Y <fc=#8be9fd>%H:%M:%S</fc>" "date" 10
+                    , Run XMonadLog
+		    , Run DiskU [("/", "<used> <usedbar>")]
+      			["-L", "20", "-H", "50", "-m", "1", "-p", "3"]
+      			20
+		    , Run Kbd [("de(deadtilde)", "DE"), ("pt", "PT")]
+		    , Run Locks
+                    ]
+       , sepChar  = "%"
+       , alignSep = "}{"
+       , template = "%XMonadLog% }{ %kbd% %locks% | %alsa:default:Master% | %disku% | %wlp3s0wi% | %cpu% | %memory% * %swap% | %battery% | %LPPR% | %date% "
+       }
