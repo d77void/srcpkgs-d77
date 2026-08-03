@@ -1,0 +1,6 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=StumpWM (d77)
+Comment=Tiling window manager, Daniel Azevedo's config
+Exec=dbus-launch stumpwm
+Type=XSession

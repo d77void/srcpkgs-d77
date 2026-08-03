@@ -1,0 +1,67 @@
+# Template file for 'stumpwm-d77'
+pkgname=stumpwm-d77
+version=24.11
+revision=2
+hostmakedepends="autoconf sbcl"
+depends="feh redshift rofi slock st xautolock xcompmgr alsa-utils"
+conflicts="stumpwm"
+nopie_files="/usr/bin/stumpwm"
+nostrip_files="/usr/bin/stumpwm"
+nodebug=yes
+short_desc="StumpWM tiling window manager, Daniel Azevedo's personal build"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="GPL-2.0-or-later"
+homepage="https://stumpwm.github.io/"
+_contrib_commit=78b574de489fa4a4c156d15a55ac991739a9c58f
+distfiles="https://github.com/stumpwm/stumpwm/archive/refs/tags/${version}.tar.gz
+ http://beta.quicklisp.org/archive/alexandria/2024-10-12/alexandria-20241012-git.tgz
+ http://beta.quicklisp.org/archive/cl-ppcre/2025-06-22/cl-ppcre-20250622-git.tgz
+ http://beta.quicklisp.org/archive/clx/2026-01-01/clx-20260101-git.tgz
+ https://github.com/stumpwm/stumpwm-contrib/archive/${_contrib_commit}.tar.gz>stumpwm-contrib-${_contrib_commit}.tar.gz"
+checksum="1f2a5edf30dc8897234845514ea927478645cf8fb6b05b9ba7fe7a898720e08d
+ dcdfc5bac229a952358dfe661f0860e8a02480e406d0d95dee4300cdc3d45b31
+ a9d6a9ca9eb862283f6079856629c8b19254f108fcde065d61f280e7c2c6ec39
+ 59b567981e151804983fddde74343b3a44127f39741987211f26b607ae203ba8
+ 418fa609305ca7873791999570ca9f7ffc6e1da43551540d1b174a9918d43313"
+skip_extraction="alexandria-20241012-git.tgz cl-ppcre-20250622-git.tgz
+ clx-20260101-git.tgz stumpwm-contrib-${_contrib_commit}.tar.gz"
+conf_files="/etc/stumpwmrc"
+nocross=yes
+
+post_extract() {
+	vsrcextract -C alexandria alexandria-20241012-git.tgz
+	vsrcextract -C cl-ppcre cl-ppcre-20250622-git.tgz
+	vsrcextract -C clx clx-20260101-git.tgz
+	vsrcextract -C stumpwm-contrib stumpwm-contrib-${_contrib_commit}.tar.gz
+}
+
+do_configure() {
+	export CL_SOURCE_REGISTRY="${wrksrc}//:${wrksrc}/alexandria//:${wrksrc}/cl-ppcre//:${wrksrc}/clx//"
+	./autogen.sh
+	./configure --prefix=/usr --with-module-dir=/usr/share/stumpwm-d77/modules
+}
+
+do_build() {
+	export CL_SOURCE_REGISTRY="${wrksrc}//:${wrksrc}/alexandria//:${wrksrc}/cl-ppcre//:${wrksrc}/clx//"
+	make stumpwm
+}
+
+do_install() {
+	vbin stumpwm
+
+	vmkdir usr/share/stumpwm-d77/modules/util
+	vmkdir usr/share/stumpwm-d77/modules/modeline
+	vcopy stumpwm-contrib/util/end-session usr/share/stumpwm-d77/modules/util
+	vcopy stumpwm-contrib/util/swm-gaps usr/share/stumpwm-d77/modules/util
+	vcopy stumpwm-contrib/modeline/cpu usr/share/stumpwm-d77/modules/modeline
+	vcopy stumpwm-contrib/modeline/mem usr/share/stumpwm-d77/modules/modeline
+	vcopy stumpwm-contrib/modeline/net usr/share/stumpwm-d77/modules/modeline
+	vcopy stumpwm-contrib/modeline/wifi usr/share/stumpwm-d77/modules/modeline
+	vcopy stumpwm-contrib/modeline/battery-portable usr/share/stumpwm-d77/modules/modeline
+
+	vinstall ${FILESDIR}/stumpwmrc 644 etc
+	vinstall ${FILESDIR}/stumpwm-d77.desktop 644 usr/share/xsessions
+
+	vmkdir usr/share/examples/stumpwm-d77
+	cp -r ${FILESDIR}/Wallpaper ${DESTDIR}/usr/share/examples/stumpwm-d77/
+}

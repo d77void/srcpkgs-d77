@@ -1,0 +1,82 @@
+;; /etc/stumpwmrc - StumpWM Config (xmonad-d77 style packaging: system-wide
+;; default, loaded by load-rc-file when no ~/.stumpwmrc or
+;; ~/.stumpwm.d/init.lisp exists). *module-dir* is already set at build time
+;; via --with-module-dir, and (stumpwm) rescans it on every startup, so no
+;; add-to-load-path call is needed here.
+
+;; Modules
+(in-package :stumpwm)
+(load-module "end-session")
+(setf end-session:*end-session-command* "loginctl")
+(load-module "swm-gaps")
+(load-module "cpu")
+(setf cpu::*cpu-modeline-fmt* "%c") ; default is "%c (%f) %t"
+(load-module "mem")
+(load-module "net")
+(load-module "wifi")
+(load-module "battery-portable")
+
+;; Gaps
+(setf swm-gaps:*inner-gaps-size* 5)
+(setf swm-gaps:*outer-gaps-size* 5)
+(run-commands "toggle-gaps-on")
+
+;; Modeline
+(stumpwm:toggle-mode-line (stumpwm:current-screen)
+                          (stumpwm:current-head))
+
+(setf *screen-mode-line-format*
+      (list "^<"                    ;; Left Workspaces 
+            " %g "'(:eval (format-expand *window-formatters* "%W"))
+            "^>"                    ;; Right Workspaces
+            " %I %l | %C | %M | Bat:%B | %d"))
+
+;; Prefix command
+(set-prefix-key (kbd "C-t"))
+
+;; Init message
+(setf *startup-message* "StumpWM loaded successfully!")
+
+;; Appearance
+(set-fg-color "white")
+(set-bg-color "black")
+(set-border-color "blue")
+
+;; Fonts
+(set-font "-*-terminus-medium-r-*-*-14-*-*-*-*-*-*-*")
+
+;; Keybinds
+(define-key *root-map* (kbd "c") "exec st")  ; C-t c open  terminal
+(define-key *root-map* (kbd "C-c") "exec st")
+(define-key *root-map* (kbd "C-d") "exec rofi -show drun")
+(define-key *root-map* (kbd "b") "exec brave-browser-stable") ; C-t b open browser
+(define-key *root-map* (kbd "e") "exec st -e emacs")   ; C-t e open Emacs
+(define-key *root-map* (kbd "g") "toggle-gaps-off")
+(define-key *root-map* (kbd "C-r") "loadrc")
+(define-key *root-map* (kbd "M-g") "gmove")
+(define-key *root-map* (kbd "C-q") "end-session")
+
+;; Volume
+(define-key *top-map* (kbd "XF86AudioRaiseVolume") "exec amixer set Master 5%+")
+(define-key *top-map* (kbd "XF86AudioLowerVolume") "exec amixer set Master 5%-")
+(define-key *top-map* (kbd "XF86AudioMute") "exec amixer set Master toggle")
+
+;; (workspaces)
+(gnewbg "Web")
+(gnewbg "Dev")
+(gnewbg "Media")
+
+;; Commands runner
+(define-key *root-map* (kbd "C-m") "exec")
+
+;; Mouse mode
+(setf *mouse-focus-policy* :sloppy) ; or :click focus on moouse click
+
+;; Startup
+(run-shell-command "feh --bg-fill ~/Wallpaper/wallhaven-8xk6oo.png")
+(run-shell-command "synclient TapButton1=1")
+(run-shell-command "xcompmgr -c -f -n")
+(run-shell-command "xautolock -time 5 -locker slock")
+;;(run-shell-command "polybar")
+(run-shell-command "redshift")
+(run-shell-command "xset r rate 200 30") ; keyboard speed
