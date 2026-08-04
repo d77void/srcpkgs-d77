@@ -20,6 +20,7 @@ repository=d77
 
 do_extract() {
 	cp ${FILESDIR}/xmonad-d77.cabal ${wrksrc}/
+	cp ${FILESDIR}/LICENSE ${wrksrc}/
 	cp -r ${FILESDIR}/app ${wrksrc}/
 }
 
