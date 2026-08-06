@@ -1,0 +1,37 @@
+# Template file for 'spitfire'
+pkgname=spitfire
+version=0.1.0
+revision=1
+build_style=cargo
+# Same feature set the project's own `make install` builds with — see the
+# top-level Makefile. build_style=cargo appends this to `cargo build`.
+make_build_args="--features udev,xwayland"
+hostmakedepends="pkg-config cargo git"
+makedepends="wayland-devel libxkbcommon-devel MesaLib-devel libseat-devel
+ libinput-devel libdisplay-info-devel pixman-devel"
+depends="wayland libxkbcommon libseat libinput libdisplay-info pixman"
+short_desc="Tiling Wayland compositor with a live-reloadable Lua config, in the spirit of dwm"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="MIT"
+homepage="https://github.com/dani-77/spitfire"
+distfiles="https://github.com/dani-77/spitfire/archive/refs/tags/v${version}.tar.gz"
+checksum=82ab2400880169cf905888a8ae32b6db9d5c75fff2e281f678c1682f105a7ab2
+# Config file installed under /etc, not something xbps should ever
+# overwrite silently on upgrade.
+conf_files="/etc/xdg-desktop-portal/spitfire-portals.conf"
+repository=d77
+
+# Smithay (the Wayland compositor library spitfire is built on) is pinned as
+# a git dependency in Cargo.lock rather than pulled from crates.io, so the
+# cargo build_style's fetch step needs network access during do_fetch, same
+# as any other Rust package whose Cargo.lock points at a git source.
+
+do_install() {
+	# Reuses the project's own install rules (binaries, session entry,
+	# portal config, icons) instead of duplicating them here. `install:`
+	# depends on `build:` in the Makefile, but the cargo invocation is a
+	# no-op at this point — build_style=cargo already produced
+	# target/release/ with the same feature flags via make_build_args.
+	make install DESTDIR="${DESTDIR}" PREFIX=/usr
+	vlicense LICENSE
+}
