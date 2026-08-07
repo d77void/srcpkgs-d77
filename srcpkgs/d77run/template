@@ -1,7 +1,7 @@
 # Template file for 'd77run'
 pkgname=d77run
 version=0.2.0
-revision=1
+revision=2
 build_style=cargo
 hostmakedepends="pkg-config"
 makedepends="gtk4-devel"
@@ -14,11 +14,17 @@ repository=d77
 
 # No upstream release tags yet; pinned to a commit snapshot instead. Bump
 # _commit and recompute checksum whenever a newer revision should be packaged.
-_commit=5d83e7484964fa88700db27459b3958be1f934e8
+_commit=9cc88fa47f90599f5eb1aab2e7a89b0f6bf975e2
 distfiles="https://github.com/dani-77/d77run/archive/${_commit}.tar.gz"
 wrksrc="d77run-${_commit}"
-checksum=2fd62fce73c70876147d597879e34ccb420f0d4b1f1264217ef187c00feb738d
+checksum=2644ccb55200f353107724d13e4c8cc815b4594b2ce7272207c5d3898d73f430
 
 post_install() {
 	vlicense LICENSE
+        vinstall assets/d77run.desktop 644 usr/share/applications d77run.desktop
+        vinstall assets/d77run-icon.svg 644 usr/share/icons/hicolor/scalable/apps d77run.svg
+        vinstall assets/d77run-icon-16.png 644 usr/share/icons/hicolor/16x16/apps d77run.png
+        vinstall assets/d77run-icon-32.png 644 usr/share/icons/hicolor/32x32/apps d77run.png
+        vinstall assets/d77run-icon-192.png 644 usr/share/icons/hicolor/192x192/apps d77run.png
+        vinstall assets/d77run-icon-512.png 644 usr/share/icons/hicolor/512x512/apps d77run.png
 }
