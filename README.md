@@ -69,6 +69,23 @@ Currently packages are tested on the following architectures:
 
 <hr>
 
+## Automated template updates
+
+A [scheduled workflow](.github/workflows/update-templates.yml) checks every
+`srcpkgs/*/template` and `cosmic/*/template` against its upstream
+(GitHub/Codeberg releases and tags) every 3 days and opens a pull request
+when a newer version is found, bumping
+`version`, resetting `revision` to `1` and refreshing `checksum` — only after
+actually downloading and verifying the new source. It can also be run
+on demand from the Actions tab (`workflow_dispatch`).
+
+Not every template is eligible: packages fetched from hosts other than
+GitHub/Codeberg, or pinned to a `${_commit}` hash instead of a `${version}`
+tag, are left for manual updates. See the header of
+[`scripts/update_templates.py`](scripts/update_templates.py) for details.
+
+<hr>
+
 ## Credits
 
 - [Nizarjh: blackhole-vl](https://github.com/Event-Horizon-VL/blackhole-vl): Inspiration on README file
