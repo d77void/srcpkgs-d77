@@ -1,9 +1,9 @@
 name: Auto-update templates
 
-# Periodically checks every srcpkgs/*/template against upstream (GitHub /
-# Codeberg releases and tags) and opens a PR when a newer, verified version
-# is found. See scripts/update_templates.py for exactly what "verified"
-# means and which sources are supported.
+# Periodically checks every srcpkgs/*/template and cosmic/*/template
+# against upstream (GitHub / Codeberg releases and tags) and opens a PR
+# when a newer, verified version is found. See scripts/update_templates.py
+# for exactly what "verified" means and which sources are supported.
 
 on:
   schedule:
@@ -48,4 +48,6 @@ jobs:
           title: "Automated template update (${{ steps.update.outputs.updated_count }} package(s))"
           body-path: update-summary.md
           labels: automated,templates
-          add-paths: srcpkgs/*/template
+          add-paths: |
+            srcpkgs/*/template
+            cosmic/*/template

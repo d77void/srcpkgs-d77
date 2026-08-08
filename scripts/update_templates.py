@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Check every srcpkgs/*/template for a newer upstream release and, when one is
-found and verified, bump `version`, reset `revision` to 1 and refresh
-`checksum` in place.
+Check every srcpkgs/*/template and cosmic/*/template for a newer upstream
+release and, when one is found and verified, bump `version`, reset
+`revision` to 1 and refresh `checksum` in place.
 
 How it decides a package is "supported":
   - `distfiles` must reference GitHub (github.com) or Codeberg (codeberg.org),
@@ -47,7 +47,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SRCPKGS = ROOT / "srcpkgs"
+PKG_ROOTS = [ROOT / "srcpkgs", ROOT / "cosmic"]
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
 USER_AGENT = "srcpkgs-d77-template-updater (+https://github.com/d77void/srcpkgs-d77)"
@@ -331,8 +331,15 @@ def process_template(template: Path) -> Result:
     return Result(pkgname, old_version=version, new_version=candidate, status="updated")
 
 
+def discover_templates() -> list[Path]:
+    templates: list[Path] = []
+    for root in PKG_ROOTS:
+        templates.extend(root.glob("*/template"))
+    return sorted(templates)
+
+
 def main() -> int:
-    templates = sorted(SRCPKGS.glob("*/template"))
+    templates = discover_templates()
     report = Report()
 
     for template in templates:
