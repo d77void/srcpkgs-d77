@@ -1,0 +1,51 @@
+name: Auto-update templates
+
+# Periodically checks every srcpkgs/*/template against upstream (GitHub /
+# Codeberg releases and tags) and opens a PR when a newer, verified version
+# is found. See scripts/update_templates.py for exactly what "verified"
+# means and which sources are supported.
+
+on:
+  schedule:
+    # Every 3 days at 04:00 UTC. Cron's day-of-month field resets each
+    # month, so this actually fires on days 1/4/7/.../31 of every month
+    # (occasionally 2 days apart at the month boundary) rather than a
+    # perfectly rolling 3-day cadence -- close enough for this purpose.
+    - cron: "0 4 */3 * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: update-templates
+  cancel-in-progress: false
+
+jobs:
+  update-templates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check templates for updates
+        id: update
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          UPDATE_SUMMARY_PATH: ${{ github.workspace }}/update-summary.md
+        run: python3 scripts/update_templates.py
+
+      - name: Open pull request
+        if: steps.update.outputs.has_changes == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "templates: automated version/checksum update"
+          branch: auto/update-templates
+          delete-branch: true
+          title: "Automated template update (${{ steps.update.outputs.updated_count }} package(s))"
+          body-path: update-summary.md
+          labels: automated,templates
+          add-paths: srcpkgs/*/template
