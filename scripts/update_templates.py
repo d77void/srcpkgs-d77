@@ -31,6 +31,11 @@ into its download URLs) just fails the download and the package is skipped
 Unsupported/skippable sources (proprietary CDNs, GitLab, PyPI, GNOME,
 Hackage, suckless.org, freedesktop.org, commit-pinned templates, templates
 without a `distfiles`/`checksum` at all, ...) are logged and left untouched.
+
+Packages can also be pinned explicitly regardless of source support -- see
+`PINNED_PACKAGES` below -- for cases where a newer upstream version exists
+but shouldn't be picked up yet (e.g. a build-tool dependency in void is too
+old to build it).
 """
 
 from __future__ import annotations
@@ -57,6 +62,16 @@ DOWNLOAD_TIMEOUT = 300
 MAX_TAGS = 30
 
 PRERELEASE_MARKERS = ("alpha", "beta", "rc", "pre", "dev", "nightly")
+
+# Packages intentionally excluded from automated updates, with the reason
+# why. Remove an entry once the blocking condition no longer applies.
+PINNED_PACKAGES: dict[str, str] = {
+    "oxwm": (
+        "upstream switched the build from Rust (cargo) to Zig, but void's "
+        "zig package isn't new enough to build current upstream releases -- "
+        "staying on the last Rust-based version until zig is bumped"
+    ),
+}
 
 # Bash vars/functions xbps-src ships that a handful of templates rely on for
 # their distfiles URL. Defining them here lets the sourcing step below
@@ -273,6 +288,11 @@ def update_template_text(text: str, new_version: str, hashes: list[str]) -> str:
 
 def process_template(template: Path) -> Result:
     pkgname = template.parent.name
+
+    if pkgname in PINNED_PACKAGES:
+        return Result(pkgname, status="skipped",
+                       reason=f"pinned: {PINNED_PACKAGES[pkgname]}")
+
     try:
         fields = dump_template_vars(template)
     except Exception as e:  # noqa: BLE001
