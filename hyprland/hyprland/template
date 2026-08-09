@@ -1,6 +1,6 @@
 # Template file for 'hyprland'
 pkgname=hyprland
-version=0.55.4
+version=0.56.2
 revision=1
 build_style=cmake
 configure_args="-DNO_SYSTEMD:BOOL=true -Dglaze_DIR:PATH=/usr/share/glaze"
@@ -17,7 +17,7 @@ license="BSD-3-Clause"
 homepage="https://hyprland.org/"
 changelog="https://github.com/hyprwm/Hyprland/releases"
 distfiles="https://github.com/hyprwm/Hyprland/releases/download/v${version}/source-v${version}.tar.gz"
-checksum=10cdda47e6a42e603a646ffda89c9fca0628c3a8211e2fbbee02f6282effe30b
+checksum=03ad3f5ef152ff44116ffd56fcf808486211ecabf4f0ba567108ee746ba5cd2e
 make_check=no # cant run in sandbox
 
 if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
