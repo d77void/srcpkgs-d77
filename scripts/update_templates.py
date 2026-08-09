@@ -52,7 +52,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-PKG_ROOTS = [ROOT / "srcpkgs", ROOT / "cosmic"]
+PKG_ROOTS = [ROOT / "srcpkgs", ROOT / "cosmic", ROOT / "hyprland"]
 
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
 USER_AGENT = "srcpkgs-d77-template-updater (+https://github.com/d77void/srcpkgs-d77)"

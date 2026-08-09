@@ -72,8 +72,8 @@ Currently packages are tested on the following architectures:
 ## Automated template updates
 
 A [scheduled workflow](.github/workflows/update-templates.yml) checks every
-`srcpkgs/*/template` and `cosmic/*/template` against its upstream
-(GitHub/Codeberg releases and tags) every 3 days and opens a pull request
+`srcpkgs/*/template`, `cosmic/*/template` and `hyprland/*/template` against
+its upstream (GitHub/Codeberg releases and tags) every 3 days and opens a pull request
 when a newer version is found, bumping
 `version`, resetting `revision` to `1` and refreshing `checksum` — only after
 actually downloading and verifying the new source. It can also be run
@@ -88,5 +88,6 @@ tag, are left for manual updates. See the header of
 
 ## Credits
 
-- [Nizarjh: blackhole-vl](https://github.com/Event-Horizon-VL/blackhole-vl): Inspiration on README file
+- [Nizarjh: blackhole-vl](https://github.com/Event-Horizon-VL/blackhole-vl): Inspiration on README file and templates for Hyprland
 - [Bella109: Cosmic-repo}(https://codeberg.org/Bella109/void-cosmic-repo): The whole templates for CosmicDE
+- [Sofiya: hyprland-void](https://github.com/sofijacom/hyprland-void/): Some templates for Hyprland
