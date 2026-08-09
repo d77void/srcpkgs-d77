@@ -1,7 +1,7 @@
 # Template file for 'oxwm'
 pkgname=oxwm
-version=0.9.0
-revision=3
+version=0.12.0
+revision=1
 archs="x86_64 x86_64-musl"
 build_style=cargo
 hostmakedepends="make pkg-config"
@@ -12,7 +12,7 @@ maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="GPL-3.0-or-later"
 homepage="https://ox-docs.vercel.app/"
 distfiles="https://github.com/tonybanters/${pkgname}/archive/refs/tags/v${version}.tar.gz"
-checksum=bc92d0bc56ece22a7393bb32ab5ecad92a90d75b8d6e7a86250bf608b436d6f3
+checksum=63aacc8f61d4a85e859152e55d96274ad7873878dfade8755d01fee6cd6bb1f7
 repository=d77
 
 pre_install() {
