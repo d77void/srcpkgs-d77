@@ -1,0 +1,21 @@
+# Template file for 'utumno'
+pkgname=utumno
+version=0.1.0
+revision=1
+build_style=gnu-makefile
+hostmakedepends="make rsync"
+makedepends="wayland-devel"
+depends="quickshell power-profiles-daemon alsa-utils alsa-tools brightnessctl wireless_tools"
+short_desc="Minimal Quickshell shell for wayland compositors, lighter sibling of quickshell-d77"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="MIT"
+homepage="https://github.com/dani-77/utumno"
+changelog="https://github.com/dani-77/utumno/releases"
+distfiles="https://github.com/dani-77/utumno/archive/refs/tags/${version}.tar.gz"
+checksum=56f0842e8c65d8403bfe767c2606c1a1a9129e2f5a33161d67d3e5fab62f0b88
+repository=d77
+
+post_install() {
+	vlicense LICENSE
+	vdoc README.md
+}
