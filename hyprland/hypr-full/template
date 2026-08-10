@@ -1,0 +1,14 @@
+# Template file for 'hypr-full'
+pkgname=hypr-full
+version=0.56.2
+revision=1
+archs="x86_64*"
+metapackage="yes"
+depends="hyprland hypridle hyprlauncher hyprlock hyprmoncfg hyprpaper hyprpicker
+ hyprpolkitagent hyprpwcenter hyprshade hyprshot hyprshutdown hyprsunset
+ hyprsysteminfo hyprviz hyprland-guiutils xdg-desktop-portal-hyprland"
+short_desc="Full Hyprland Desktop"
+maintainer="Nizarjh <chel773@tutamail.com>"
+license="BSD-3-Clause"
+homepage="https://hyprland.org/"
+skip_extraction=yes
