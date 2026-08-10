@@ -6,7 +6,7 @@ build_style=meson
 configure_args="-Dwerror=false -Db_ndebug=false"
 conf_files="/etc/scroll/config"
 hostmakedepends="pkg-config wayland-devel scdoc"
-makedepends="pcre2-devel json-c-devel pango-devel cairo-devel glslang hwids lcms2-devel libgbm-devel libglvnd-devel libseat-devel eudev-libudev-devel libdrm-devel libinput-devel libxkbcommon-devel pixman-devel wayland-devel wayland-protocols vulkan-loader-devel xcb-util-errors-devel xcb-util-wm-devel xcb-util-renderutil-devel libdisplay-info-devel libliftoff-devel gdk-pixbuf-devel libevdev-devel lua54-devel"
+makedepends="pcre2-devel json-c-devel pango-devel cairo-devel glslang hwids lcms2-devel libgbm-devel libglvnd-devel libseat-devel eudev-libudev-devel libdrm-devel libinput-devel libxkbcommon-devel pixman-devel wayland-devel wayland-protocols vulkan-loader-devel xcb-util-errors-devel xcb-util-wm-devel xcb-util-renderutil-devel libdisplay-info-devel libliftoff-devel gdk-pixbuf-devel libevdev-devel lua54-devel readline-devel"
 depends="libcap-progs swaybg xorg-server-xwayland libxkbcommon>=1.5.0_1 lua54"
 short_desc="I3-compatible Wayland compositor with a PaperWM layout"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
