@@ -71,6 +71,11 @@ PINNED_PACKAGES: dict[str, str] = {
         "zig package isn't new enough to build current upstream releases -- "
         "staying on the last Rust-based version until zig is bumped"
     ),
+    "glaze": (
+        "hyprland's hyprpm requires glaze in the 7.x series "
+        "(find_package(glaze 7...<8)) -- staying on 7.2.0 until hyprpm's "
+        "CMakeLists.txt raises that upper bound"
+    ),
 }
 
 # Bash vars/functions xbps-src ships that a handful of templates rely on for

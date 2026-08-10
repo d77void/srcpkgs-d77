@@ -1,0 +1,23 @@
+--- a/src/helpers/MiscFunctions.cpp
++++ b/src/helpers/MiscFunctions.cpp
+@@ -837,8 +837,19 @@
+         return sc<char>(std::tolower(ch));
+     });
+ 
++    auto rangeStartsWith = [&](std::string_view prefix) -> bool {
++        auto it  = std::ranges::begin(str_view);
++        auto end = std::ranges::end(str_view);
++        for (char c : prefix) {
++            if (it == end || *it != c)
++                return false;
++            ++it;
++        }
++        return true;
++    };
++
+     return [&](auto&&... prefixes) -> bool {
+-        return (... || std::ranges::starts_with(str_view, prefixes));
++        return (... || rangeStartsWith(prefixes));
+     }("true"sv, "yes"sv, "on"sv);
+     // clang-format on
+ }

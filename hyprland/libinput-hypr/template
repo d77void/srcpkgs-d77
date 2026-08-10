@@ -1,0 +1,50 @@
+# Template file for 'libinput-hypr'
+# Fork of the official 'libinput' template with Lua plugin support disabled
+# (-Dlua-plugins=disabled). Upstream libinput links against Lua 5.4 for its
+# plugin system, which collides at the dynamic-linker level with Hyprland's
+# hard requirement on Lua 5.5 (both export identically-named lua_*/luaL_*
+# symbols into the same process) -- causing crashes on startup. Since this
+# package provides no Lua support at all, no second Lua runtime is ever
+# loaded, sidestepping the conflict entirely. Meant only for images/installs
+# that build the whole Hyprland stack (e.g. a Hyprland-focused ISO) and
+# never install the official 'libinput' package alongside it -- both own
+# usr/lib/libinput.so.10 and the same headers, so they cannot coexist.
+#
+# keep in sync with srcpkgs/libinput and srcpkgs/libinput-debug-gui upstream
+pkgname=libinput-hypr
+version=1.31.3
+revision=1
+wrksrc="libinput-${version}"
+build_style=meson
+configure_args="-Db_ndebug=false -Ddebug-gui=false -Dlua-plugins=disabled"
+hostmakedepends="pkg-config"
+makedepends="libevdev-devel libwacom-devel mtdev-devel eudev-libudev-devel"
+short_desc="Handling input devices in Wayland compositors and X - built for Hyprland (no Lua plugins)"
+maintainer="Nizarjh <chel773@tutamail.com>"
+license="MIT"
+homepage="https://www.freedesktop.org/wiki/Software/libinput"
+changelog="https://gitlab.freedesktop.org/libinput/libinput/-/releases"
+distfiles="https://gitlab.freedesktop.org/libinput/libinput/-/archive/${version}/libinput-${version}.tar.gz"
+checksum=b6749bf6f1890f6631c0a70a027c35fec9d2e096a39f720548896e41474a9854
+conflicts="libinput>=0"
+replaces="libinput>=0"
+provides="libinput-${version}_${revision}"
+
+configure_args+=" -Dtests=false"
+
+post_install() {
+	vlicense COPYING
+}
+
+libinput-hypr-devel_package() {
+	short_desc+=" - development files"
+	depends="${sourcepkg}>=${version}_${revision}"
+	conflicts="libinput-devel>=0"
+	replaces="libinput-devel>=0"
+	provides="libinput-devel-${version}_${revision}"
+	pkg_install() {
+		vmove usr/include
+		vmove "usr/lib/*.so"
+		vmove usr/lib/pkgconfig
+	}
+}
