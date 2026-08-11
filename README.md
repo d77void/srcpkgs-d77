@@ -1,4 +1,14 @@
-# d77void srcpkgs collection
+<p align="center">
+  <img src="assets/logo.png" width="128" alt="d77void logo">
+</p>
+
+<h1 align="center">srcpkgs-d77</h1>
+
+<p align="center">
+  d77void srcpkgs collection.
+</p>
+
+---
 
 > [!NOTE]
 > This project is **not affiliated with or endorsed by the Void Linux project** or its maintainers.
