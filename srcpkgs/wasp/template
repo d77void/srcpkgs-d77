@@ -1,0 +1,24 @@
+# Template file for 'wasp'
+pkgname=wasp
+version=0.9.0
+revision=1
+build_style=gnu-makefile
+hostmakedepends="pkg-config wayland-devel wayland-protocols"
+makedepends="libinput-devel wayland-devel wlroots0.20-devel
+ libxkbcommon-devel libxcb-devel xcb-util-wm-devel lua54-devel
+ scenefx-devel fcft-devel pixman-devel tllist"
+depends="xorg-server-xwayland"
+conf_files="/etc/xdg-desktop-portal/wasp-portals.conf"
+short_desc="Lua-configurable Wayland compositor based on dwl/wlroots"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="GPL-3.0-or-later, MIT"
+homepage="https://github.com/dani-77/wasp"
+changelog="https://github.com/dani-77/wasp/releases/tag/v${version}"
+distfiles="https://github.com/dani-77/wasp/archive/refs/tags/v${version}.tar.gz"
+checksum=11624e9f69a47f150fbde18620d1ab606709e1680ea0dd27f293fb380539e3f6
+repository=d77
+
+do_install() {
+	make PREFIX=/usr DESTDIR=$DESTDIR install
+	vlicense LICENSE.wasp LICENSE
+}
