@@ -99,5 +99,5 @@ tag, are left for manual updates. See the header of
 ## Credits
 
 - [Nizarjh: blackhole-vl](https://github.com/Event-Horizon-VL/blackhole-vl): Inspiration on README file and templates for Hyprland
-- [Bella109: Cosmic-repo}(https://codeberg.org/Bella109/void-cosmic-repo): The whole templates for CosmicDE
+- [Bella109: Cosmic-repo](https://codeberg.org/Bella109/void-cosmic-repo): The whole templates for CosmicDE
 - [Sofiya: hyprland-void](https://github.com/sofijacom/hyprland-void/): Some templates for Hyprland
