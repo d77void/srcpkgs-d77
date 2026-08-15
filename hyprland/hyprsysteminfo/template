@@ -3,10 +3,8 @@ pkgname=hyprsysteminfo
 version=0.2.0
 revision=2
 build_style=cmake
-hostmakedepends="pkgconf qt6-base qt6-declarative-devel xxd"
-makedepends="hyprland-qt-support hyprutils qt6-base-devel qt6-base-private-devel
- qt6-declarative-devel qt6-declarative-private-devel qt6-tools-devel
- qt6-wayland-devel qt6-wayland-private-devel glaze hyprtoolkit pciutils-devel"
+hostmakedepends="pkgconf xxd"
+makedepends="hyprtoolkit hyprutils glaze cairo-devel libdrm-devel pciutils-devel pixman-devel"
 short_desc="Tiny application to display information about the running system"
 maintainer="Nizarjh <chel773@tutamail.com>"
 license="BSD-3-Clause"
