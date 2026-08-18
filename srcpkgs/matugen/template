@@ -1,6 +1,6 @@
 # Template file for 'matugen'
 pkgname=matugen
-version=4.1.0
+version=4.2.0
 revision=1
 build_style=cargo
 build_helper="qemu"
@@ -11,5 +11,5 @@ license="GPL-2.0-only"
 homepage="https://github.com/InioX/matugen"
 changelog="https://github.com/InioX/${pkgname}/releases/tag/v${version}"
 distfiles="https://github.com/InioX/${pkgname}/archive/refs/tags/v${version}.tar.gz"
-checksum=b46507be24d01a6233597077512501f21075fe4ce19b60b410354f439f569ddf
+checksum=82044ab8ac3e793b2b94f8f75917b348b4038585133a77c07f5de59c88d65244
 repository=d77
