@@ -1,6 +1,6 @@
 # Template file for 'scroll'
 pkgname=scroll
-version=1.12.19
+version=1.12.20
 revision=1
 build_style=meson
 configure_args="-Dwerror=false -Db_ndebug=false"
@@ -14,7 +14,7 @@ license="MIT"
 homepage="https://github.com/dawsers/scroll"
 changelog="https://github.com/dawsers/scroll/releases"
 distfiles="https://github.com/dawsers/scroll/archive/refs/tags/${version}.tar.gz"
-checksum=00002e67d640a1132be181b128d505520298c6ef5a0587bc81b53b86f6858ca5
+checksum=83af9f07e24c27735df6e3a521dac275cbaf7f97b02a93276ffa79259a9a9c8e
 repository=d77
 
 pre_install() {
