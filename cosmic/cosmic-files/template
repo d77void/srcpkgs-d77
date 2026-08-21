@@ -1,6 +1,6 @@
 # Template file for 'cosmic-files'
 pkgname=cosmic-files
-version=1.5.0
+version=1.6.0
 revision=1
 archs="x86_64*"
 build_style=cargo
@@ -13,7 +13,7 @@ maintainer="Bella109 <belladev109@proton.me>"
 license="GPL-3.0-only"
 homepage="https://github.com/pop-os/cosmic-files"
 distfiles="https://github.com/pop-os/cosmic-files/archive/refs/tags/epoch-${version}.tar.gz"
-checksum=da8567bcd0a15ca6522a8800ec800701f8e994ef5da52513b3afdf95370e3bf1
+checksum=c43251ffb09f443aaab1ce93c1a6a655fdc4f8a26c9615324bc85b6503fea210
 build_options="sccache"
 
 pre_build() {

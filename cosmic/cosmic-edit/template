@@ -1,6 +1,6 @@
 # Template file for 'cosmic-edit'
 pkgname=cosmic-edit
-version=1.5.0
+version=1.6.0
 revision=1
 archs="x86_64*"
 build_style=cargo
@@ -13,7 +13,7 @@ maintainer="Bella109 <belladev109@proton.me>"
 license="GPL-3.0-only"
 homepage="https://github.com/pop-os/cosmic-edit"
 distfiles="https://github.com/pop-os/cosmic-edit/archive/refs/tags/epoch-${version}.tar.gz"
-checksum=d567902b1e04829eedd428cd37372137908947cfafccc14ba485b1ad58832cba
+checksum=bc64ead5c0893db7cd67594ef5d9ba2a85b1dee23aed5c625428d8ec1d13381f
 build_options="sccache"
 
 pre_build() {

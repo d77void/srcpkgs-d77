@@ -1,6 +1,6 @@
 # Template file for 'cosmic-greeter'
 pkgname=cosmic-greeter
-version=1.5.0
+version=1.6.0
 revision=1
 archs="x86_64* i686"
 build_style=cargo
@@ -14,7 +14,7 @@ maintainer="Bella109 <belladev109@proton.me>"
 license="GPL-3.0-only"
 homepage="https://github.com/pop-os/cosmic-greeter"
 distfiles="https://github.com/pop-os/cosmic-greeter/archive/refs/tags/epoch-${version}.tar.gz"
-checksum=bbd49754abdef813b8bf86fa3e724c243d0baca27447b8f908c85cfe2a60a73e
+checksum=d8d4135d926c0f2673dbb8ddb6120a7dc5f992811798ca193372db904f385f76
 skip_extraction=yes
 system_accounts="_cosmicgreeter"
 _cosmicgreeter_homedir="/var/lib/cosmic-greeter"
