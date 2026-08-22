@@ -1,6 +1,6 @@
 # Template file for 'font-JetBrainsMono'
 pkgname=font-JetBrainsMono
-version=3.5.0
+version=3.5.1
 revision=1
 short_desc="JetBrainsMono Nerd Font"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
@@ -8,7 +8,7 @@ license="GPL-3.0-or-later"
 homepage="https://www.jetbrains.com/lp/mono/"
 changelog="https://github.com/ryanoasis/nerd-fonts/releases/tag/v${version}"
 distfiles="https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/JetBrainsMono.tar.xz"
-checksum=6f6376c6ed2960ea8a963cd7387ec9d76e3f629125bc33d1fdcd7eb7012f7bbf
+checksum=04d5e8f903693f9dd13e16f867e994834e681eb3c72c0d337a770dcda09010cf
 repository=d77
 
 do_install() {

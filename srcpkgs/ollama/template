@@ -1,6 +1,6 @@
 # Template file for 'ollama'
 pkgname=ollama
-version=0.32.14
+version=0.32.15
 revision=1
 archs="x86_64 aarch64"
 build_style=go
@@ -11,7 +11,7 @@ maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://ollama.com/"
 distfiles="https://github.com/ollama/ollama/archive/refs/tags/v${version}.tar.gz"
-checksum=0d84e94d6cfe050084e8c0249983f163f68cbf43e504a47fb5ee51c922934300
+checksum=5370f62c5dd875b58e37b312524af6af311119b5443e2907e20c2aa239fca52e
 repository=d77
 
 system_accounts="_ollama"
