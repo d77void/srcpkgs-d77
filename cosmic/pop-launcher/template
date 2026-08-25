@@ -1,6 +1,6 @@
 # Template file for 'pop-launcher'
 pkgname=pop-launcher
-version=1.6.0
+version=1.7.0
 revision=1
 build_style="cargo"
 configure_args="--all"
@@ -14,7 +14,7 @@ maintainer="Bella Wagner <belladev109@proton.me>"
 license="MPL-2.0"
 homepage="https://github.com/pop-os/launcher"
 distfiles="https://github.com/pop-os/launcher/archive/refs/tags/epoch-${version}.tar.gz"
-checksum=eb7d22712b03db50bf1a3629d133109275636b3d079501df8dfcb97fbe10d8fb
+checksum=dd37b65197934ba40fa83fe64cefab1f30e9becd55a88ee2a7cfe9b007a8088d
 
 pre_build() {
 	$(vopt_if sccache "export RUSTC_WRAPPER=/usr/bin/sccache")
