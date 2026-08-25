@@ -1,6 +1,6 @@
 # Template file for 'cosmic-bg'
 pkgname=cosmic-bg
-version=1.6.0
+version=1.7.0
 revision=1
 archs="x86_64* i686"
 build_style=cargo
@@ -13,7 +13,7 @@ maintainer="Bella109 <belladev109@proton.me>"
 license="MPL-2.0"
 homepage="https://github.com/pop-os/cosmic-bg"
 distfiles="https://github.com/pop-os/cosmic-bg/archive/refs/tags/epoch-${version}.tar.gz"
-checksum=31a9e71c29747c3ff604dbbc52485f4689f0f0d9fd298b069aa7b9516343afe2
+checksum=0de7f92a8bd5223cc1e5df29b50e4f9c11325184b0f063436e2e800a80d0da04
 build_options="sccache"
 
 pre_build() {

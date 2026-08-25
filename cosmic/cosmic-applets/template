@@ -1,6 +1,6 @@
 # Template file for 'cosmic-applets'
 pkgname=cosmic-applets
-version=1.6.0
+version=1.7.0
 revision=1
 archs="x86_64* i686"
 build_style=cargo
@@ -13,7 +13,7 @@ maintainer="Bella109 <belladev109@proton.me>"
 license="GPL-3.0-only"
 homepage="https://github.com/pop-os/cosmic-applets"
 distfiles="https://github.com/pop-os/cosmic-applets/archive/refs/tags/epoch-${version}.tar.gz"
-checksum=ec62d99dc499373bce7970cceb08de0f2a8392d969b7d4384722816524a54083
+checksum=aba4783fe8cc31a3a1a1af642fffe593f69ff5d5e3bbb05994c21f04c7660676
 build_options="sccache"
 
 pre_build() {
