@@ -1,6 +1,6 @@
 # Template file for 'utumno'
 pkgname=utumno
-version=0.1.0
+version=0.1.1
 revision=1
 build_style=gnu-makefile
 hostmakedepends="make rsync"
@@ -12,7 +12,7 @@ license="MIT"
 homepage="https://github.com/dani-77/utumno"
 changelog="https://github.com/dani-77/utumno/releases"
 distfiles="https://github.com/dani-77/utumno/archive/refs/tags/${version}.tar.gz"
-checksum=56f0842e8c65d8403bfe767c2606c1a1a9129e2f5a33161d67d3e5fab62f0b88
+checksum=6dfb844228280d1ec01e439c65febbb044f7fe5ea26df2e5daf9c7eca86181df
 repository=d77
 
 post_install() {
