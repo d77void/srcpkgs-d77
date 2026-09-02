@@ -1,7 +1,7 @@
 # Template file for 'spitfire'
 pkgname=spitfire
 version=0.4.0
-revision=1
+revision=2
 build_style=cargo
 # Same feature set the project's own `make install` builds with — see the
 # top-level Makefile. build_style=cargo appends this to `cargo build`.
@@ -34,4 +34,10 @@ do_install() {
 	# target/release/ with the same feature flags via make_build_args.
 	make install DESTDIR="${DESTDIR}" PREFIX=/usr
 	vlicense LICENSE
+	# Reference config `make install` deliberately doesn't ship (it lives
+	# in examples/, not the Makefile's install list). Lands at
+	# /usr/share/doc/spitfire/config.lua; spitfire reads
+	# ~/.config/spitfire/config.lua and falls back to built-in defaults,
+	# so this is documentation only, not a runtime dependency.
+	vdoc examples/config.lua
 }
