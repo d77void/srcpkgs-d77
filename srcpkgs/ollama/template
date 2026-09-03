@@ -1,7 +1,7 @@
 # Template file for 'ollama'
 pkgname=ollama
 version=0.33.1
-revision=2
+revision=5
 archs="x86_64 aarch64"
 build_style=go
 go_import_path="github.com/ollama/ollama"
@@ -13,6 +13,11 @@ homepage="https://ollama.com/"
 distfiles="https://github.com/ollama/ollama/archive/refs/tags/v${version}.tar.gz"
 checksum=8f47ee4029470b4cd4a338dd6eafec4181bed46c6d180bed02f4127b43f2aab5
 repository=d77
+# The GitHub archive tarball's own top-level folder (ollama-${version})
+# ends up nested one level inside ${wrksrc} instead of flattened into it —
+# without this, every path (go.mod, llama/, ...) is one directory deeper
+# than pre_build()/do_install() expect. See Manual.md's build_wrksrc entry.
+build_wrksrc="ollama-${version}"
 
 system_accounts="_ollama"
 _ollama_homedir="/var/lib/ollama"
@@ -27,14 +32,38 @@ pre_build() {
 	# fails with "llama-server binary not found". The "cpu" preset builds
 	# all CPU ISA variants (GGML_CPU_ALL_VARIANTS=ON) plus the shared libs
 	# llama-server needs alongside it (ggml-base, ggml, llama, mtmd).
-	cmake -S llama/server -B build/llama-server-cpu --preset cpu \
-		-DCMAKE_INSTALL_PREFIX=/usr
-	cmake --build build/llama-server-cpu --parallel "${XBPS_MAKEJOBS}"
+	# build_style=go unconditionally sets nopie=yes (see
+	# common/environment/build-style/go.sh), which makes
+	# common/environment/build/hardening.sh add -no-pie/-fno-PIE to
+	# LDFLAGS/CFLAGS/CXXFLAGS — correct for linking the ollama Go binary
+	# itself, but wrong for this nested CMake build: -no-pie makes gcc
+	# pull in crt1.o (which expects an executable's `main`) even for a
+	# SHARED LIBRARY target, breaking libggml-base.so with "undefined
+	# reference to `main'". Strip just those two flags for this build.
+	local _llama_cflags="${CFLAGS//-fno-PIE/}"
+	local _llama_cxxflags="${CXXFLAGS//-fno-PIE/}"
+	local _llama_ldflags="${LDFLAGS//-no-pie/}"
+	# pre_build()/do_install() both run with $PWD == build_wrksrc (set
+	# above), so plain relative paths are correct here. Fail loudly and
+	# early with a clear message instead of a confusing downstream CMake
+	# error if the source tree layout ever changes upstream again.
+	if [ ! -f llama/server/CMakePresets.json ]; then
+		msg_error "ollama: llama/server/CMakePresets.json not found under $PWD — source tree layout changed upstream?\n"
+	fi
+	CFLAGS="$_llama_cflags" CXXFLAGS="$_llama_cxxflags" LDFLAGS="$_llama_ldflags" \
+		cmake -S llama/server -B build/llama-server-cpu --preset cpu \
+			-DCMAKE_INSTALL_PREFIX=/usr
+	CFLAGS="$_llama_cflags" CXXFLAGS="$_llama_cxxflags" LDFLAGS="$_llama_ldflags" \
+		cmake --build build/llama-server-cpu --parallel "${XBPS_MAKEJOBS}"
 }
 
 do_install() {
 	vlicense LICENSE
-	vbin _build-ollama-xbps/bin/ollama
+	# ${wrksrc}, not build_wrksrc-relative: GOPATH (see
+	# common/environment/build-style/go.sh) is set to
+	# "${wrksrc}/_build-ollama-xbps" — an absolute path anchored on the
+	# *outer* wrksrc, a sibling of build_wrksrc, not inside it.
+	vbin "${wrksrc}/_build-ollama-xbps/bin/ollama"
 	# Installs llama-server + its backend libs into ${DESTDIR}/usr/lib/ollama —
 	# the CMake install() rules already target lib/ollama under the prefix
 	# set above, so this just needs DESTDIR redirected into the package.
