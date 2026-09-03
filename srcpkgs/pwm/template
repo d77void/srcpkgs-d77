@@ -26,5 +26,7 @@ do_install() {
 	vinstall pwm.desktop 644 usr/share/xsessions/
 	vmkdir /etc/xdg/pwm
 	vcopy etc/xdg/pwm/'*' /etc/xdg/pwm/
+	vmkdir /usr/share/pwm
+	vcopy usr/share/pwm/'*' /usr/share/pwm/
 	vlicense LICENSE
 }
