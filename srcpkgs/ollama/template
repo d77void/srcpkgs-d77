@@ -1,10 +1,17 @@
 # Template file for 'ollama'
 pkgname=ollama
 version=0.33.1
-revision=5
+revision=7
 archs="x86_64 aarch64"
 build_style=go
 go_import_path="github.com/ollama/ollama"
+# Stamp the version into the binary. Without this, version.Version keeps its
+# source default of "0.0.0" and `ollama --version` / GET /api/version both
+# report 0.0.0. server.mode=release puts gin in release mode (no debug route
+# dump on startup). Matches upstream's release build (scripts/env.sh,
+# .github/workflows/release.yaml): VERSION there is the tag minus its "v",
+# i.e. exactly ${version}.
+go_ldflags="-X=github.com/ollama/ollama/version.Version=${version} -X=github.com/ollama/ollama/server.mode=release"
 hostmakedepends="cmake git"
 short_desc="Get up and running with large language models, locally"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
