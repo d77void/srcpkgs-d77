@@ -1,6 +1,6 @@
 # Template file for 'helium-d77'
 pkgname=helium-d77
-version=0.1.9
+version=0.1.10
 revision=1
 build_style=cargo
 hostmakedepends="pkg-config"
@@ -11,7 +11,7 @@ maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://github.com/dani-77/helium-d77"
 distfiles="https://github.com/dani-77/helium-d77/archive/refs/tags/${version}.tar.gz"
-checksum=79ac23b803d4ec7304ee9f3bc5f5800c4607f806e74fd872bb1b0a6ea3e200be
+checksum=e5a573cc898bd8d036fdaff90dc48952901bb1bb96d4ee8f0a630b2f6221d744
 repository=d77
 
 # build_style=cargo's default do_install only installs a single binary named
