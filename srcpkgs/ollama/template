@@ -1,7 +1,7 @@
 # Template file for 'ollama'
 pkgname=ollama
 version=0.33.1
-revision=1
+revision=2
 archs="x86_64 aarch64"
 build_style=go
 go_import_path="github.com/ollama/ollama"
@@ -20,10 +20,24 @@ make_dirs="${_ollama_homedir} 0750 _ollama _ollama"
 
 pre_build() {
 	go generate ./...
+	# Since 0.33.x, ollama no longer embeds llama.cpp in the Go binary — it
+	# spawns a separate `llama-server` subprocess for inference, built via
+	# CMake under llama/server/ (its own CMakePresets.json). Without this,
+	# `ollama` starts fine and serves /api/tags, but every /api/generate
+	# fails with "llama-server binary not found". The "cpu" preset builds
+	# all CPU ISA variants (GGML_CPU_ALL_VARIANTS=ON) plus the shared libs
+	# llama-server needs alongside it (ggml-base, ggml, llama, mtmd).
+	cmake -S llama/server -B build/llama-server-cpu --preset cpu \
+		-DCMAKE_INSTALL_PREFIX=/usr
+	cmake --build build/llama-server-cpu --parallel "${XBPS_MAKEJOBS}"
 }
 
 do_install() {
 	vlicense LICENSE
 	vbin _build-ollama-xbps/bin/ollama
+	# Installs llama-server + its backend libs into ${DESTDIR}/usr/lib/ollama —
+	# the CMake install() rules already target lib/ollama under the prefix
+	# set above, so this just needs DESTDIR redirected into the package.
+	DESTDIR="${DESTDIR}" cmake --install build/llama-server-cpu
 	vsv ollama
 }
