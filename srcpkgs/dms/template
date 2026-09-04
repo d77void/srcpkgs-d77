@@ -1,6 +1,6 @@
 # Template file for 'dms'
 pkgname=dms
-version=1.5.3
+version=1.6.0
 revision=1
 archs="x86_64 x86_64-musl"
 build_style=gnu-makefile
@@ -15,7 +15,7 @@ license="MIT"
 homepage="https://danklinux.com"
 changelog="https://github.com/AvengeMedia/DankMaterialShell/releases/tag/v${version}"
 distfiles="https://github.com/AvengeMedia/DankMaterialShell/archive/refs/tags/v${version}.tar.gz"
-checksum=2d665870f7019700fb38d59d043202e298e1aad1d3f1cb96360a75acbd3be9ca
+checksum=1bb571f9aa2b82469c48e956bc4d7a38a0b23ae2d29f88b9a881d65fc21a5543
 repository=d77
 
 do_install() {

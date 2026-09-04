@@ -1,7 +1,7 @@
 # Template file for 'ipscan'
 pkgname=ipscan
-version=3.9.3
-revision=5
+version=3.10.0
+revision=1
 archs="x86_64"
 build_style="fetch"
 hostmakedepends="tar xz"
@@ -11,7 +11,7 @@ maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="GPL-3.0-or-later"
 homepage="https://angryip.org"
 distfiles="https://github.com/angryip/ipscan/releases/download/${version}/ipscan_${version}_amd64.deb"
-checksum=44b76572bb6959c3b8cfb70a48dfb2f54273301b67962da602fb8949708ca095
+checksum=8c7286941d4bbbb1c804e9b7e3cb9dd6bc3974cfcee7ec89c3f24ffeb52a8217
 repository=d77
 
 do_install() {
