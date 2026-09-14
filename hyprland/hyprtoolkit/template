@@ -5,7 +5,7 @@ revision=1
 build_style=cmake
 configure_args="-DDISABLE_TESTS=ON"
 hostmakedepends="hyprwayland-scanner pkgconf"
-makedepends="aquamarine cairo-devel gtest-devel hyprgraphics hyprlang hyprutils
+makedepends="abseil-cpp-devel aquamarine cairo-devel gtest-devel hyprgraphics hyprlang hyprutils
  iniparser-devel libdrm-devel libgbm-devel libglvnd-devel libxkbcommon-devel
  pango-devel pixman-devel wayland-devel wayland-protocols"
 short_desc="Modern C++ Wayland-native GUI toolkit"
