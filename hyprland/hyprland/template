@@ -1,7 +1,7 @@
 # Template file for 'hyprland'
 pkgname=hyprland
 version=0.56.2
-revision=1
+revision=2
 build_style=cmake
 configure_args="-DNO_SYSTEMD:BOOL=true -Dglaze_DIR:PATH=/usr/share/glaze"
 hostmakedepends="cmake cpio glslang hyprwayland-scanner hyprwire jq pkgconf python3 xxd"
@@ -20,6 +20,14 @@ distfiles="https://github.com/hyprwm/Hyprland/releases/download/v${version}/sour
 checksum=03ad3f5ef152ff44116ffd56fcf808486211ecabf4f0ba567108ee746ba5cd2e
 repository=hypr-d77
 make_check=no # cant run in sandbox
+
+# libinput-hypr replaces/conflicts with stock libinput (disables its Lua
+# plugin support, which otherwise collides with Hyprland's own Lua 5.5 at
+# the dynamic-linker level -- see srcpkgs/libinput-hypr/template). Pin it
+# explicitly so installing hyprland always pulls the working variant
+# instead of leaving it to whichever provider of virtual "libinput" the
+# resolver happens to pick.
+depends="libinput-hypr"
 
 if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
 	configure_args+=" -DCMAKE_CXX_FLAGS=\"-lexecinfo\""
