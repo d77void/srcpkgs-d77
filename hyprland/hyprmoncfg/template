@@ -12,6 +12,7 @@ license="MIT"
 homepage="https://github.com/crmne/hyprmoncfg/"
 distfiles="https://github.com/crmne/hyprmoncfg/archive/v${version}.tar.gz"
 checksum=8bb9eb29f21f162d6bad023cccc5194bc5d4c602966bbe19c08223491fbad635
+repository=hypr-d77
 
 post_install() {
 	vlicense LICENSE

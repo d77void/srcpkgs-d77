@@ -14,6 +14,7 @@ license="GPL-3.0-only"
 homepage="https://github.com/pop-os/cosmic-comp"
 distfiles="https://github.com/pop-os/cosmic-comp/archive/refs/tags/epoch-${version}.tar.gz"
 checksum=5944dcae5de80743a5200dc6b4b28147fae7fa6e7aedfe58012248b82b62355c
+repository=cosmic-d77
 
 do_install() {
 	CARGO_TARGET_DIR="target/${XBPS_RUST_TARGET}" make install

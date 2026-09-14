@@ -13,6 +13,7 @@ license="GPL-3.0-only"
 homepage="https://github.com/pop-os/cosmic-monitor"
 distfiles="https://github.com/pop-os/cosmic-monitor/archive/refs/tags/epoch-${version}.tar.gz"
 checksum=d956f53cf930e16f83c2f02a57e66a36a8c832d942f2bce6df5672f07569c400
+repository=cosmic-d77
 
 do_install() {
 	just rootdir="${DESTDIR}" cargo-target-dir="target/${RUST_TARGET}" install

@@ -14,6 +14,7 @@ license="GPL-3.0-or-later"
 homepage="https://github.com/pop-os/cosmic-settings-daemon"
 distfiles="https://github.com/pop-os/cosmic-settings-daemon/archive/refs/tags/epoch-${version}.tar.gz"
 checksum=10e26ed1d815f8e6176068df3c441c13dd6fda7bd85a059afcfddd54b4689e8e
+repository=cosmic-d77
 
 export GEOCLUE_AGENT="/usr/libexec/geoclue-2.0/demos/agent"
 

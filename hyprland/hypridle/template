@@ -14,6 +14,7 @@ homepage="https://github.com/hyprwm/hypridle"
 changelog="https://github.com/hyprwm/${pkgname}/releases"
 distfiles="https://github.com/hyprwm/hypridle/archive/refs/tags/v${version}.tar.gz"
 checksum=08703613cc33cc796c2179bcaa6076e8618113f67b938daaf7535f90c7d39595
+repository=hypr-d77
 
 post_install() {
 	vlicense LICENSE

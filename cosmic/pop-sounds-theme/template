@@ -10,6 +10,7 @@ license="CC-BY-SA-4.0"
 homepage="https://github.com/pop-os/gtk-theme"
 distfiles=${homepage}/archive/refs/tags/v${version}.tar.gz
 checksum=080aa631459c941fa18f0facd0265e7d94e3dcf1a0104e62777797e0b2cfe81c
+repository=cosmic-d77
 
 post_install() {
 	rm -rf ${DESTDIR}/usr/share/gtk

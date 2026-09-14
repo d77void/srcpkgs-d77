@@ -14,6 +14,7 @@ license="GPL-3.0-only"
 homepage="https://github.com/pop-os/cosmic-idle"
 distfiles="https://github.com/pop-os/cosmic-idle/archive/refs/tags/epoch-${version}.tar.gz"
 checksum=b35c98a998687aca66cedbb02d5067c8de4a8340f8c3e12a4b7c44adfa59ef52
+repository=cosmic-d77
 build_options="sccache"
 
 pre_build() {

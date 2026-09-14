@@ -18,6 +18,7 @@ homepage="https://hyprland.org/"
 changelog="https://github.com/hyprwm/Hyprland/releases"
 distfiles="https://github.com/hyprwm/Hyprland/releases/download/v${version}/source-v${version}.tar.gz"
 checksum=03ad3f5ef152ff44116ffd56fcf808486211ecabf4f0ba567108ee746ba5cd2e
+repository=hypr-d77
 make_check=no # cant run in sandbox
 
 if [ "$XBPS_TARGET_LIBC" = "musl" ]; then

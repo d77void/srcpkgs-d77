@@ -16,6 +16,7 @@ license="BSD-3-Clause"
 homepage="https://github.com/hyprwm/xdg-desktop-portal-hyprland"
 distfiles="${homepage}/archive/refs/tags/v${version}.tar.gz"
 checksum=3652c14f63a9666acea2c841e196782dbc0f74ea5b4783622dd04a32f08b709f
+repository=hypr-d77
 
 post_install() {
 	vlicense LICENSE

@@ -10,6 +10,7 @@ license="MIT"
 homepage="https://marzer.github.io/tomlplusplus/"
 distfiles="https://github.com/marzer/${pkgname}/archive/refs/tags/v${version}.tar.gz"
 checksum=8517f65938a4faae9ccf8ebb36631a38c1cadfb5efa85d9a72e15b9e97d25155
+repository=hypr-d77
 
 post_install() {
 	vlicense LICENSE

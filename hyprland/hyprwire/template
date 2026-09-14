@@ -12,6 +12,7 @@ license="BSD-3-Clause"
 homepage="https://github.com/hyprwm/hyprwire"
 distfiles="https://github.com/hyprwm/hyprwire/archive/refs/tags/v${version}.tar.gz"
 checksum=92a673d40ae6a7d66fbcd0a34ec071e026e17eaeeb0040c3375e4b2a80dba737
+repository=hypr-d77
 
 post_install() {
 	vlicense LICENSE

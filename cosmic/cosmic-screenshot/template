@@ -12,6 +12,7 @@ license="GPL-3.0-only"
 homepage="https://github.com/pop-os/cosmic-screenshot"
 distfiles="https://github.com/pop-os/cosmic-screenshot/archive/refs/tags/epoch-${version}.tar.gz"
 checksum=1f4c38e5219f3c12540eec98ef9d4fd8756908bfebe10a8e793e4b72b0aae032
+repository=cosmic-d77
 build_options="sccache"
 
 pre_build() {

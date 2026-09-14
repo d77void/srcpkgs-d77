@@ -11,6 +11,7 @@ license="MIT"
 homepage="https://github.com/loqusion/hyprshade"
 distfiles="https://github.com/loqusion/hyprshade/archive/refs/tags/${version}.tar.gz"
 checksum=9a5e489bd17990635b003013d25128b6e83c7f97407fe916de7860ec81f9cbce
+repository=hypr-d77
 
 post_install() {
 	vlicense LICENSE

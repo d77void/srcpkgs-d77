@@ -9,4 +9,5 @@ license="CC-BY-SA-4.0"
 homepage="https://github.com/pop-os/cosmic-wallpapers"
 distfiles="https://github.com/pop-os/cosmic-wallpapers/archive/refs/tags/epoch-${version}.tar.gz"
 checksum=f489d0aa1a8b7d3803bf7e7d6c534dc0157926e140519e8d7d22c069c8a8fb9c
+repository=cosmic-d77
 skip_extraction="yes"

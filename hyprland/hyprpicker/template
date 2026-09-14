@@ -13,6 +13,7 @@ homepage="https://github.com/hyprwm/hyprpicker"
 changelog="https://github.com/hyprwm/hyprpicker/releases"
 distfiles="https://github.com/hyprwm/hyprpicker/archive/refs/tags/v${version}.tar.gz"
 checksum=cde02b92abe372187c9d59a7cb2ca07ede5c3e1a8c81ed8b209dc0d3ac5f0339
+repository=hypr-d77
 
 pre_build() {
 	make protocols

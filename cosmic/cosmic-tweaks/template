@@ -12,6 +12,7 @@ license="GPL-3.0-only"
 homepage="https://github.com/cosmic-utils/tweaks"
 distfiles="https://github.com/cosmic-utils/tweaks/archive/refs/tags/${version}.tar.gz"
 checksum=adc3c335d7bc0f9bb9b2882a8e53e15e75676021a1ed192d1171cf3cbaf15bc0
+repository=cosmic-d77
 
 do_build() {
 	just build-release

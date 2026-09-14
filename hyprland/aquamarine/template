@@ -14,4 +14,5 @@ homepage="https://hyprland.org/hyprlang/index.html"
 changelog="https://github.com/hyprwm/aquamarine/releases"
 distfiles="https://github.com/hyprwm/aquamarine/archive/refs/tags/v${version}.tar.gz"
 checksum=bb5323f58cd2f379cb11c39893336e49980fe2e9fb101745addd87cebde3d13d
+repository=hypr-d77
 make_check=no # cant run in sandbox

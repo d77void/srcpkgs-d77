@@ -12,3 +12,4 @@ maintainer="Nizarjh <chel773@tutamail.com>"
 license="BSD-3-Clause"
 homepage="https://hyprland.org/"
 skip_extraction=yes
+repository=hypr-d77

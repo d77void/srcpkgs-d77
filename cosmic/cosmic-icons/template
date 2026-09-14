@@ -10,6 +10,7 @@ license="CC-BY-SA-4.0"
 homepage="https://github.com/pop-os/cosmic-icons"
 distfiles="https://github.com/pop-os/cosmic-icons/archive/refs/tags/epoch-${version}.tar.gz"
 checksum=a85368f132859fcc00ef07304dd8688f9d372b3b83b2b2f39477585e4b9c247b
+repository=cosmic-d77
 
 do_install() {
 	just rootdir="${DESTDIR}" install

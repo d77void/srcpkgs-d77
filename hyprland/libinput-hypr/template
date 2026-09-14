@@ -26,6 +26,7 @@ homepage="https://www.freedesktop.org/wiki/Software/libinput"
 changelog="https://gitlab.freedesktop.org/libinput/libinput/-/releases"
 distfiles="https://gitlab.freedesktop.org/libinput/libinput/-/archive/${version}/libinput-${version}.tar.gz"
 checksum=b6749bf6f1890f6631c0a70a027c35fec9d2e096a39f720548896e41474a9854
+repository=hypr-d77
 conflicts="libinput>=0"
 replaces="libinput>=0"
 provides="libinput-${version}_${revision}"

@@ -12,6 +12,7 @@ license="MPL-2.0"
 homepage="https://github.com/pop-os/cosmic-randr"
 distfiles="https://github.com/pop-os/cosmic-randr/archive/refs/tags/epoch-${version}.tar.gz"
 checksum=226591921a26f0fa03cf3867b73d7d1af89bda16f4ea45eea75decd0bbcd1e29
+repository=cosmic-d77
 build_options="sccache"
 
 pre_build() {

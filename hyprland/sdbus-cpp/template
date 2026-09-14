@@ -12,6 +12,7 @@ homepage="https://github.com/Kistler-Group/sdbus-cpp"
 changelog="https://github.com/Kistler-Group/${pkgname}/releases"
 distfiles="https://github.com/Kistler-Group/${pkgname}/archive/refs/tags/v${version}.tar.gz"
 checksum=3a289eded586c26d06c1387de72c7bf7c809527a70d51ba6401fe61059b19626
+repository=hypr-d77
 
 post_install() {
 	vlicense COPYING
