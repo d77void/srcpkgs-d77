@@ -1,7 +1,7 @@
 # Template file for 'dms'
 pkgname=dms
 version=1.6.1
-revision=1
+revision=2
 archs="x86_64 x86_64-musl"
 build_style=gnu-makefile
 build_helper="qemu"
@@ -14,9 +14,22 @@ maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://danklinux.com"
 changelog="https://github.com/AvengeMedia/DankMaterialShell/releases/tag/v${version}"
-distfiles="https://github.com/AvengeMedia/DankMaterialShell/archive/refs/tags/v${version}.tar.gz"
-checksum=abd50f97df1a4714526089825e5ba4bba2850e5d635f7618511c68a4a6276bbd
+# dank-qml-common is a git submodule (quickshell/DankCommon is a symlink to
+# ../dank-qml-common/DankCommon); GitHub tarballs don't include submodule
+# content, so fetch it separately at the commit pinned by the v${version}
+# tag (see: git ls-tree v${version} dank-qml-common) and unpack it into
+# place. Same submodule/approach as srcpkgs/dankcalendar.
+_dankcommon_commit=26396ce432d6c71c3f5367438f96f4a8d667e160
+distfiles="https://github.com/AvengeMedia/DankMaterialShell/archive/refs/tags/v${version}.tar.gz
+ https://github.com/AvengeMedia/dank-qml-common/archive/${_dankcommon_commit}.tar.gz>dank-qml-common-${_dankcommon_commit}.tar.gz"
+checksum="abd50f97df1a4714526089825e5ba4bba2850e5d635f7618511c68a4a6276bbd
+ f5aa4d56a937a275c9ee504c567c36c141cb11297cae934f1b5cf3cf3620de10"
+skip_extraction="dank-qml-common-${_dankcommon_commit}.tar.gz"
 repository=d77
+
+post_extract() {
+	vsrcextract -C dank-qml-common "dank-qml-common-${_dankcommon_commit}.tar.gz"
+}
 
 do_install() {
 	vbin core/bin/dms

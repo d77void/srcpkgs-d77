@@ -1,11 +1,11 @@
 # Template file for 'ipscan'
 pkgname=ipscan
 version=3.10.0
-revision=1
+revision=2
 archs="x86_64"
 build_style="fetch"
 hostmakedepends="tar xz"
-depends="openjdk17"
+depends="openjdk25"
 short_desc="Fast and friendly network scanner"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="GPL-3.0-or-later"
@@ -14,9 +14,14 @@ distfiles="https://github.com/angryip/ipscan/releases/download/${version}/ipscan
 checksum=8c7286941d4bbbb1c804e9b7e3cb9dd6bc3974cfcee7ec89c3f24ffeb52a8217
 repository=d77
 
+# Upstream's own /usr/bin/ipscan launcher already locates the jar itself
+# (glob "/usr/lib*/ipscan/ipscan*.jar") and reports its own Java version
+# requirement, so no post-install sed is needed anymore -- it also renamed
+# the .desktop file to net.azib.ipscan.desktop in this release. Requires
+# OpenJDK 25+ (--enable-native-access is a JDK 22+ flag; upstream's own
+# fallback message names 25).
 do_install() {
 	metapackage=yes
 	ar x ipscan_${version}_amd64.deb
 	tar xf data.tar.xz -C ${DESTDIR}
-	vsed -i 's|sh /usr/bin/ipscan|java -jar /usr/lib64/ipscan/ipscan-linux64-3.9.3.jar|' ${DESTDIR}/usr/share/applications/ipscan.desktop
 }
