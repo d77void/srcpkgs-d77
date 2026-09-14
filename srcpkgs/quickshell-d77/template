@@ -1,11 +1,14 @@
 # Template file for 'quickshell-d77'
 pkgname=quickshell-d77
 version=1.4.4
-revision=1
+revision=2
 build_style=gnu-makefile
 hostmakedepends="make rsync"
 makedepends="wayland-devel"
-depends="quickshell power-profiles-daemon alsa-utils alsa-tools brightnessctl wireless_tools"
+# quickshell is required at runtime but intentionally NOT listed in depends=:
+# pinning it here holds back system upgrades whenever quickshell-d77 is
+# installed. Install quickshell yourself alongside this package.
+depends="power-profiles-daemon alsa-utils alsa-tools brightnessctl wireless_tools"
 short_desc="Quickshell d77 shell for wayland compositors"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"

@@ -1,11 +1,14 @@
 # Template file for 'utumno'
 pkgname=utumno
 version=0.1.2
-revision=1
+revision=2
 build_style=gnu-makefile
 hostmakedepends="make rsync"
 makedepends="wayland-devel"
-depends="quickshell power-profiles-daemon alsa-utils alsa-tools brightnessctl wireless_tools"
+# quickshell is required at runtime but intentionally NOT listed in depends=:
+# pinning it here holds back system upgrades whenever utumno is installed.
+# Install quickshell yourself alongside this package.
+depends="power-profiles-daemon alsa-utils alsa-tools brightnessctl wireless_tools"
 short_desc="Minimal Quickshell shell for wayland compositors, lighter sibling of quickshell-d77"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
