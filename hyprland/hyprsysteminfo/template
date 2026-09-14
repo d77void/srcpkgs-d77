@@ -1,7 +1,7 @@
 # Template file for 'hyprsysteminfo'
 pkgname=hyprsysteminfo
 version=0.2.0
-revision=2
+revision=3
 build_style=cmake
 hostmakedepends="pkgconf xxd"
 makedepends="hyprtoolkit hyprutils glaze cairo-devel libdrm-devel pciutils-devel pixman-devel"
