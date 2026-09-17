@@ -1,6 +1,6 @@
 # Template file for 'mullvadvpn'
 pkgname=mullvadvpn
-version=2026.4
+version=2026.5
 revision=1
 archs="x86_64* aarch64*"
 hostmakedepends="tar xz"
@@ -9,7 +9,7 @@ maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="custom:mullvadvpn"
 homepage="https://mullvad.net/"
 distfiles="https://github.com/mullvad/mullvadvpn-app/releases/download/${version}/MullvadVPN-${version}_amd64.deb"
-checksum=f1d758079e1dc90fff0c8d48256599b717e1de9879682c861a6776851c59453b
+checksum=aa6bd00452588597f50e8ca2f02bb91e9c295c4f01b0ae907354552e7428e7ab
 noverifyrdeps="libexpat.so.1"
 repository=d77
 
