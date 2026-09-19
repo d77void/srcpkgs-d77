@@ -1,7 +1,7 @@
 # Template file for 'dms'
 pkgname=dms
-version=1.6.1
-revision=2
+version=1.6.2
+revision=1
 archs="x86_64 x86_64-musl"
 build_style=gnu-makefile
 build_helper="qemu"
@@ -22,7 +22,7 @@ changelog="https://github.com/AvengeMedia/DankMaterialShell/releases/tag/v${vers
 _dankcommon_commit=26396ce432d6c71c3f5367438f96f4a8d667e160
 distfiles="https://github.com/AvengeMedia/DankMaterialShell/archive/refs/tags/v${version}.tar.gz
  https://github.com/AvengeMedia/dank-qml-common/archive/${_dankcommon_commit}.tar.gz>dank-qml-common-${_dankcommon_commit}.tar.gz"
-checksum="abd50f97df1a4714526089825e5ba4bba2850e5d635f7618511c68a4a6276bbd
+checksum="5eff09d35d39b18f9d593f0f464e2fb5be3ddf6c92fa9eb1e99c534126c62419
  f5aa4d56a937a275c9ee504c567c36c141cb11297cae934f1b5cf3cf3620de10"
 skip_extraction="dank-qml-common-${_dankcommon_commit}.tar.gz"
 repository=d77
