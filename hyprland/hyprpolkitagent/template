@@ -4,7 +4,7 @@ version=0.2.0
 revision=1
 build_style=cmake
 hostmakedepends="pkgconf qt6-base qt6-declarative-devel"
-makedepends="hyprutils polkit-qt6-devel qt6-base-devel qt6-declarative-devel"
+makedepends="hyprutils hyprtoolkit hyprgraphics hyprlang sdbus-cpp elogind-devel polkit-qt6-devel qt6-base-devel qt6-declarative-devel"
 depends="hyprland-qt-support"
 short_desc="Simple polkit authentication agent for Hyprland, written in QT/QML"
 maintainer="Nizarjh <chel773@tutamail.com>"
@@ -13,6 +13,15 @@ homepage="https://github.com/hyprwm/hyprpolkitagent"
 distfiles="https://github.com/hyprwm/hyprpolkitagent/archive/refs/tags/v${version}.tar.gz"
 checksum=dcb1147e28efe03f308513f9dad69ab54e3cb9eca38795c4498d968b4f5ec602
 repository=hypr-d77
+
+# upstream's pkg_check_modules(... IMPORTED_TARGET ...) doesn't propagate
+# pixman-1's/libdrm's non-standard include subdirs to the actual targets,
+# even though hyprutils/aquamarine's public headers need <pixman.h> and
+# <drm_fourcc.h>; add them explicitly.
+pre_configure() {
+	CFLAGS+=" -I${XBPS_CROSS_BASE}/usr/include/pixman-1 -I${XBPS_CROSS_BASE}/usr/include/libdrm"
+	CXXFLAGS+=" -I${XBPS_CROSS_BASE}/usr/include/pixman-1 -I${XBPS_CROSS_BASE}/usr/include/libdrm"
+}
 
 post_install() {
 	vlicense LICENSE

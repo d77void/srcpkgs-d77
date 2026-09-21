@@ -2,7 +2,7 @@
 pkgname=hyprland-protocols
 version=0.7.1
 revision=1
-build_style=meson
+build_style=cmake
 short_desc="Wayland protocol extensions for Hyprland"
 maintainer="Nizarjh <chel773@tutamail.com>"
 license="BSD-3-Clause"

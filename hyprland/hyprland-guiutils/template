@@ -1,7 +1,7 @@
 # Template file for 'hyprland-guiutils'
 pkgname=hyprland-guiutils
 version=0.2.2
-revision=1
+revision=2
 build_style=cmake
 hostmakedepends="ninja pkgconf"
 makedepends="aquamarine cairo-devel hyprgraphics hyprlang
@@ -14,6 +14,15 @@ homepage="https://github.com/hyprwm/hyprland-guiutils"
 distfiles="https://github.com/hyprwm/hyprland-guiutils/archive/refs/tags/v${version}.tar.gz"
 checksum=16f92a6c5a22ac58e1fc313f6b202c188da45e804e1f21ff57dfd0da5c1a01b7
 repository=hypr-d77
+
+# upstream's pkg_check_modules(... IMPORTED_TARGET ...) doesn't propagate
+# pixman-1's/libdrm's non-standard include subdirs to the actual targets,
+# even though hyprutils/aquamarine's public headers need <pixman.h> and
+# <drm_fourcc.h>; add them explicitly.
+pre_configure() {
+	CFLAGS+=" -I${XBPS_CROSS_BASE}/usr/include/pixman-1 -I${XBPS_CROSS_BASE}/usr/include/libdrm"
+	CXXFLAGS+=" -I${XBPS_CROSS_BASE}/usr/include/pixman-1 -I${XBPS_CROSS_BASE}/usr/include/libdrm"
+}
 
 post_install() {
 	vlicense LICENSE

@@ -1,7 +1,7 @@
 # Template file for 'hyprlauncher'
 pkgname=hyprlauncher
 version=0.1.6
-revision=1
+revision=2
 build_style=cmake
 hostmakedepends="hyprwire pkgconf"
 makedepends="hyprutils hyprwire hyprlang hyprtoolkit wayland-devel pixman-devel libdrm-devel
@@ -14,6 +14,15 @@ homepage="https://github.com/hyprwm/hyprlauncher"
 distfiles="https://github.com/hyprwm/${pkgname}/archive/refs/tags/v${version}.tar.gz"
 checksum=f02f93584e1017d7a466d0cafed910f630be39eba6b433922e645c834c4abf59
 repository=hypr-d77
+
+# upstream's pkg_check_modules(... IMPORTED_TARGET ...) doesn't propagate
+# pixman-1's/libdrm's non-standard include subdirs to the actual targets,
+# even though hyprutils/aquamarine's public headers need <pixman.h> and
+# <drm_fourcc.h>; add them explicitly.
+pre_configure() {
+	CFLAGS+=" -I${XBPS_CROSS_BASE}/usr/include/pixman-1 -I${XBPS_CROSS_BASE}/usr/include/libdrm"
+	CXXFLAGS+=" -I${XBPS_CROSS_BASE}/usr/include/pixman-1 -I${XBPS_CROSS_BASE}/usr/include/libdrm"
+}
 
 post_install() {
 	vlicense LICENSE

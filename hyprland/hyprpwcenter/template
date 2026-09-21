@@ -1,7 +1,7 @@
 # Template file for 'hyprpwcenter'
 pkgname=hyprpwcenter
 version=0.1.2
-revision=2
+revision=3
 build_style=cmake
 hostmakedepends="pkgconf"
 makedepends="hyprtoolkit hyprutils cairo-devel libdrm-devel pipewire-devel
@@ -13,6 +13,16 @@ homepage="https://github.com/hyprwm/hyprpwcenter"
 distfiles="https://github.com/hyprwm/${pkgname}/archive/refs/tags/v${version}.tar.gz"
 checksum=ab4cfd4710566b07e98973d6723c24802d95774aa9c02aca839ff03e3bf09659
 repository=hypr-d77
+
+# upstream's pkg_check_modules(... IMPORTED_TARGET ...) doesn't propagate
+# non-standard include subdirs to the actual targets, even though
+# hyprutils/aquamarine's public headers need <pixman.h>/<drm_fourcc.h>
+# and hyprpwcenter itself needs <pipewire/pipewire.h>; add them
+# explicitly.
+pre_configure() {
+	CFLAGS+=" -I${XBPS_CROSS_BASE}/usr/include/pixman-1 -I${XBPS_CROSS_BASE}/usr/include/libdrm -I${XBPS_CROSS_BASE}/usr/include/pipewire-0.3 -I${XBPS_CROSS_BASE}/usr/include/spa-0.2"
+	CXXFLAGS+=" -I${XBPS_CROSS_BASE}/usr/include/pixman-1 -I${XBPS_CROSS_BASE}/usr/include/libdrm -I${XBPS_CROSS_BASE}/usr/include/pipewire-0.3 -I${XBPS_CROSS_BASE}/usr/include/spa-0.2"
+}
 
 post_install() {
 	vlicense LICENSE

@@ -1,7 +1,7 @@
 # Template file for 'hyprsysteminfo'
 pkgname=hyprsysteminfo
 version=0.2.0
-revision=3
+revision=4
 build_style=cmake
 hostmakedepends="pkgconf xxd"
 makedepends="hyprtoolkit hyprutils glaze cairo-devel libdrm-devel pciutils-devel pixman-devel"
@@ -15,6 +15,12 @@ repository=hypr-d77
 
 pre_configure() {
 	xxd -i -n HYPRLAND_LOGO_BYTES resource/hyprlandlogo.svg > src/icons/hyprlandlogo.hpp
+	# upstream's pkg_check_modules(... IMPORTED_TARGET ...) doesn't
+	# propagate pixman-1's/libdrm's non-standard include subdirs to the
+	# actual targets, even though hyprutils/aquamarine's public headers
+	# need <pixman.h> and <drm_fourcc.h>; add them explicitly.
+	CFLAGS+=" -I${XBPS_CROSS_BASE}/usr/include/pixman-1 -I${XBPS_CROSS_BASE}/usr/include/libdrm"
+	CXXFLAGS+=" -I${XBPS_CROSS_BASE}/usr/include/pixman-1 -I${XBPS_CROSS_BASE}/usr/include/libdrm"
 }
 post_install() {
 	vlicense LICENSE
