@@ -1,6 +1,6 @@
 # Template file for 'dwl'
 pkgname=dwl
-version=0.8
+version=0.9
 revision=1
 build_style=gnu-makefile
 configure_args="-DXWAYLAND"
@@ -13,7 +13,7 @@ license="GPL-3.0-or-later"
 homepage="https://codeberg.org/dwl/dwl"
 changelog="https://codeberg.org/${pkgname}/${pkgname}/releases/tag/v${version}"
 distfiles="https://codeberg.org/${pkgname}/${pkgname}/releases/download/v${version}/${pkgname}-v${version}.tar.gz"
-checksum=ccc8bbb3fb66a7e6f0392693533ac9c8bd4e6283dd1f66992e68ec4d4a9cdee7
+checksum=51ed5da49942ca3272b6f2c4f1d7641b0b947a6eb1c264dce8a65b4d245596af
 repository=d77
 
 do_install() {
