@@ -1,6 +1,6 @@
 # Template file for 'wasp'
 pkgname=wasp
-version=0.9.0
+version=0.9.1
 revision=1
 build_style=gnu-makefile
 hostmakedepends="pkg-config wayland-devel wayland-protocols"
@@ -15,7 +15,7 @@ license="GPL-3.0-or-later, MIT"
 homepage="https://github.com/dani-77/wasp"
 changelog="https://github.com/dani-77/wasp/releases/tag/v${version}"
 distfiles="https://github.com/dani-77/wasp/archive/refs/tags/v${version}.tar.gz"
-checksum=11624e9f69a47f150fbde18620d1ab606709e1680ea0dd27f293fb380539e3f6
+checksum=6d12700903a4d59a494984882126c7bda15ede8788a071c0f98d050a2e10d762
 repository=d77
 
 do_install() {
