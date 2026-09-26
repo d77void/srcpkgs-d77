@@ -1,8 +1,11 @@
 # Template file for 'wasp'
 pkgname=wasp
 version=0.9.1
-revision=1
+revision=2
 build_style=gnu-makefile
+# config.mk derives VERSION from `git describe`, which a release tarball
+# can't answer (inside xbps-src it picks up an unrelated repo instead).
+make_build_args="VERSION=${version}"
 hostmakedepends="pkg-config wayland-devel wayland-protocols"
 makedepends="libinput-devel wayland-devel wlroots0.20-devel
  libxkbcommon-devel libxcb-devel xcb-util-wm-devel lua54-devel
@@ -19,6 +22,6 @@ checksum=6d12700903a4d59a494984882126c7bda15ede8788a071c0f98d050a2e10d762
 repository=d77
 
 do_install() {
-	make PREFIX=/usr DESTDIR=$DESTDIR install
+	make PREFIX=/usr DESTDIR=$DESTDIR VERSION=${version} install
 	vlicense LICENSE.wasp LICENSE
 }
