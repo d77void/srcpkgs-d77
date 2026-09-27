@@ -1,12 +1,12 @@
-# Template file for 'scenefx'
-pkgname=scenefx
+# Template file for 'scenefx0.5'
+pkgname=scenefx0.5
 version=0.5
 revision=1
 build_style=meson
 configure_args="-Dwerror=false -Db_ndebug=false"
 hostmakedepends="pkg-config wayland-devel scdoc"
 makedepends="wlroots0.20-devel"
-short_desc="Drop-in replacement for the wlroots scene API"
+short_desc="Drop-in replacement for the wlroots scene API (0.5 series)"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://github.com/wlrfx/scenefx"
@@ -14,14 +14,20 @@ changelog="https://github.com/wlrfx/scenefx/releases/"
 distfiles="https://github.com/wlrfx/scenefx/archive/refs/tags/${version}.tar.gz"
 checksum=0fa8ecca0e310f813efd052624c5ed7d9153d6a0fdead5cc957d34c07f9a86c6
 repository=d77
+# Versioned like wlroots0.x: library, pkg-config file and headers all carry
+# the 0.5 suffix, so this installs alongside Void's scenefx (0.4) and swayfx
+# can stay on that one. Takes over the unversioned scenefx 0.5 d77 shipped
+# before the rename.
+replaces="scenefx>=0.5_1"
 
 post_install() {
 	vlicense LICENSE
 }
 
-scenefx-devel_package() {
+scenefx0.5-devel_package() {
 	short_desc+=" - development files"
 	depends="${sourcepkg}>=${version}_${revision}"
+	replaces="scenefx-devel>=0.5_1"
 
 	pkg_install() {
 		vmove usr/include

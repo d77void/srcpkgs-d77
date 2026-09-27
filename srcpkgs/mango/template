@@ -1,11 +1,11 @@
 # Template file for 'mango'
 pkgname=mango
 version=0.17.3
-revision=2
+revision=3
 conf_files="/etc/mango/config.conf"
 build_style=meson
 hostmakedepends="pkg-config wayland-devel"
-makedepends="pango-devel cJSON-devel wlroots0.20-devel pcre2-devel scenefx-devel"
+makedepends="pango-devel cJSON-devel wlroots0.20-devel pcre2-devel scenefx0.5-devel"
 depends="xorg-server-xwayland"
 # Upstream renamed mangowc to mango; take over old d77 mangowc installs.
 replaces="mangowc>=0"

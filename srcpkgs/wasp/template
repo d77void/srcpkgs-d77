@@ -1,7 +1,7 @@
 # Template file for 'wasp'
 pkgname=wasp
 version=0.9.1
-revision=2
+revision=3
 build_style=gnu-makefile
 # config.mk derives VERSION from `git describe`, which a release tarball
 # can't answer (inside xbps-src it picks up an unrelated repo instead).
@@ -9,7 +9,7 @@ make_build_args="VERSION=${version}"
 hostmakedepends="pkg-config wayland-devel wayland-protocols"
 makedepends="libinput-devel wayland-devel wlroots0.20-devel
  libxkbcommon-devel libxcb-devel xcb-util-wm-devel lua54-devel
- scenefx-devel fcft-devel pixman-devel tllist"
+ scenefx0.5-devel fcft-devel pixman-devel tllist"
 depends="xorg-server-xwayland"
 conf_files="/etc/xdg-desktop-portal/wasp-portals.conf"
 short_desc="Lua-configurable Wayland compositor based on dwl/wlroots"
