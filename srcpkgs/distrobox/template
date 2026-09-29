@@ -1,0 +1,17 @@
+# Template file for 'distrobox'
+pkgname=distrobox
+version=1.8.2.5
+revision=1
+depends="podman"
+short_desc="Use any Linux distribution inside your terminal"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="GPL-3.0-only"
+homepage="https://distrobox.it/"
+changelog="https://github.com/89luca89/distrobox/releases/tag/${version}"
+distfiles="https://github.com/89luca89/distrobox/archive/refs/tags/${version}.tar.gz"
+checksum=0c3bc4785ee3be3b89f93abb7cc0a9f60e56989e81319af140a4b60403b18f80
+repository=d77
+
+do_install() {
+	./install --prefix "${DESTDIR}/usr"
+}
