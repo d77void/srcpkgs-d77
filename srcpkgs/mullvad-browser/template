@@ -1,19 +1,227 @@
 # Template file for 'mullvad-browser'
+#
+# Built from the Mullvad Browser source (Firefox ESR + Tor Project's
+# base-browser + Mullvad patches), from the GitHub mirror of its gecko
+# repository. The build setup and the patches/ directory follow
+# void-packages' srcpkgs/firefox-esr, so keep them in sync with the
+# firefox-esr template of the same ESR version (_esrver).
+#
 pkgname=mullvad-browser
 version=15.0.23
-revision=1
-archs="x86_64"
-hostmakedepends="tar xz"
+revision=2
+# head of the mullvad-browser-${_esrver}esr-15.0-1 branch; the GitHub mirror
+# no longer carries the per-build tags
+_esrver=140.17.0
+_commit=59434ea5714651edf2849208667f9d7415f0ba43
+_llvmver=22
+archs="x86_64* aarch64*"
+build_helper="rust"
+hostmakedepends="autoconf213 unzip zip pkg-config perl python3 yasm rust
+ cargo llvm${_llvmver} clang${_llvmver} lld${_llvmver} nodejs cbindgen nasm which
+ tar xz $(vopt_if wasi wasi-sdk)"
+makedepends="gtk+3-devel libXrender-devel libXcomposite-devel libSM-devel
+ libXt-devel libXdamage-devel freetype-devel rust-std $(vopt_if wasi wasi-sdk)
+ $(vopt_if alsa alsa-lib-devel) $(vopt_if dbus dbus-glib-devel)
+ $(vopt_if pulseaudio pulseaudio-devel) $(vopt_if xscreensaver libXScrnSaver-devel)
+ $(vopt_if sndio sndio-devel) $(vopt_if jack jack-devel)"
+depends="desktop-file-utils hicolor-icon-theme pciutils"
 short_desc="Privacy-focused browser"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
-license="GPL-3.0-or-later"
-homepage="https://mullvad.net"
-changelog="https://github.com/mullvad/${pkgname}/releases/tag/${version}"
-distfiles="https://github.com/mullvad/mullvad-browser/releases/download/${version}/${pkgname}_${version}-1_amd64.deb"
-checksum=bb86d94ddf7ee65e90ff3617a350cc665e23d418ec6f4f1942946bd275f0f71c
+license="MPL-2.0, GPL-2.0-or-later, LGPL-2.1-or-later"
+homepage="https://mullvad.net/browser"
+changelog="https://github.com/mullvad/mullvad-browser/releases/tag/${version}"
+distfiles="https://github.com/mullvad/mullvad-browser/archive/${_commit}.tar.gz"
+checksum=f3db9c388bda6dfb70d713d80f0f157ebefc0a662dd03090ee8bc62827d131f9
+lib32disabled=yes
 repository=d77
 
+build_options="alsa jack dbus pulseaudio xscreensaver sndio lto clang wasi extensions"
+build_options_default="alsa jack dbus pulseaudio xscreensaver sndio clang wasi extensions"
+
+desc_option_lto="Enable Link Time Optimization"
+desc_option_clang="Build with clang"
+desc_option_wasi="Build wasm sandboxed libraries"
+desc_option_extensions="Bundle uBlock Origin, NoScript and the Mullvad Browser Extension"
+
+case $XBPS_TARGET_MACHINE in
+	armv[56]*) broken="required NEON extensions are not supported on armv6" ;;
+esac
+
+post_extract() {
+	case "$XBPS_TARGET_MACHINE" in
+	*-musl)
+		cp "${FILESDIR}/stab.h" toolkit/crashreporter/google-breakpad/src/
+		;;
+	esac
+}
+
+do_build() {
+	export AS="${CC}"
+	export CFLAGS="-O2"
+	export CXXFLAGS="-O2"
+	export HOST_CFLAGS=""
+	export HOST_CXXFLAGS=""
+	export LDFLAGS="-Wl,-rpath=/usr/lib/mullvadbrowser"
+
+	if [ "$build_option_clang" ]; then
+		export CC=clang
+		export CXX=clang++
+		export AR=llvm-ar
+		export NM=llvm-nm
+		export HOST_CC=clang
+		export HOST_CXX=clang++
+	fi
+
+	disable_jemalloc() {
+		if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
+			echo "ac_add_options --disable-jemalloc"
+		fi
+	}
+
+	disable_elfhack() {
+		case "$XBPS_TARGET_MACHINE" in
+		x86_64*|i686*|arm*|aarch64*) echo "ac_add_options --disable-elf-hack" ;;
+		esac
+	}
+
+	disable_wasi() {
+		if [ "$build_option_wasi" ]; then
+			echo "ac_add_options --with-wasi-sysroot=/usr/share/wasi-sysroot"
+		else
+			echo "ac_add_options --without-wasm-sandboxed-libraries"
+		fi
+	}
+
+	# void's firefox-esr mozconfig + the options of the in-tree
+	# mozconfig-linux-x86_64 -> mozconfigs/mullvad-browser ->
+	# mozconfigs/base-browser chain, inlined instead of sourced because:
+	#  - their updater options (--enable-base-browser-update,
+	#    --disable-zucchini, ...) don't apply to a distro package, and
+	#    --disable-zucchini is an error once the updater is disabled;
+	#  - nss, icu, libvpx, ... stay bundled (no --with-system-*), like the
+	#    official builds, so the browser behaves the same as everyone
+	#    else's (fingerprinting uniformity).
+	cat <<-! >.mozconfig
+	ac_add_options --prefix=/usr
+	ac_add_options --libdir=/usr/lib
+	ac_add_options --host=${XBPS_TRIPLET}
+	ac_add_options --target=${XBPS_CROSS_TRIPLET:-${XBPS_TRIPLET}}
+	ac_add_options --enable-linker=$(vopt_if clang lld bfd)
+	$(vopt_if lto 'ac_add_options --enable-lto=cross')
+	$(vopt_if clang 'ac_add_options --with-libclang-path=/usr/lib')
+
+	# base-browser
+	ac_add_options --enable-project=browser
+	export MOZILLA_OFFICIAL=1
+	ac_add_options --enable-optimize="\${CFLAGS}"
+	ac_add_options --enable-rust-simd
+	ac_add_options --enable-bundled-fonts
+	ac_add_options --disable-tests
+	ac_add_options --disable-debug
+	ac_add_options --disable-debug-symbols
+	ac_add_options --disable-crashreporter
+	ac_add_options --disable-parental-controls
+	ac_add_options --enable-proxy-bypass-protection
+	ac_add_options --disable-system-policies
+	ac_add_options --disable-system-preferences
+	ac_add_options --disable-backgroundtasks
+	ac_add_options MOZ_TELEMETRY_REPORTING=
+	ac_add_options --disable-legacy-profile-creation
+
+	# mullvad-browser
+	export MOZ_APP_BASENAME=MullvadBrowser
+	mk_add_options MOZ_APP_DISPLAYNAME="Mullvad Browser"
+	ac_add_options --with-user-appdir=Mullvad
+	ac_add_options --with-relative-data-dir=../Data
+	ac_add_options --with-distribution-id=net.mullvad
+	ac_add_options --with-branding=browser/branding/mb-release
+	ac_add_options --with-base-browser-version=${version}
+
+	# mozconfig-linux-*
+	ac_add_options --disable-strip
+	ac_add_options --disable-install-strip
+	ac_add_options --enable-default-toolkit=cairo-gtk3
+	ac_add_options --disable-eme
+
+	# void
+	ac_add_options --enable-release
+	ac_add_options --enable-hardening
+	ac_add_options --enable-path-remapping=c,rust
+	ac_add_options --disable-updater
+	ac_add_options --disable-profiling
+	$(disable_jemalloc)
+	$(disable_elfhack)
+
+	$(disable_wasi)
+
+	ac_add_options $(vopt_enable dbus)
+	ac_add_options $(vopt_enable dbus necko-wifi)
+	ac_add_options --disable-audio-backends
+	ac_add_options $(vopt_enable alsa)
+	ac_add_options $(vopt_enable jack)
+	ac_add_options $(vopt_enable pulseaudio)
+	ac_add_options $(vopt_enable sndio)
+
+	mk_add_options MOZ_OBJDIR="${wrksrc}/obj"
+	!
+
+	if [ "$SOURCE_DATE_EPOCH" ]; then
+		export MOZ_BUILD_DATE=$(date --date "@$SOURCE_DATE_EPOCH" "+%Y%m%d%H%M%S")
+	fi
+
+	export MOZ_MAKE_FLAGS="${makejobs}"
+	export MOZ_NOSPAM=1
+	export MOZBUILD_STATE_PATH="${wrksrc}/mozbuild"
+	export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=system
+	export MOZCONFIG="${wrksrc}/.mozconfig"
+
+	rm -f old-configure
+
+	./mach build
+
+	if [ "$build_option_extensions" ]; then
+		# The official builds bundle these (signed AMO builds) in
+		# distribution/extensions/; tor-browser-build pins them, here the
+		# current AMO version is taken, checked against AMO's sha256.
+		mkdir -p "${wrksrc}/extensions"
+		python3 "${FILESDIR}/fetch-extensions.py" "${wrksrc}/extensions" \
+			"uBlock0@raymondhill.net" \
+			"{73a6fe31-595d-460b-a920-fcc0f8843232}" \
+			"{d19a89b9-76c1-4a61-bcd4-49e8de916403}?"
+	fi
+}
+
 do_install() {
-	rm usr/lib/mullvad-browser/abicheck
-	vcopy '*' /
+	export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=system
+	export MOZBUILD_STATE_PATH="${wrksrc}/mozbuild"
+	export MOZCONFIG="${wrksrc}/.mozconfig"
+	DESTDIR="$DESTDIR" ./mach install
+
+	local _libdir=usr/lib/mullvadbrowser
+
+	# Not portable: keep the profile in the user's home instead of the
+	# (read-only) ../Data next to the install, like the official .deb does
+	touch ${DESTDIR}/${_libdir}/system-install
+
+	if [ "$build_option_extensions" ]; then
+		vmkdir ${_libdir}/distribution/extensions
+		cp extensions/*.xpi ${DESTDIR}/${_libdir}/distribution/extensions/
+		chmod 644 ${DESTDIR}/${_libdir}/distribution/extensions/*.xpi
+	fi
+
+	# We don't want the development stuff
+	rm -rf ${DESTDIR}/usr/{include,lib/mullvadbrowser-devel,share/idl}
+
+	# https://bugzilla.mozilla.org/show_bug.cgi?id=658850
+	ln -sf mullvadbrowser ${DESTDIR}/${_libdir}/mullvadbrowser-bin
+
+	# the name the .deb based package used
+	ln -sf mullvadbrowser ${DESTDIR}/usr/bin/mullvad-browser
+
+	vinstall "${FILESDIR}/mullvad-browser.desktop" 644 usr/share/applications
+
+	for i in 16 22 24 32 48 64 128 256; do
+		vinstall browser/branding/mb-release/default${i}.png 644 \
+			usr/share/icons/hicolor/${i}x${i}/apps mullvad-browser.png
+	done
 }
