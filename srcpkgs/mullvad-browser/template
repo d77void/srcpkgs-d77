@@ -6,19 +6,32 @@
 # void-packages' srcpkgs/firefox-esr, so keep them in sync with the
 # firefox-esr template of the same ESR version (_esrver).
 #
+# --enable-bundled-fonts (below) only wires up the packaging mechanism; it
+# doesn't supply the actual Noto/Arimo/Tinos/Cousine/STIX font set Mullvad
+# Browser needs for anti-fingerprinting (same bundled fonts for every user,
+# regardless of host system fonts -- see the DO NOT MODIFY notice in the
+# installed fonts/ dir). Those fonts come from Tor Browser Build's own
+# `fonts` project (a pinned noto-fonts git hash), which isn't part of this
+# gecko source tree. _fontsrel below is a copy of that font set -- everything
+# except fonts.conf and TwemojiMozilla.ttf, which this source tree does
+# provide -- extracted once from Mullvad's own official .deb and re-hosted at
+# https://github.com/d77void/vendored-assets since it isn't otherwise
+# fetchable as a standalone, appropriately-sized distfile.
 pkgname=mullvad-browser
 version=15.0.23
-revision=2
+revision=3
 # head of the mullvad-browser-${_esrver}esr-15.0-1 branch; the GitHub mirror
 # no longer carries the per-build tags
 _esrver=140.17.0
 _commit=59434ea5714651edf2849208667f9d7415f0ba43
+_fontsrel=mullvadbrowser-noto-fonts-1
+_fontsfile=mullvadbrowser-noto-fonts-20261001.tar.zst
 _llvmver=22
 archs="x86_64* aarch64*"
 build_helper="rust"
 hostmakedepends="autoconf213 unzip zip pkg-config perl python3 yasm rust
  cargo llvm${_llvmver} clang${_llvmver} lld${_llvmver} nodejs cbindgen nasm which
- tar xz $(vopt_if wasi wasi-sdk)"
+ tar xz zstd $(vopt_if wasi wasi-sdk)"
 makedepends="gtk+3-devel libXrender-devel libXcomposite-devel libSM-devel
  libXt-devel libXdamage-devel freetype-devel rust-std $(vopt_if wasi wasi-sdk)
  $(vopt_if alsa alsa-lib-devel) $(vopt_if dbus dbus-glib-devel)
@@ -30,8 +43,11 @@ maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MPL-2.0, GPL-2.0-or-later, LGPL-2.1-or-later"
 homepage="https://mullvad.net/browser"
 changelog="https://github.com/mullvad/mullvad-browser/releases/tag/${version}"
-distfiles="https://github.com/mullvad/mullvad-browser/archive/${_commit}.tar.gz"
-checksum=f3db9c388bda6dfb70d713d80f0f157ebefc0a662dd03090ee8bc62827d131f9
+distfiles="https://github.com/mullvad/mullvad-browser/archive/${_commit}.tar.gz
+ https://github.com/d77void/vendored-assets/releases/download/${_fontsrel}/${_fontsfile}"
+checksum="f3db9c388bda6dfb70d713d80f0f157ebefc0a662dd03090ee8bc62827d131f9
+ 0f82f1c8a73f56de6bc907030235744febd70a9391eb00db089b984a8161cddf"
+skip_extraction="${_fontsfile}"
 lib32disabled=yes
 repository=d77
 
@@ -202,6 +218,12 @@ do_install() {
 	# Not portable: keep the profile in the user's home instead of the
 	# (read-only) ../Data next to the install, like the official .deb does
 	touch ${DESTDIR}/${_libdir}/system-install
+
+	# See the top-of-file comment: --enable-bundled-fonts only produced
+	# fonts.conf and TwemojiMozilla.ttf (the only font-related bits this
+	# source tree ships); merge in the rest of the set from _fontsfile.
+	tar -xf "${XBPS_SRCDISTDIR}/${pkgname}-${version}/${_fontsfile}" \
+		-C ${DESTDIR}/${_libdir}/fonts
 
 	if [ "$build_option_extensions" ]; then
 		vmkdir ${_libdir}/distribution/extensions
