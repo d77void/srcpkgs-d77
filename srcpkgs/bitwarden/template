@@ -1,23 +1,62 @@
 # Template file for 'bitwarden'
 pkgname=bitwarden
 version=2026.9.0
-revision=1
+revision=2
 archs="x86_64"
+hostmakedepends="nodejs cargo pkg-config python3"
 short_desc="Bitwarden desktop client"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
-license="GPL-3.0-or-later"
+license="GPL-3.0-only"
 homepage="https://bitwarden.com"
-distfiles="https://github.com/bitwarden/clients/releases/download/desktop-v${version}/Bitwarden-${version}-amd64.deb"
-checksum=51066f8fbaf4546626a2e77a9c0d3abfeef7a13685aca046cb30e07ebf3cf979
+distfiles="https://github.com/bitwarden/clients/archive/refs/tags/desktop-v${version}.tar.gz"
+checksum=0ab9c0efc5622d6ea9a9558e5c6c5fb59fecaee5b49d61ad12940c2cc7f782fc
 noverifyrdeps="libc.musl-x86_64.so.1"
+nocross="electron-builder packs the electron build for the host"
 repository=d77
 
-pre_install() {
-	vsed -i 's|bitwarden %U|bitwarden-app %U|' usr/share/applications/bitwarden.desktop
+# Built from the bitwarden/clients monorepo source tarball, following the
+# steps of upstream's `npm run dist:lin` minus the deb/rpm/AppImage/snap
+# targets: electron-builder only produces the unpacked app ("dir" target),
+# which is installed to /opt/Bitwarden like the old .deb did. electron and
+# the npm/cargo dependencies are downloaded at build time.
+#
+# desktop_native pins its toolchain in rust-toolchain.toml; xbps-src uses the
+# system cargo, which needs to be at least that version.
+
+do_build() {
+	export npm_config_cache="${wrksrc}/.npm-cache"
+	export CARGO_HOME="${wrksrc}/.cargo-home"
+	export ELECTRON_BUILDER_CACHE="${wrksrc}/.electron-builder-cache"
+	export CSC_IDENTITY_AUTO_DISCOVERY=false
+
+	npm ci --no-audit --no-fund
+
+	cd apps/desktop
+	# napi module + desktop_proxy + libprocess_isolation.so
+	npm run build-native -- --release
+	npm run build
+	npm run clean:dist
+	npx electron-builder --linux dir --x64 -p never
 }
 
 do_install() {
-	vmkdir /usr
-	vcopy usr/* /usr/
-	vcopy "*" /
+	vmkdir opt/Bitwarden
+	cp -a apps/desktop/dist/linux-unpacked/. ${DESTDIR}/opt/Bitwarden/
+
+	vmkdir usr/bin
+	ln -s /opt/Bitwarden/bitwarden ${DESTDIR}/usr/bin/bitwarden
+
+	# start bitwarden-app directly instead of upstream's memory-protection
+	# wrapper script (as the .deb based package did)
+	vinstall apps/desktop/resources/com.bitwarden.desktop.desktop 644 usr/share/applications
+	vsed -i 's|^Exec=bitwarden %u|Exec=/opt/Bitwarden/bitwarden-app %U|' \
+		${DESTDIR}/usr/share/applications/com.bitwarden.desktop.desktop
+
+	local size
+	for size in 16 32 64 128 256 512 1024; do
+		if [ -f apps/desktop/resources/icons/${size}x${size}.png ]; then
+			vinstall apps/desktop/resources/icons/${size}x${size}.png 644 \
+				usr/share/icons/hicolor/${size}x${size}/apps com.bitwarden.desktop.png
+		fi
+	done
 }

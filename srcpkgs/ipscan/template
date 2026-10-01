@@ -1,27 +1,45 @@
 # Template file for 'ipscan'
 pkgname=ipscan
 version=3.10.0
-revision=2
+revision=3
 archs="x86_64"
-build_style="fetch"
-hostmakedepends="tar xz"
+hostmakedepends="openjdk25"
 depends="openjdk25"
 short_desc="Fast and friendly network scanner"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
-license="GPL-3.0-or-later"
+license="GPL-2.0-only"
 homepage="https://angryip.org"
-distfiles="https://github.com/angryip/ipscan/releases/download/${version}/ipscan_${version}_amd64.deb"
-checksum=8c7286941d4bbbb1c804e9b7e3cb9dd6bc3974cfcee7ec89c3f24ffeb52a8217
+distfiles="https://github.com/angryip/ipscan/archive/refs/tags/${version}.tar.gz"
+checksum=2516b177a491e690ff5e456144ab0c56bbfae28d782f478657290e5e25f98847
+nocross="gradle runs the host JVM"
 repository=d77
 
-# Upstream's own /usr/bin/ipscan launcher already locates the jar itself
-# (glob "/usr/lib*/ipscan/ipscan*.jar") and reports its own Java version
-# requirement, so no post-install sed is needed anymore -- it also renamed
-# the .desktop file to net.azib.ipscan.desktop in this release. Requires
-# OpenJDK 25+ (--enable-native-access is a JDK 22+ flag; upstream's own
-# fallback message names 25).
+# Built from the source tarball with the bundled gradle wrapper (gradle and
+# the maven dependencies, SWT included, are downloaded at build time).
+#
+# build.gradle takes the version from `git describe`, which doesn't work in a
+# release tarball, so it is pinned here. The `linux64` task is the fat jar;
+# its `linux64.min` finalizer (proguard + .deb/.rpm packaging through
+# dpkg-deb/rpmbuild) is skipped -- only the jar is needed.
+pre_build() {
+	vsed -i 's|^version = exec("git describe --tags", ".", false) ?: "unknown"|version = "'"${version}"'"|' \
+		build.gradle
+}
+
+do_build() {
+	export JAVA_HOME=/usr/lib/jvm/openjdk25
+	export GRADLE_USER_HOME="${wrksrc}/.gradle-home"
+	./gradlew --no-daemon linux64 -x linux64.min -x test
+}
+
+# Upstream's own /usr/bin/ipscan launcher locates the jar itself
+# (glob "/usr/lib*/ipscan/ipscan*.jar") and needs OpenJDK 25+
+# (--enable-native-access is a JDK 22+ flag; its fallback message names 25).
 do_install() {
-	metapackage=yes
-	ar x ipscan_${version}_amd64.deb
-	tar xf data.tar.xz -C ${DESTDIR}
+	vinstall build/libs/ipscan-${version}-linux64.jar 755 usr/lib/ipscan
+	vbin ext/deb-bundle/usr/bin/ipscan
+	vinstall ext/deb-bundle/usr/share/applications/net.azib.ipscan.desktop 644 usr/share/applications
+	vinstall ext/deb-bundle/usr/share/metainfo/net.azib.ipscan.metainfo.xml 644 usr/share/metainfo
+	vinstall resources/images/icon128.png 644 usr/share/pixmaps net.azib.ipscan.png
+	vdoc README.md
 }
