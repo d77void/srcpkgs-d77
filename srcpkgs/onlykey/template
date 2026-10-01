@@ -1,20 +1,50 @@
 # Template file for 'onlykey'
 pkgname=onlykey
 version=5.5.0
-revision=1
+revision=2
 archs="x86_64"
+hostmakedepends="nodejs"
 short_desc="OnlyKey App"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
-license="GPL-3.0-or-later"
+license="custom:OnlyKey"
 homepage="https://crp.to"
-distfiles="https://github.com/trustcrypto/OnlyKey-App/releases/download/v${version}/OnlyKey_${version}_amd64.deb"
-checksum=f00f056a3432d624a805596a6c6b0f2ce5d8efa8c95da1baac39599946301065
+distfiles="https://github.com/trustcrypto/OnlyKey-App/archive/refs/tags/v${version}.tar.gz"
+checksum=51ea60217f8b495b63661c8a8d97506429942cf117ae56ec301cb698659341e4
 noverifyrdeps="libexpat.so.1"
+nocross="npm downloads the NW.js runtime for the host"
 repository=d77
 
+# Built from the source tarball the same way upstream's own release does
+# (`npm run prerelease` + tasks/release_linux.js), minus the dpkg-deb step:
+# the app is bundled together with the NW.js runtime that the `nw` npm
+# package downloads, into /opt/OnlyKey.
+do_build() {
+	export npm_config_cache="${wrksrc}/.npm-cache"
+	npm run prerelease
+}
+
 do_install() {
-	vmkdir /opt/OnlyKey
-	vinstall etc/udev/rules.d/49-onlykey.rules 644 /usr/lib/udev/rules.d/
-	vcopy opt/'*' /opt/
-	vcopy usr/'*' /usr/
+	vmkdir opt/OnlyKey
+	cp -a node_modules/nw/nwjs/. ${DESTDIR}/opt/OnlyKey/
+	# same as upstream's updateRuntimeFileMode(): the NW.js runtime
+	# doesn't always come out of the npm download with its exec bits
+	chmod -R 755 ${DESTDIR}/opt/OnlyKey
+	cp -a build/. ${DESTDIR}/opt/OnlyKey/
+
+	vinstall resources/linux/49-onlykey.rules 644 usr/lib/udev/rules.d
+
+	vmkdir usr/share/applications
+	cat > ${DESTDIR}/usr/share/applications/OnlyKey.desktop <<-_EOF
+	[Desktop Entry]
+	Version=${version}
+	Type=Application
+	Name=OnlyKey
+	Comment=Setup and configure OnlyKey
+	Exec=/opt/OnlyKey/nw
+	Icon=/opt/OnlyKey/icon.png
+	Terminal=false
+	Categories=Utility;
+	_EOF
+
+	vlicense LICENSE.txt
 }

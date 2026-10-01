@@ -1,0 +1,17 @@
+diff --git a/desktop/packages/mullvad-vpn/tasks/distribution.cjs b/desktop/packages/mullvad-vpn/tasks/distribution.cjs
+index 87ad785..fe202d2 100644
+--- a/desktop/packages/mullvad-vpn/tasks/distribution.cjs
++++ b/desktop/packages/mullvad-vpn/tasks/distribution.cjs
+@@ -172,11 +172,7 @@ function newConfig() {
+     linux: {
+       target: [
+         {
+-          target: 'deb',
+-          arch: getLinuxTargetArch(),
+-        },
+-        {
+-          target: 'rpm',
++          target: 'dir',
+           arch: getLinuxTargetArch(),
+         },
+       ],
