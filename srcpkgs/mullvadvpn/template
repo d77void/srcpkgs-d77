@@ -4,7 +4,7 @@ version=2026.5
 revision=2
 archs="x86_64 aarch64"
 build_helper="rust"
-hostmakedepends="cargo nodejs pkg-config protobuf python3"
+hostmakedepends="cargo git nodejs pkg-config protobuf protobuf-devel python3"
 makedepends="dbus-devel libmnl-devel libnftnl-devel"
 short_desc="Mullvad VPN client"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
@@ -25,6 +25,11 @@ repository=d77
 # to the unpacked "dir" output, which is installed into /opt/Mullvad VPN like
 # the .deb did. The npm/cargo dependencies and electron are downloaded at
 # build time.
+#
+# mullvad-daemon/build.rs shells out to `git log` for a commit date; the
+# GitHub tarball has no .git history to describe, but the call still needs
+# git present to spawn (otherwise it panics on ENOENT) -- it just comes back
+# empty, which is harmless here.
 
 _bins="mullvad-daemon mullvad mullvad-setup mullvad-problem-report mullvad-exclude"
 
