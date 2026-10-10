@@ -1,6 +1,6 @@
 # Template file for 'cosmic-player'
 pkgname=cosmic-player
-version=1.9.0
+version=1.10.0
 revision=1
 archs="x86_64* i686"
 build_style=cargo
@@ -13,7 +13,7 @@ maintainer="Bella109 <belladev109@proton.me>"
 license="GPL-3.0-only"
 homepage="https://github.com/pop-os/cosmic-player"
 distfiles="https://github.com/pop-os/cosmic-player/archive/refs/tags/epoch-${version}.tar.gz"
-checksum=d2a13306348cdc3886f75c918f00e3722ec85509d0b7f286023f3929b7aa0600
+checksum=421bf528742a737e8a99b9ea7ce753a5ddc8a37f7f694e774292a539e793f5b6
 repository=cosmic-d77
 build_options="sccache"
 if [ "$XBPS_LIBC" = "glibc" ]; then

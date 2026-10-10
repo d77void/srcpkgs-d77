@@ -1,6 +1,6 @@
 # Template file for 'cosmic-comp'
 pkgname=cosmic-comp
-version=1.9.0
+version=1.10.0
 revision=1
 archs="x86_64* i686"
 build_style=cargo
@@ -13,7 +13,7 @@ maintainer="Bella109 <belladev109@proton.me>"
 license="GPL-3.0-only"
 homepage="https://github.com/pop-os/cosmic-comp"
 distfiles="https://github.com/pop-os/cosmic-comp/archive/refs/tags/epoch-${version}.tar.gz"
-checksum=f0f3a2362861fe8976d7d45436aaa0a10de975522b6e8a53d77058a74ffc81e8
+checksum=db6bf35703db06b3ac89e5da9ba9cd60eceaed90515c47e4b3256d73cf0a0b81
 repository=cosmic-d77
 
 do_install() {

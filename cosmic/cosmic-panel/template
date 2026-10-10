@@ -1,6 +1,6 @@
 # Template file for 'cosmic-panel'
 pkgname=cosmic-panel
-version=1.9.0
+version=1.10.0
 revision=1
 archs="x86_64* i686"
 build_style=cargo
@@ -13,7 +13,7 @@ maintainer="Bella109 <belladev109@proton.me>"
 license="GPL-3.0-only"
 homepage="https://github.com/pop-os/cosmic-panel"
 distfiles="https://github.com/pop-os/cosmic-panel/archive/refs/tags/epoch-${version}.tar.gz"
-checksum=6b036076e162568b6d0230ab82916b30d06b4942cb5be6a39960e42b499cab9b
+checksum=e532f3ed38cfe911fb71f62a782de50f41488c2d39a24b09708f141826e8e343
 repository=cosmic-d77
 build_options="sccache"
 
