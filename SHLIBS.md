@@ -26,7 +26,6 @@ libhyprlang.so.2 hyprlang-0.6.8_5
 libhyprutils.so.13 hyprutils-0.14.2_1
 libhyprwire.so.3 hyprwire-0.3.1_1
 liblua5.5.so.5.5 lua55-5.5.0_1
-libtomlplusplus.so.3 tomlplusplus-3.4.0_1
 ```
 
 Needed by the rest of the Hyprland ecosystem (`hyprpaper`, `hyprland-guiutils`,
@@ -40,7 +39,7 @@ libhyprtoolkit.so.6 hyprtoolkit-0.6.0_1
 Needed by `mango` (repository `d77`):
 
 ```
-libscenefx-0.5.so scenefx-0.5_1
+libscenefx-0.5.so scenefx0.5-0.5_1
 ```
 
 ## Apply them (idempotent)
@@ -64,15 +63,14 @@ libhyprutils.so.13 hyprutils-0.14.2_1
 libhyprwire.so.3 hyprwire-0.3.1_1
 libhyprtoolkit.so.6 hyprtoolkit-0.6.0_1
 liblua5.5.so.5.5 lua55-5.5.0_1
-libtomlplusplus.so.3 tomlplusplus-3.4.0_1
-libscenefx-0.5.so scenefx-0.5_1
+libscenefx-0.5.so scenefx0.5-0.5_1
 EOF
 ```
 
 Check the result with:
 
 ```sh
-grep -E '^(libaquamarine|libhypr|liblua5.5|libtomlplusplus|libscenefx)' common/shlibs
+grep -E '^(libaquamarine|libhypr|liblua5.5|libscenefx)' common/shlibs
 ```
 
 The same file is used for glibc and musl builds; nothing extra is needed for
@@ -90,7 +88,7 @@ musl.
   changed `libhyprtoolkit.so.5` to `libhyprtoolkit.so.6`.
 - Whenever you update one of the templates listed above, re-check this file
   (the `libaquamarine`, `libhypr*` and `libscenefx` entries follow the
-  versions in `hyprland/*/template` and `srcpkgs/scenefx/template`).
+  versions in `hyprland/*/template` and `srcpkgs/scenefx0.5/template`).
 
 ## Notes
 
@@ -104,3 +102,6 @@ musl.
   No shlibs change is needed.
 - `glaze` and `hyprland-protocols` are header-only/data packages and provide no
   shared library.
+- `libtomlplusplus.so.3`: `tomlplusplus` (and `tomlplusplus-devel`, used by
+  `hyprland` and `hyprcursor`) now comes from upstream void-packages, whose
+  `common/shlibs` already lists it. This repository no longer ships it.
