@@ -5,7 +5,7 @@ revision=1
 archs="x86_64* i686"
 build_style=cargo
 configure_args="--all --no-default-features --features logind"
-hostmakedepends="pkg-config cargo"
+hostmakedepends="pkg-config cargo just"
 makedepends="eudev-libudev-devel libseat-devel libxkbcommon-devel libinput-devel pixman-devel libgbm-devel libdisplay-info-devel"
 depends="eudev-libudev expat libxkbcommon libdisplay-info libgbm libseat libinput libgcc libdrm libelogind libevdev libwacom libcap libgudev libffi libpcre2 mtdev pixman"
 short_desc="Wayland compositor of pop-os cosmic shell"
@@ -16,8 +16,10 @@ distfiles="https://github.com/pop-os/cosmic-comp/archive/refs/tags/epoch-${versi
 checksum=db6bf35703db06b3ac89e5da9ba9cd60eceaed90515c47e4b3256d73cf0a0b81
 repository=cosmic-d77
 
+# Upstream replaced the Makefile with a justfile in 1.10.0. `just install`
+# ships the binary plus the default keybindings and tiling exceptions; the
+# systemd units only come with install-bare-session, which isn't used. The
+# wayland-sessions/cosmic.desktop entry is provided by cosmic-session.
 do_install() {
-	CARGO_TARGET_DIR="target/${XBPS_RUST_TARGET}" make install
-	vbin target/${XBPS_RUST_TARGET}/release/cosmic-comp
-	vinstall data/cosmic.desktop 644 usr/share/wayland-session/cosmic.desktop
+	just rootdir="${DESTDIR}" cargo-target-dir="target/${RUST_TARGET}" install
 }

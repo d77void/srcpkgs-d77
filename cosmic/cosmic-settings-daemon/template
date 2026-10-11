@@ -5,7 +5,7 @@ revision=1
 archs="x86_64* i686"
 build_style=cargo
 configure_args="--all"
-hostmakedepends="pkg-config"
+hostmakedepends="pkg-config just"
 makedepends="clang22-devel eudev-libudev-devel libinput-devel geoclue2-devel libpulseaudio pipewire-devel openssl-devel libxkbcommon-devel"
 depends="geoclue2 dbus-libs eudev-libudev lame libvarlink libxkbcommon libpulseaudio libsndfile libxcb libasyncns libflac libvorbis libogg libmpg123 libXau libXdmcp opus pop-sounds-theme"
 short_desc="COSMIC settings daemon"
@@ -18,7 +18,9 @@ repository=cosmic-d77
 
 export GEOCLUE_AGENT="/usr/libexec/geoclue-2.0/demos/agent"
 
+# Upstream replaced the Makefile with a justfile in 1.10.0; `just install`
+# ships the binary, system_actions and the polkit rule.
 do_install() {
-	CARGO_TARGET_DIR=target/${XBPS_RUST_TARGET} prefix=${DESTDIR}/usr make install
+	just rootdir="${DESTDIR}" cargo-target-dir="target/${RUST_TARGET}" install
 	vinstall ${FILESDIR}/custom 644 usr/share/cosmic/com.system76.CosmicSettings.Shortcuts/v1
 }
