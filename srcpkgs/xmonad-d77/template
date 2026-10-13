@@ -7,7 +7,7 @@ cabal_index_state=2025-07-05T14:01:16Z
 hostmakedepends="pkg-config"
 makedepends="libX11-devel libXext-devel libXinerama-devel libXrandr-devel
  libXft-devel libXScrnSaver-devel"
-depends="xmobar dbus dmenu dunst feh NetworkManager redshift rofi st slock
+depends="xmobar dbus dmenu dunst feh NetworkManager redshift rofi d77-st d77-slock
  trayer-srg udiskie xautolock xcompmgr xf86-input-synaptics"
 conflicts="xmonad"
 short_desc="XMonad tiling window manager, Daniel Azevedo's personal build"

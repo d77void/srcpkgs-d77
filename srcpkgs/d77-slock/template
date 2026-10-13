@@ -1,7 +1,8 @@
-# Template file for 'slock'
-pkgname=slock
+# Template file for 'd77-slock'
+pkgname=d77-slock
 version=1.6
-revision=77
+revision=1
+wrksrc="slock-${version}"
 archs="x86_64 x86_64-musl"
 build_style=gnu-makefile
 makedepends="libXrandr-devel imlib2-devel"
@@ -12,6 +13,7 @@ homepage="https://suckless.org"
 #changelog=""
 distfiles="https://dl.suckless.org/tools/slock-${version}.tar.gz"
 checksum=233d22b8fa65fbdf8a05302863ee5b768ef425c57c88d12059ff15133ebc0e5c
+replaces="slock>=0"
 repository=d77
 
 if [ "$XBPS_TARGET_LIBC" = "glibc" ]; then

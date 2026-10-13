@@ -1,7 +1,8 @@
-# Template file for 'st'
-pkgname=st
+# Template file for 'd77-st'
+pkgname=d77-st
 version=0.9.3
-revision=77_1
+revision=1
+wrksrc="st-${version}"
 #archs="i686 x86_64"
 #build_wrksrc=
 build_style=gnu-makefile
@@ -12,7 +13,7 @@ build_style=gnu-makefile
 #make_dirs="/var/log/dir 0755 root root"
 hostmakedepends="pkg-config"
 makedepends="fontconfig-devel libX11-devel libXft-devel"
-depends="ncurses st-terminfo-${version}_${revision}"
+depends="ncurses d77-st-terminfo-${version}_${revision}"
 short_desc="Version of st patched with alpha and dracula"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
@@ -20,6 +21,7 @@ homepage="https://suckless.org"
 #changelog=""
 distfiles="https://dl.suckless.org/st/st-${version}.tar.gz"
 checksum=9ed9feabcded713d4ded38c8cebf36a3b08f0042ef7934a0e2b2409da56e649b
+replaces="st>=0"
 repository=d77
 
 pre_build() {
@@ -38,8 +40,9 @@ post_install() {
 	vinstall ${FILESDIR}/st.desktop 644 usr/share/applications/
 }
 
-st-terminfo_package() {
+d77-st-terminfo_package() {
 	short_desc+=" - terminfo data"
+	replaces="st-terminfo>=0"
 	pkg_install() {
 		vmove usr/share/terminfo
 	}

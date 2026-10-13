@@ -1,12 +1,12 @@
 # Template file for 'pwm'
 pkgname=pwm
 version=0.6.4
-revision=1
+revision=2
 archs="x86_64 x86_64-musl"
 build_style=cargo
 hostmakedepends="pkg-config"
 makedepends="libXft-devel libX11-devel"
-depends="dmenu libX11 libXft st wireless_tools"
+depends="dmenu libX11 libXft d77-st wireless_tools"
 short_desc="PipaWindowManager, a Penrose Lib Tiling Window Manager"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"

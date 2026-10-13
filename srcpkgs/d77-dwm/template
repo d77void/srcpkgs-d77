@@ -1,7 +1,8 @@
-# Template file for 'dwm'
-pkgname=dwm
+# Template file for 'd77-dwm'
+pkgname=d77-dwm
 version=6.8
-revision=77
+revision=1
+wrksrc="dwm-${version}"
 build_style="gnu-makefile"
 makedepends="libXinerama-devel libXft-devel freetype-devel"
 depends="libXinerama libXft freetype"
@@ -9,8 +10,9 @@ short_desc="DWM patched"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://suckless.org"
-distfiles="https://dl.suckless.org/$pkgname/$pkgname-$version.tar.gz"
+distfiles="https://dl.suckless.org/dwm/dwm-${version}.tar.gz"
 checksum=bcf540589ad174d4073f4efa658828411e2f5ba63196cfaf6b71363700f590b7
+replaces="dwm>=0"
 repository=d77
 
 do_build() {
@@ -21,7 +23,7 @@ do_build() {
 
 do_install() {
 	make PREFIX=/usr DESTDIR=$DESTDIR install
-	vinstall README 644 usr/share/doc/$pkgname
+	vinstall README 644 usr/share/doc/dwm
 	vinstall ${FILESDIR}/dwm.desktop 644 usr/share/xsessions
 	vlicense LICENSE
 }

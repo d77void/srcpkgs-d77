@@ -1,7 +1,8 @@
-# Template file for 'surf'
-pkgname=surf
+# Template file for 'd77-surf'
+pkgname=d77-surf
 version=2.1
-revision=77
+revision=1
+wrksrc="surf-${version}"
 build_style="gnu-makefile"
 hostmakedepends="pkg-config xdg-utils"
 makedepends="libwebkit2gtk41-devel gcr-devel libxdg-basedir-devel"
@@ -10,8 +11,9 @@ short_desc="Simple web browser based on WebKit/GTK+"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="http://surf.suckless.org"
-distfiles="http://dl.suckless.org/surf/$pkgname-$version.tar.gz"
+distfiles="http://dl.suckless.org/surf/surf-${version}.tar.gz"
 checksum=72e582920ba25a646203e93c2d2331d87f03037a28894d6c7e99af00ee043257
+replaces="surf>=0"
 repository=d77
 
 post_install() {

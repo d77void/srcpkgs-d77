@@ -1,12 +1,12 @@
 # Template file for 'wmd77'
 pkgname=wmd77
 version=0.4.1
-revision=1
+revision=2
 archs="x86_64 x86_64-musl"
 build_style=cargo
 hostmakedepends="pkg-config"
 makedepends="libXft-devel libX11-devel"
-depends="dmenu libX11 libXft st"
+depends="dmenu libX11 libXft d77-st"
 short_desc="Penrose Lib Tiling Window Manager"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
