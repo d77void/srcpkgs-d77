@@ -1,6 +1,6 @@
 # Template file for 'somewm'
 pkgname=somewm
-version=2.0.0
+version=2.0.1
 revision=1
 archs="x86_64"
 build_style=meson
@@ -13,7 +13,7 @@ license="GPL-3.0-or-later"
 homepage="https://somewm.org/"
 changelog="https://github.com/trip-zip/${pkgname}/releases/tag/v${version}"
 distfiles="https://github.com/trip-zip/${pkgname}/archive/refs/tags/v${version}.tar.gz"
-checksum=334903ec97a90cc0f5eca2993a1b115d20c038486cc055101e001cb276409a61
+checksum=30001b0ec618225dee99f342b86f2a1bba58f33a5e2974a55db543794fd15358
 repository=d77
 
 post_install() {
