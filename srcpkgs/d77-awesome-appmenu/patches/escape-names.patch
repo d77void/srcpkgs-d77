@@ -1,0 +1,26 @@
+--- a/awesome-appmenu
++++ b/awesome-appmenu
+@@ -429,9 +429,9 @@
+         if launcher.Terminal:
+           if self.verbose:
+             print(launcher.Name + " launches in a terminal.")
+-          f.write("    { '" + launcher.Name + "', '" + terminal + " -e " + 
++          f.write("    { '" + launcher.Name.replace("'", "\\'") + "', '" + terminal + " -e " + 
+                   launcher.Exec + "'")
+-        else: f.write("    { '" + launcher.Name + "', '" + launcher.Exec + "'")
++        else: f.write("    { '" + launcher.Name.replace("'", "\\'") + "', '" + launcher.Exec + "'")
+         if launcher.Icon: 
+           f.write(", '" + launcher.Icon + "'")
+         f.write(" },\n")
+@@ -448,9 +448,9 @@
+         if favorite.Terminal:
+           if self.verbose:
+             print(favorite.Name + " launches in a terminal.")
+-          f.write("    { '" + favorite.Name + "', '" + terminal + " -e " + 
++          f.write("    { '" + favorite.Name.replace("'", "\\'") + "', '" + terminal + " -e " + 
+                   favorite.Exec + "'")
+-        else: f.write("    { '" + favorite.Name + "', '" + favorite.Exec + "'")
++        else: f.write("    { '" + favorite.Name.replace("'", "\\'") + "', '" + favorite.Exec + "'")
+         if favorite.Icon: 
+           f.write(", '" + favorite.Icon + "'")
+         f.write(" },\n")
