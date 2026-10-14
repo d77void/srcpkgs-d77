@@ -1,12 +1,12 @@
 # Template file for 'fabric-d77'
 # See void/README.md in the fabric-d77 repo for how to build this with xbps-src.
 pkgname=fabric-d77
-version=1.2.0
-revision=2
+version=1.3.0
+revision=1
 depends="python3 python3-gobject python3-cairo python3-cffi python3-click
  python3-loguru python3-Pillow python3-psutil python3-rapidfuzz
  python3-requests python3-setproctitle python3-six python3-pam python3-thefuzz
- fabric gtk-session-lock alsa-utils brightnessctl"
+ fabric gtk-session-lock alsa-utils brightnessctl matugen"
 short_desc="GTK desktop shell for Wayland compositors, built on Fabric"
 maintainer="Daniel Azevedo <daniazevedo77@gmail.com>"
 license="MIT"
@@ -15,9 +15,9 @@ homepage="https://github.com/dani-77/fabric-d77"
 # Pinned snapshot of the repo (no upstream release tags yet). Bump _commit
 # and recompute checksum (`./xbps-src pkg fabric-d77` prints the real one on
 # a mismatch) whenever you want to package a newer revision.
-_commit=b2e1878f0876c2ffc14cbc002fce188c13b69457
+_commit=5c95b99e5502fc3b94ac745d7fee3afcdd3d51ae
 distfiles="https://github.com/dani-77/fabric-d77/archive/${_commit}.tar.gz"
-checksum=27bcbba677b70f868c46c77d4bb7c1b4982a1a999e614687dfc719ecc104d66e
+checksum=c31408e874970b4e1e688b0a7545b700565ffd718dd5fc4fac4389d14a8b4862
 wrksrc="fabric-d77-${_commit}"
 repository=d77
 
@@ -25,6 +25,7 @@ do_install() {
 	vmkdir usr/share/fabric-d77
 	vcopy "*.py" usr/share/fabric-d77
 	vcopy assets usr/share/fabric-d77
+	vcopy theme usr/share/fabric-d77
 	vcopy style.css usr/share/fabric-d77
 
 	vbin ${FILESDIR}/fabric-d77
