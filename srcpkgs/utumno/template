@@ -8,7 +8,7 @@ makedepends="wayland-devel"
 # quickshell is required at runtime but intentionally NOT listed in depends=:
 # pinning it here holds back system upgrades whenever utumno is installed.
 # Install quickshell yourself alongside this package.
-# matugen (from the d77 repo) generates the wallpaper palette; xbps has no
+# matugen (from the official Void repo) generates the wallpaper palette; xbps has no
 # optional dependencies, and an unversioned one never holds back upgrades.
 depends="power-profiles-daemon alsa-utils alsa-tools brightnessctl wireless_tools matugen"
 short_desc="Minimal Quickshell shell for wayland compositors, lighter sibling of quickshell-d77"
