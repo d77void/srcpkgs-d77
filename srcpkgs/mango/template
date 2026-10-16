@@ -1,6 +1,6 @@
 # Template file for 'mango'
 pkgname=mango
-version=0.18.0
+version=0.18.1
 revision=1
 conf_files="/etc/mango/config.conf"
 build_style=meson
@@ -15,7 +15,7 @@ license="GPL-3.0-or-later"
 homepage="https://mangowm.github.io/"
 changelog="https://github.com/mangowm/mango/releases/tag/${version}"
 distfiles="https://github.com/mangowm/mango/archive/refs/tags/${version}.tar.gz"
-checksum=984386900d8a6896a67c56e3defcc8a979c8a9bd5b3b8ba9fb1ef537965b64a1
+checksum=cb7c25c3491fd8f81c0658500699b0ab3efec57b6f0517fcbaab18bd2b42dffb
 repository=d77
 
 build_options="xwayland"
