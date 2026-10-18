@@ -1,21 +1,34 @@
 # Template file for 'noctalia-shell'
 pkgname=noctalia-shell
-version=5.0.0
+version=5.3.0
 revision=1
 archs="x86_64 x86_64-musl"
 build_style=meson
-hostmakedepends="just meson ninja pkg-config cmake"
-makedepends="sdbus-c++-devel wayland-devel wayland-protocols freetype-devel fontconfig-devel cairo-devel pango-devel librsvg-devel libxkbcommon-devel polkit-devel pipewire-devel wireplumber-devel libcurl-devel libqalculate-devel pam-devel libepoxy-devel"
-depends="ImageMagick brightnessctl ffmpeg qt6-multimedia cliphist cava wlsunset power-profiles-daemon ddcutil"
+configure_args="-Dtests=disabled"
+hostmakedepends="just meson ninja pkg-config cmake wayland-devel"
+makedepends="sdbus-c++-devel wayland-devel wayland-protocols freetype-devel
+ fontconfig-devel cairo-devel pango-devel harfbuzz-devel librsvg-devel
+ libxkbcommon-devel polkit-devel pipewire-devel wireplumber-devel libcurl-devel
+ libqalculate-devel pam-devel libepoxy-devel libglvnd-devel libglib-devel
+ libsecret-devel libsodium-devel libical-devel libjxl-devel libwebp-devel
+ libxml2-devel libmd4c-devel json-c++ libsndfile-devel tomlplusplus-devel stb"
+# git: plugin sources/auto-update; ddcutil: external monitor brightness;
+# power-profiles-daemon: power profile control (D-Bus); upower: battery.
+depends="git sound-theme-freedesktop upower ddcutil power-profiles-daemon"
 short_desc="Sleek and minimal desktop shell"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
-homepage="https://github.com/noctalia-dev/noctalia-shell"
-changelog="https://github.com/noctalia-dev/${pkgname}/releases/tag/v${version}"
-distfiles="https://github.com/noctalia-dev/${pkgname}/releases/download/v${version}-beta1/noctalia-v${version}-beta1.tar.gz"
-checksum=bdd8600d15689439edc1c7c3c3167993b7d92fbb92ba283eb522511194c0514a
+homepage="https://github.com/noctalia-dev/noctalia"
+changelog="https://github.com/noctalia-dev/noctalia/releases/tag/v${version}"
+distfiles="https://github.com/noctalia-dev/${pkgname}/releases/download/v${version}/noctalia-v${version}.tar.gz"
+checksum=d7d27ea6f432d96b3750476e881ed06240658d0026129e5f96d3ab7281040b62
 CXXFLAGS+=" -std=c++23"
 repository=d77
+
+# jemalloc is glibc-only; with the default -Djemalloc=auto Meson skips it on musl.
+if [ "$XBPS_TARGET_LIBC" = "glibc" ]; then
+	makedepends+=" jemalloc-devel"
+fi
 
 post_install() {
 	vlicense LICENSE
