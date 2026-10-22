@@ -1,6 +1,6 @@
 # Template file for 'danksearch'
 pkgname=danksearch
-version=1.6.0
+version=2.0.0
 revision=1
 archs="x86_64 x86_64-musl"
 build_style=gnu-makefile
@@ -11,7 +11,7 @@ maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://danklinux.com"
 distfiles="https://github.com/AvengeMedia/${pkgname}/archive/refs/tags/v${version}.tar.gz"
-checksum=17edc8ad137c61c6c6546b0272f83a3b4ac2d277b1d753703344f53bece8b06e
+checksum=b33665b22692e12075b23acdbe3f03e4f3d64e50223f92820117e525d18aabe4
 repository=d77
 
 do_install() {

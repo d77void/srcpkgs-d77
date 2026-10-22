@@ -1,7 +1,7 @@
 # Template file for 'hyprlauncher'
 pkgname=hyprlauncher
-version=0.1.6
-revision=2
+version=0.1.7
+revision=1
 build_style=cmake
 hostmakedepends="hyprwire pkgconf"
 makedepends="hyprutils hyprwire hyprlang hyprtoolkit wayland-devel pixman-devel libdrm-devel
@@ -12,7 +12,7 @@ maintainer="Nizarjh <chel773@tutamail.com>"
 license="BSD-3-Clause"
 homepage="https://github.com/hyprwm/hyprlauncher"
 distfiles="https://github.com/hyprwm/${pkgname}/archive/refs/tags/v${version}.tar.gz"
-checksum=f02f93584e1017d7a466d0cafed910f630be39eba6b433922e645c834c4abf59
+checksum=66a8b893c13fbf6c523bdf2974ef65101a0ca94f25e020f4f53f043470418340
 repository=hypr-d77
 
 # upstream's pkg_check_modules(... IMPORTED_TARGET ...) doesn't propagate
