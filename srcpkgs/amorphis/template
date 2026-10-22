@@ -1,0 +1,20 @@
+# Template file for 'amorphis'
+pkgname=amorphis
+version=0.1.0
+revision=1
+build_style=cargo
+hostmakedepends="pkg-config"
+makedepends="libxcb-devel libxkbcommon-devel pam-devel wayland-devel"
+conf_files="/etc/pam.d/amorphis"
+short_desc="Small fail-closed screen locker for Wayland and X11"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="MIT"
+homepage="https://github.com/dani-77/amorphis"
+repository=d77
+distfiles="https://github.com/dani-77/amorphis/archive/refs/tags/v${version}.tar.gz"
+checksum=f4e74759840855a0e79cad9f7fa2cd100b611ccf7f300cb8a90a3e3b18f01278
+
+post_install() {
+	vlicense LICENSE
+	vinstall contrib/pam/amorphis.void 644 etc/pam.d amorphis
+}
