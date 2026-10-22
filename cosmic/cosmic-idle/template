@@ -1,6 +1,6 @@
 # Template file for 'cosmic-idle'
 pkgname=cosmic-idle
-version=1.10.0
+version=1.11.0
 revision=1
 archs="x86_64* i686"
 build_style=cargo
@@ -13,7 +13,7 @@ maintainer="Bella109 <belladev109@proton.me>"
 license="GPL-3.0-only"
 homepage="https://github.com/pop-os/cosmic-idle"
 distfiles="https://github.com/pop-os/cosmic-idle/archive/refs/tags/epoch-${version}.tar.gz"
-checksum=532074f48a9c0c23bebfcc171b527a732fa8850ce83f3cd2f4ca5926ef6fbac7
+checksum=683290f2a67a63fd553f654a34756cbfdcc41b2d2141b79850c58c16643dc63a
 repository=cosmic-d77
 build_options="sccache"
 
