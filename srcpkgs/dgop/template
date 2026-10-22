@@ -1,9 +1,10 @@
 # Template file for 'dgop'
 pkgname=dgop
 version=2.0.0
-revision=1
+revision=2
 archs="x86_64 x86_64-musl"
 build_style=gnu-makefile
+make_build_args="VERSION=${version}"
 build_helper="qemu"
 hostmakedepends="go"
 short_desc="API & CLI for System & Process Monitoring"

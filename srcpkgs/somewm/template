@@ -1,7 +1,7 @@
 # Template file for 'somewm'
 pkgname=somewm
 version=2.1.0
-revision=1
+revision=2
 archs="x86_64"
 build_style=meson
 configure_args="-Dwerror=false -Dsystemd=disabled"
@@ -9,7 +9,7 @@ hostmakedepends="git pkg-config wayland-devel hwids"
 makedepends="dbus-devel cairo-devel pango-devel gdk-pixbuf-devel libdrm-devel eudev-libudev-devel libinput-devel libxkbcommon-devel LuaJIT-devel lua51-devel lua51-lgi wayland-protocols wayland-devel wlroots0.20-devel librsvg-devel
  libxcb-devel xcb-util-cursor-devel xcb-util-devel xcb-util-image-devel
  xcb-util-keysyms-devel xcb-util-xrm-devel xorg-server-xwayland"
-depends="lua51-lgi"
+depends="lua51-lgi xorg-server-xwayland"
 short_desc="Not quite awesome...just some"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="GPL-3.0-or-later"
@@ -32,6 +32,10 @@ post_extract() {
 }
 
 post_install() {
+	# the bundled wlroots subproject installs its headers, static lib and
+	# .pc file; they'd clash with wlroots0.20-devel, so drop them
+	rm -r ${DESTDIR}/usr/include ${DESTDIR}/usr/lib/libwlroots-0.20.a \
+		${DESTDIR}/usr/lib/pkgconfig/wlroots-0.20.pc
 	vdoc README.md
 	vinstall ${FILESDIR}/somewm.desktop 644 usr/share/wayland-sessions/
 }

@@ -13,7 +13,7 @@ depends="cava i2c-tools matugen qt6-multimedia power-profiles-daemon qt6ct wtype
 short_desc="Desktop shell for wayland compositors built with Quickshell & GO"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
-homepage="https://danklinux.com"
+homepage="https://duxlabs.dev"
 changelog="https://github.com/duxlabs-dev/dux-shell/releases/tag/v${version}"
 # dux-qml-common is a git submodule (quickshell/DCommon is a symlink to
 # ../dux-qml-common/DCommon); GitHub tarballs don't include submodule
