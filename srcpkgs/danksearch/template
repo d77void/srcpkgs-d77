@@ -10,7 +10,7 @@ short_desc="Fast, configurable filesystem search with fuzzy matching"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://danklinux.com"
-distfiles="https://github.com/AvengeMedia/${pkgname}/archive/refs/tags/v${version}.tar.gz"
+distfiles="https://github.com/duxlabs-dev/dux-search/archive/refs/tags/v${version}.tar.gz"
 checksum=b33665b22692e12075b23acdbe3f03e4f3d64e50223f92820117e525d18aabe4
 repository=d77
 

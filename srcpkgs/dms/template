@@ -5,6 +5,7 @@ revision=1
 archs="x86_64 x86_64-musl"
 build_style=gnu-makefile
 build_helper="qemu"
+make_build_args="VERSION=${version}"
 #make_dirs="/var/log/dir 0755 root root"
 hostmakedepends="go pkg-config automake tar"
 makedepends="accountsservice-devel"
@@ -13,22 +14,22 @@ short_desc="Desktop shell for wayland compositors built with Quickshell & GO"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://danklinux.com"
-changelog="https://github.com/AvengeMedia/DankMaterialShell/releases/tag/v${version}"
-# dank-qml-common is a git submodule (quickshell/DankCommon is a symlink to
-# ../dank-qml-common/DankCommon); GitHub tarballs don't include submodule
+changelog="https://github.com/duxlabs-dev/dux-shell/releases/tag/v${version}"
+# dux-qml-common is a git submodule (quickshell/DCommon is a symlink to
+# ../dux-qml-common/DCommon); GitHub tarballs don't include submodule
 # content, so fetch it separately at the commit pinned by the v${version}
-# tag (see: git ls-tree v${version} dank-qml-common) and unpack it into
+# tag (see: git ls-tree v${version} dux-qml-common) and unpack it into
 # place. Same submodule/approach as srcpkgs/dankcalendar.
-_dankcommon_commit=26396ce432d6c71c3f5367438f96f4a8d667e160
-distfiles="https://github.com/AvengeMedia/DankMaterialShell/archive/refs/tags/v${version}.tar.gz
- https://github.com/AvengeMedia/dank-qml-common/archive/${_dankcommon_commit}.tar.gz>dank-qml-common-${_dankcommon_commit}.tar.gz"
+_duxcommon_commit=ebf5e6c002da1bdaa4aaa2f319fea7b8507abc42
+distfiles="https://github.com/duxlabs-dev/dux-shell/archive/refs/tags/v${version}.tar.gz
+ https://github.com/duxlabs-dev/dux-qml-common/archive/${_duxcommon_commit}.tar.gz>dux-qml-common-${_duxcommon_commit}.tar.gz"
 checksum="e81b0b496b3a6a5a08a6b045ef04d79b3a36f9b07bbfdf475e7dceb80228aca4
- 016197ed8d569fbdfb2714cffd00f40f207950a427a23c254124e3da1a4c49cd"
-skip_extraction="dank-qml-common-${_dankcommon_commit}.tar.gz"
+ 958e7344fc7f18daf7177827fd17dd9fda3d5a44d336f0d6e02e71194ee1037d"
+skip_extraction="dux-qml-common-${_duxcommon_commit}.tar.gz"
 repository=d77
 
 post_extract() {
-	vsrcextract -C dank-qml-common "dank-qml-common-${_dankcommon_commit}.tar.gz"
+	vsrcextract -C dux-qml-common "dux-qml-common-${_duxcommon_commit}.tar.gz"
 }
 
 do_install() {
@@ -36,9 +37,12 @@ do_install() {
 
 	vmkdir usr/share/quickshell/dms
 	vcopy "quickshell/*" usr/share/quickshell/dms
+	# quickshell/DCommon is a symlink into the dux-qml-common submodule,
+	# which would dangle once installed; ship the real directory instead
+	rm "${DESTDIR}/usr/share/quickshell/dms/DCommon"
+	vcopy dux-qml-common/DCommon usr/share/quickshell/dms
 
-	vmkdir usr/share/doc/dms
-	vcopy "docs/*" usr/share/doc/dms/
+	vdoc README.md
 
 	vinstall assets/dms-open.desktop 644 usr/share/applications
 	vinstall assets/danklogo.svg 644 usr/share/icons/hicolor/scalable/apps

@@ -4,17 +4,32 @@ version=2.1.0
 revision=1
 archs="x86_64"
 build_style=meson
-hostmakedepends="git pkg-config"
-makedepends="dbus-devel cairo-devel pango-devel gdk-pixbuf-devel libdrm-devel eudev-libudev-devel libinput-devel libxkbcommon-devel LuaJIT-devel lua51-devel lua51-lgi wayland-protocols wayland-devel wlroots0.20-devel"
+configure_args="-Dwerror=false -Dsystemd=disabled"
+hostmakedepends="git pkg-config wayland-devel hwids"
+makedepends="dbus-devel cairo-devel pango-devel gdk-pixbuf-devel libdrm-devel eudev-libudev-devel libinput-devel libxkbcommon-devel LuaJIT-devel lua51-devel lua51-lgi wayland-protocols wayland-devel wlroots0.20-devel librsvg-devel
+ libxcb-devel xcb-util-cursor-devel xcb-util-devel xcb-util-image-devel
+ xcb-util-keysyms-devel xcb-util-xrm-devel xorg-server-xwayland"
 depends="lua51-lgi"
 short_desc="Not quite awesome...just some"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="GPL-3.0-or-later"
 homepage="https://somewm.org/"
 changelog="https://github.com/trip-zip/${pkgname}/releases/tag/v${version}"
-distfiles="https://github.com/trip-zip/${pkgname}/archive/refs/tags/v${version}.tar.gz"
-checksum=881d4941df12cc7674fead1772d6c886690485b2f2fcde580a489cf7b3f3213e
+# somewm builds a bundled, patched wlroots (subprojects/wlroots.wrap +
+# packagefiles/wlroots-corners.diff) unconditionally; meson can't download
+# it under --wrap-mode=nodownload, so ship the tarball in its packagecache
+# and let meson unpack it and apply the diff itself.
+_wlroots_version=0.20.2
+distfiles="https://github.com/trip-zip/${pkgname}/archive/refs/tags/v${version}.tar.gz
+ https://gitlab.freedesktop.org/wlroots/wlroots/-/releases/${_wlroots_version}/downloads/wlroots-${_wlroots_version}.tar.gz"
+checksum="881d4941df12cc7674fead1772d6c886690485b2f2fcde580a489cf7b3f3213e
+ 80c567d2ed4efb2cfa6b077f22c7a710d9c78ba4e185a75e8694001114af0733"
+skip_extraction="wlroots-${_wlroots_version}.tar.gz"
 repository=d77
+
+post_extract() {
+	vsrccopy wlroots-${_wlroots_version}.tar.gz subprojects/packagecache
+}
 
 post_install() {
 	vdoc README.md
