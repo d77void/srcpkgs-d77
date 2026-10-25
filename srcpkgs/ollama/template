@@ -1,6 +1,6 @@
 # Template file for 'ollama'
 pkgname=ollama
-version=0.40.8
+version=0.40.11
 revision=1
 archs="x86_64 aarch64"
 build_style=go
@@ -18,7 +18,7 @@ maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://ollama.com/"
 distfiles="https://github.com/ollama/ollama/archive/refs/tags/v${version}.tar.gz"
-checksum=e4a22341210a7590c84465173fac12e38901e3f1d30e108e9f470737703b7703
+checksum=9733d6230d8c8a75ccdf368c53132d90ee49009ce677776d897e96b50cc1c654
 repository=d77
 # NB: do NOT add build_wrksrc here. The distfile is a GitHub tag tarball with
 # a single top-level directory (ollama-${version}/); xbps-src's do-extract
