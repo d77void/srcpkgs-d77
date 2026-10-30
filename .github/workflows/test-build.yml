@@ -86,6 +86,11 @@ jobs:
           PACKAGES: ${{ inputs.packages }}
         run: |
           pkgs="${PACKAGES:-$DEFAULT_PACKAGES}"
+          # keep ninja going after the first failing object, so a single run
+          # reports every compile error instead of just the first one
+          for pkg in $pkgs; do
+            [ -f "srcpkgs/$pkg/template" ] && echo 'make_build_args+=" -k 0"' >> "srcpkgs/$pkg/template"
+          done
           for pkg in $pkgs; do
             echo "::group::$pkg"
             sudo -Eu builder ./xbps-src -j"$(nproc)" pkg "$pkg" || { echo "::endgroup::"; echo "::error::$pkg failed to build"; exit 1; }
