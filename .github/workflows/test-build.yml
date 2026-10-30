@@ -1,0 +1,98 @@
+name: Test build
+
+# Builds templates from this repository with xbps-src (x86_64 glibc) to
+# check that they still compile. The build tree is d77void-pkgs (a
+# void-packages fork that already carries these templates), overlaid with
+# the templates from this checkout and the common/shlibs entries listed in
+# SHLIBS.md. Templates missing from the official repos (hypr-d77 / d77
+# deps) are built from source as needed.
+
+on:
+  push:
+    branches:
+      - 'ccr-**'
+      - 'test-build/**'
+    paths:
+      - '.github/workflows/test-build.yml'
+      - 'srcpkgs/**'
+      - 'cosmic/**'
+      - 'hyprland/**'
+  workflow_dispatch:
+    inputs:
+      packages:
+        description: "Packages to build (space separated)"
+        required: true
+        default: "hyprland xdg-desktop-portal-hyprland"
+
+env:
+  # Used for push runs; workflow_dispatch overrides it.
+  DEFAULT_PACKAGES: "hyprland xdg-desktop-portal-hyprland"
+
+concurrency:
+  group: test-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+
+    container:
+      image: ghcr.io/void-linux/void-glibc-full
+      options: --privileged
+      volumes:
+        - /dev:/dev
+
+    steps:
+      - name: Prepare container
+        run: |
+          mkdir -p /etc/xbps.d && cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
+          sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
+          xbps-install -Syu xbps && xbps-install -yu && xbps-install -y sudo bash curl git
+          useradd -G xbuilder -M builder
+
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          path: srcpkgs-d77
+
+      - name: Prepare build tree
+        run: |
+          git clone --depth 1 https://github.com/dani-77/d77void-pkgs void-packages
+          for d in srcpkgs cosmic hyprland; do
+            cp -a --remove-destination srcpkgs-d77/$d/. void-packages/srcpkgs/
+          done
+          cd void-packages
+          # common/shlibs entries from SHLIBS.md (same loop as documented there)
+          sed -n "/<<'EOF'/,/^EOF/{//!p}" ../srcpkgs-d77/SHLIBS.md |
+          while read -r lib pkg; do
+            if grep -q "^${lib} " common/shlibs; then
+              sed -i "s|^${lib} .*|${lib} ${pkg}|" common/shlibs
+            else
+              echo "${lib} ${pkg}" >> common/shlibs
+            fi
+          done
+          chown -R builder:builder .
+
+      - name: Bootstrap
+        working-directory: void-packages
+        run: |
+          sudo -Eu builder common/travis/set_mirror.sh
+          sudo -Eu builder common/travis/prepare.sh
+
+      - name: Build
+        working-directory: void-packages
+        env:
+          PACKAGES: ${{ inputs.packages }}
+        run: |
+          pkgs="${PACKAGES:-$DEFAULT_PACKAGES}"
+          for pkg in $pkgs; do
+            echo "::group::$pkg"
+            sudo -Eu builder ./xbps-src -j"$(nproc)" pkg "$pkg" || { echo "::endgroup::"; echo "::error::$pkg failed to build"; exit 1; }
+            echo "::endgroup::"
+          done
+
+      - name: List built packages
+        if: always()
+        working-directory: void-packages
+        run: find hostdir/binpkgs -name '*.xbps' -printf '%f\n' 2>/dev/null | sort
