@@ -1,7 +1,7 @@
 # Template file for 'somewm'
 pkgname=somewm
-version=2.1.0
-revision=2
+version=2.1.1
+revision=1
 archs="x86_64"
 build_style=meson
 configure_args="-Dwerror=false -Dsystemd=disabled"
@@ -22,7 +22,7 @@ changelog="https://github.com/trip-zip/${pkgname}/releases/tag/v${version}"
 _wlroots_version=0.20.2
 distfiles="https://github.com/trip-zip/${pkgname}/archive/refs/tags/v${version}.tar.gz
  https://gitlab.freedesktop.org/wlroots/wlroots/-/releases/${_wlroots_version}/downloads/wlroots-${_wlroots_version}.tar.gz"
-checksum="881d4941df12cc7674fead1772d6c886690485b2f2fcde580a489cf7b3f3213e
+checksum="2c05fa7e5d94e313a986d029f6dee422bdf4c8c0872fc3ee97262a8363f556dd
  80c567d2ed4efb2cfa6b077f22c7a710d9c78ba4e185a75e8694001114af0733"
 skip_extraction="wlroots-${_wlroots_version}.tar.gz"
 repository=d77
