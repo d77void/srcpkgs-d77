@@ -4,11 +4,13 @@ version=1.5.0
 revision=1
 build_style=cmake
 configure_args="-DCMAKE_INSTALL_LIBEXECDIR:PATH=/usr/libexec"
-hostmakedepends="git hyprwayland-scanner pkgconf
- qt6-base-devel scdoc wayland-protocols"
-makedepends="elogind-devel hyprland-protocols hyprlang hyprutils
- hyprwayland-scanner libgbm-devel libdrm-devel pipewire-devel
- qt6-base-devel qt6-wayland-devel sdbus-cpp wayland-devel"
+hostmakedepends="git hyprwayland-scanner pkgconf scdoc wayland-protocols"
+# hyprtoolkit's pkg-config file pulls in the rest of these for the share picker
+makedepends="abseil-cpp-devel aquamarine cairo-devel elogind-devel hyprgraphics
+ hyprland-protocols hyprlang hyprtoolkit hyprutils hyprwayland-scanner
+ iniparser-devel libdrm-devel libgbm-devel libglvnd-devel libxkbcommon-devel
+ pango-devel pipewire-devel pixman-devel sdbus-cpp wayland-devel
+ wayland-protocols"
 depends="xdg-desktop-portal"
 short_desc="Backend of xdg-desktop-portal for Hyprland"
 maintainer="Nizarjh <chel773@tutamail.com>"
