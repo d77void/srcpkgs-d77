@@ -1,6 +1,6 @@
 # Template file for 'wayle'
 pkgname=wayle
-version=0.7.0
+version=0.7.1
 revision=1
 archs="x86_64 x86_64-musl"
 build_style=cargo
@@ -15,7 +15,7 @@ license="MIT"
 homepage="https://wayle.app"
 changelog="https://github.com/wayle-rs/wayle/releases"
 distfiles="https://github.com/wayle-rs/wayle/archive/refs/tags/v${version}.tar.gz"
-checksum=cbb531e25ab5cd067fb3a5696695ad3361afed266a9530beabc2462e028faefd
+checksum=34681cfc79ab266fab4af3807a289e1f295752ae37087a85b2a70a89d0583a8b
 repository=d77
 
 do_install() {
