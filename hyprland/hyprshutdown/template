@@ -4,7 +4,7 @@ version=0.1.2
 revision=1
 build_style=cmake
 hostmakedepends="pkgconf"
-makedepends="hyprtoolkit hyprutils cairo-devel glaze libdrm-devel
+makedepends="libglvnd-devel hyprtoolkit hyprutils cairo-devel glaze libdrm-devel
 	libxkbcommon-devel pango-devel pixman-devel"
 short_desc="Graceful shutdown/logout utility for Hyprland"
 maintainer="Nizarjh <chel773@tutamail.com>"

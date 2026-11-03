@@ -4,7 +4,7 @@ version=0.8.5
 revision=1
 build_style=cmake
 hostmakedepends="pkgconf hyprwayland-scanner hyprwire hyprland-protocols wayland-protocols"
-makedepends="cairo-devel file-devel libjpeg-turbo-devel libwebp-devel
+makedepends="libglvnd-devel cairo-devel file-devel libjpeg-turbo-devel libwebp-devel
  hyprgraphics hyprutils hyprlang hyprtoolkit hyprwire pango-devel wlroots-devel"
 short_desc="Fast wallpaper utility for wlroots compositors with IPC controls"
 maintainer="Nizarjh <chel773@tutamail.com>"
