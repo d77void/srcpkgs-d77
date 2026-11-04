@@ -4,7 +4,9 @@
 # base-browser + Mullvad patches), from the GitHub mirror of its gecko
 # repository. The build setup and the patches/ directory follow
 # void-packages' srcpkgs/firefox-esr, so keep them in sync with the
-# firefox-esr template of the same ESR version (_esrver).
+# firefox-esr template of the same ESR version (_esrver). Void's firefox-esr
+# was still on ESR 140 when Mullvad Browser 16.0 moved to ESR 153, so 16.x
+# follows srcpkgs/firefox at 153.0.3 (183be43e014) instead: same Gecko.
 #
 # --enable-bundled-fonts (below) only wires up the packaging mechanism; it
 # doesn't supply the actual Noto/Arimo/Tinos/Cousine/STIX font set Mullvad
@@ -18,19 +20,19 @@
 # https://github.com/d77void/vendored-assets since it isn't otherwise
 # fetchable as a standalone, appropriately-sized distfile.
 pkgname=mullvad-browser
-version=15.0.23
-revision=3
-# head of the mullvad-browser-${_esrver}esr-15.0-1 branch; the GitHub mirror
+version=16.0
+revision=1
+# head of the mullvad-browser-${_esrver}esr-16.0-1 branch; the GitHub mirror
 # no longer carries the per-build tags
-_esrver=140.17.0
-_commit=59434ea5714651edf2849208667f9d7415f0ba43
-_fontsrel=mullvadbrowser-noto-fonts-1
-_fontsfile=mullvadbrowser-noto-fonts-20261001.tar.zst
-_llvmver=22
+_esrver=153.6.0
+_commit=a95cf214d39eaaf5a53576d80bc16f015a6e6cf1
+_fontsrel=mullvadbrowser-noto-fonts-2
+_fontsfile=mullvadbrowser-noto-fonts-20261104.tar.zst
+_llvmver=23
 archs="x86_64* aarch64*"
 build_helper="rust"
 hostmakedepends="autoconf213 unzip zip pkg-config perl python3 yasm rust
- cargo llvm${_llvmver} clang${_llvmver} lld${_llvmver} nodejs cbindgen nasm which
+ cargo llvm${_llvmver} clang${_llvmver} lld${_llvmver} libclang${_llvmver} nodejs cbindgen nasm which
  tar xz zstd $(vopt_if wasi wasi-sdk)"
 makedepends="gtk+3-devel libXrender-devel libXcomposite-devel libSM-devel
  libXt-devel libXdamage-devel freetype-devel rust-std $(vopt_if wasi wasi-sdk)
@@ -45,8 +47,8 @@ homepage="https://mullvad.net/browser"
 changelog="https://github.com/mullvad/mullvad-browser/releases/tag/${version}"
 distfiles="https://github.com/mullvad/mullvad-browser/archive/${_commit}.tar.gz
  https://github.com/d77void/vendored-assets/releases/download/${_fontsrel}/${_fontsfile}"
-checksum="f3db9c388bda6dfb70d713d80f0f157ebefc0a662dd03090ee8bc62827d131f9
- 0f82f1c8a73f56de6bc907030235744febd70a9391eb00db089b984a8161cddf"
+checksum="2bd09e881bbacc452333f6a3011ccff9d4a8a2175241279595d8b36635ed7cfb
+ af9898be5745ac3d246d4259f02d82f9f767cd4d375a48b109e37ec4535fd9f0"
 skip_extraction="${_fontsfile}"
 lib32disabled=yes
 repository=d77
@@ -71,21 +73,33 @@ post_extract() {
 	esac
 }
 
+post_patch() {
+	if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
+		vsed -e '\;sys/single_threaded.h;d' -i config/system-headers.mozbuild
+	fi
+}
+
 do_build() {
 	export AS="${CC}"
 	export CFLAGS="-O2"
 	export CXXFLAGS="-O2"
-	export HOST_CFLAGS=""
-	export HOST_CXXFLAGS=""
+	# unset HOST_C{,XX}FLAGS since the firefox build system uses them internally and
+	# if they are exported they end up in the cargo environment, where they are not
+	# supposed to be.
+	unset HOST_CFLAGS
+	unset HOST_CXXFLAGS
 	export LDFLAGS="-Wl,-rpath=/usr/lib/mullvadbrowser"
 
 	if [ "$build_option_clang" ]; then
 		export CC=clang
 		export CXX=clang++
+		export AS=clang
 		export AR=llvm-ar
 		export NM=llvm-nm
 		export HOST_CC=clang
 		export HOST_CXX=clang++
+
+		export ASFLAGS="--target=${XBPS_CROSS_TRIPLET:-${XBPS_TRIPLET}}"
 	fi
 
 	disable_jemalloc() {
@@ -123,6 +137,7 @@ do_build() {
 	ac_add_options --host=${XBPS_TRIPLET}
 	ac_add_options --target=${XBPS_CROSS_TRIPLET:-${XBPS_TRIPLET}}
 	ac_add_options --enable-linker=$(vopt_if clang lld bfd)
+	ac_add_options --disable-bootstrap
 	$(vopt_if lto 'ac_add_options --enable-lto=cross')
 	$(vopt_if clang 'ac_add_options --with-libclang-path=/usr/lib')
 
@@ -163,6 +178,8 @@ do_build() {
 	ac_add_options --enable-release
 	ac_add_options --enable-hardening
 	ac_add_options --enable-path-remapping=c,rust
+	ac_add_options --enable-packed-relative-relocs
+	ac_add_options --disable-cargo-incremental
 	ac_add_options --disable-updater
 	ac_add_options --disable-profiling
 	$(disable_jemalloc)
