@@ -180,46 +180,53 @@ def github_headers() -> dict[str, str]:
     return headers
 
 
+def is_unstable_release(release: dict) -> bool:
+    """Draft/prerelease flag, or a channel marker in the release *name*.
+
+    Some projects (e.g. brave/brave-browser) publish Nightly and Beta builds
+    as ordinary, non-prerelease GitHub releases whose tags look stable
+    (v1.101.24); only the release name ("Nightly v1.101.24") tells them
+    apart. Staged stable rollouts are still flagged prerelease until they
+    are promoted.
+    """
+    if release.get("draft") or release.get("prerelease"):
+        return True
+    name = (release.get("name") or "").lower()
+    return any(re.search(rf"\b{m}\b", name) for m in PRERELEASE_MARKERS)
+
+
 def fetch_candidate_tags(source: str, owner: str, repo: str) -> list[str]:
-    tags: list[str] = []
     if source == "github":
         headers = github_headers()
-        try:
-            data = http_get_json(
-                f"https://api.github.com/repos/{owner}/{repo}/tags?per_page={MAX_TAGS}",
-                headers,
-            )
-            tags.extend(t["name"] for t in data)
-        except urllib.error.HTTPError as e:
-            if e.code != 404:
-                raise
-        try:
-            data = http_get_json(
-                f"https://api.github.com/repos/{owner}/{repo}/releases?per_page=10",
-                headers,
-            )
-            tags.extend(r["tag_name"] for r in data if not r.get("draft") and not r.get("prerelease"))
-        except urllib.error.HTTPError as e:
-            if e.code != 404:
-                raise
+        tags_url = f"https://api.github.com/repos/{owner}/{repo}/tags?per_page={MAX_TAGS}"
+        releases_url = f"https://api.github.com/repos/{owner}/{repo}/releases?per_page=100"
     elif source == "codeberg":
-        try:
-            data = http_get_json(
-                f"https://codeberg.org/api/v1/repos/{owner}/{repo}/tags?limit={MAX_TAGS}"
-            )
-            tags.extend(t["name"] for t in data)
-        except urllib.error.HTTPError as e:
-            if e.code != 404:
-                raise
-        try:
-            data = http_get_json(
-                f"https://codeberg.org/api/v1/repos/{owner}/{repo}/releases?limit=10"
-            )
-            tags.extend(r["tag_name"] for r in data if not r.get("draft") and not r.get("prerelease"))
-        except urllib.error.HTTPError as e:
-            if e.code != 404:
-                raise
-    return tags
+        headers = None
+        tags_url = f"https://codeberg.org/api/v1/repos/{owner}/{repo}/tags?limit={MAX_TAGS}"
+        releases_url = f"https://codeberg.org/api/v1/repos/{owner}/{repo}/releases?limit=50"
+    else:
+        return []
+
+    raw_tags: list[str] = []
+    try:
+        raw_tags = [t["name"] for t in http_get_json(tags_url, headers)]
+    except urllib.error.HTTPError as e:
+        if e.code != 404:
+            raise
+    releases: list[dict] = []
+    try:
+        releases = http_get_json(releases_url, headers)
+    except urllib.error.HTTPError as e:
+        if e.code != 404:
+            raise
+
+    stable = [r["tag_name"] for r in releases if not is_unstable_release(r)]
+    if any(is_unstable_release(r) and normalize_tag(r["tag_name"]) for r in releases):
+        # An unstable release carries a stable-looking tag: the project marks
+        # channels on the release, not the tag, so a bare tag says nothing
+        # about stability. Trust only the stable releases.
+        return stable
+    return raw_tags + stable
 
 
 # --------------------------------------------------------------------------
