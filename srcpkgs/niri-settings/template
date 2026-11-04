@@ -1,0 +1,29 @@
+# Template file for 'niri-settings'
+pkgname=niri-settings
+version=26.09
+revision=1
+depends="python3-pyqt6 python3-pyqt6-gui python3-pyqt6-widgets qt6-wayland niri"
+short_desc="Configuration GUI for the niri Wayland compositor"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="GPL-2.0-only"
+homepage="https://github.com/stefonarch/niri-settings"
+distfiles="https://github.com/stefonarch/niri-settings/archive/refs/tags/${version}.tar.gz"
+checksum=fba3be741ccb59807582089c05f01c3d242925d52f4b49782d1e146a8b0b2c64
+repository=d77
+
+# Mirrors the system-wide branch of upstream's interactive install.sh;
+# the .qm translations ship prebuilt in the tarball.
+do_install() {
+	vbin niri-settings
+	vinstall niri_settings.py 644 usr/lib/niri-settings
+	for f in ui/*.py; do
+		vinstall ${f} 644 usr/lib/niri-settings/ui
+	done
+	for f in translations/*.qm; do
+		vinstall ${f} 644 usr/share/niri-settings/translations
+	done
+	vinstall niri-settings.desktop 644 usr/share/applications
+	vinstall niri-settings.svg 644 usr/share/icons/hicolor/scalable/apps
+	vdoc README.md
+	vsconf basicsettings.kdl
+}
