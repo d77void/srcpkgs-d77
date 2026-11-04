@@ -1,7 +1,7 @@
 # Template file for 'danksearch'
 pkgname=danksearch
-version=2.0.0
-revision=2
+version=2.1.0
+revision=1
 archs="x86_64 x86_64-musl"
 build_style=gnu-makefile
 make_build_args="VERSION=${version}"
@@ -13,7 +13,7 @@ license="MIT"
 homepage="https://github.com/duxlabs-dev/dux-search"
 changelog="https://github.com/duxlabs-dev/dux-search/releases/tag/v${version}"
 distfiles="https://github.com/duxlabs-dev/dux-search/archive/refs/tags/v${version}.tar.gz"
-checksum=b33665b22692e12075b23acdbe3f03e4f3d64e50223f92820117e525d18aabe4
+checksum=f7ad915d74769532960d9d220ac85de5f94410335de9870d59fbd18487f35855
 repository=d77
 
 do_install() {
