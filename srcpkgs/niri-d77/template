@@ -1,7 +1,7 @@
 # Template file for 'niri-d77'
 pkgname=niri-d77
 version=26.04
-revision=3
+revision=4
 build_style=cargo
 build_helper="qemu"
 configure_args="--no-default-features --features dbus,xdp-gnome-screencast"
@@ -9,7 +9,7 @@ hostmakedepends="pkg-config clang19-devel"
 makedepends="eudev-libudev-devel libxkbcommon-devel libinput-devel libgbm-devel
  libdisplay-info-devel pipewire-devel pango-devel libseat-devel clang19-devel
 gdk-pixbuf-devel graphene-devel gtk4-devel libadwaita-devel"
-depends="wayland"
+depends="wayland dbus-x11"
 replaces="niri>=0"
 provides="niri-${version}_${revision}"
 checkdepends="wayland"
