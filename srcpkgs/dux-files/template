@@ -1,0 +1,44 @@
+# Template file for 'dux-files'
+pkgname=dux-files
+version=2.1.0
+revision=1
+archs="x86_64 x86_64-musl"
+build_style=gnu-makefile
+build_helper="qemu"
+make_build_args="VERSION=${version}"
+make_build_target=build
+make_install_args="PREFIX=/usr"
+hostmakedepends="go pkg-config tar"
+depends="quickshell font-inter ttf-material-icons"
+short_desc="File manager from Dux Labs, built with Quickshell & Go"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="MIT"
+homepage="https://duxlabs.dev"
+changelog="https://github.com/duxlabs-dev/dux-files/releases/tag/v${version}"
+# dux-qml-common is a git submodule; GitHub tarballs don't include submodule
+# content, so fetch it separately at the commit pinned by the v${version} tag
+# (see: git ls-tree v${version} dux-qml-common) and unpack it into place.
+# The QML UI is embedded in the dfiles binary at build time (core/Makefile
+# copies quickshell/ with tar -h, dereferencing the DCommon symlink), so
+# only the binary and the desktop integration files get installed.
+_duxcommon_commit=69971fe7203deaca031d04c434b3fcc016a2fb9e
+distfiles="https://github.com/duxlabs-dev/dux-files/archive/refs/tags/v${version}.tar.gz
+ https://github.com/duxlabs-dev/dux-qml-common/archive/${_duxcommon_commit}.tar.gz>dux-qml-common-${_duxcommon_commit}.tar.gz"
+checksum="90e81547bd517eef2be7081fb4fef135acdb60633f9a4b65086348e807f54352
+ f70e7644bc09ee797e61462fe69b78164a7f329a08c02358ba673eabb040fc68"
+skip_extraction="dux-qml-common-${_duxcommon_commit}.tar.gz"
+repository=d77
+
+post_extract() {
+	vsrcextract -C dux-qml-common "dux-qml-common-${_duxcommon_commit}.tar.gz"
+}
+
+post_install() {
+	vdoc README.md
+	vlicense LICENSE
+
+	for sh in bash fish zsh; do
+	vtargetrun core/bin/dfiles completion "$sh" > "dfiles.$sh"
+	vcompletion "dfiles.$sh" "$sh" dfiles
+	done
+}
