@@ -18,15 +18,15 @@
 # same Firefox version.
 #
 pkgname=librewolf
-version=157.0
+version=159.0.1
 revision=1
 _lwrel=1
-# browser/locales/l10n-changesets.json at FIREFOX_157_0_RELEASE
-_l10nrev=1ccd8a9a31a6c858f281798805b92b609b22b55b
-_llvmver=22
+# browser/locales/l10n-changesets.json at FIREFOX_159_0_1_RELEASE
+_l10nrev=4e2e25a0b94740a84c357e93346ec4f4c94521e3
+_llvmver=23
 build_helper="rust"
 hostmakedepends="unzip zip pkg-config perl python3
- yasm rust cargo llvm${_llvmver} clang${_llvmver} lld${_llvmver}
+ yasm rust cargo llvm${_llvmver} clang${_llvmver} lld${_llvmver} libclang${_llvmver}
  nodejs cbindgen nasm which tar xz $(vopt_if wasi wasi-sdk)"
 makedepends="nss-devel libjpeg-turbo-devel gtk+3-devel
  pixman-devel libevent-devel libnotify-devel libwebp-devel
@@ -35,7 +35,7 @@ makedepends="nss-devel libjpeg-turbo-devel gtk+3-devel
  $(vopt_if alsa alsa-lib-devel) $(vopt_if dbus dbus-glib-devel)
  $(vopt_if pulseaudio pulseaudio-devel) $(vopt_if xscreensaver libXScrnSaver-devel)
  $(vopt_if sndio sndio-devel) $(vopt_if jack jack-devel)"
-depends="nss>=3.129 nspr>=4.39 desktop-file-utils hicolor-icon-theme pciutils"
+depends="nss>=3.129 nspr>=4.39 desktop-file-utils hicolor-icon-theme pciutils libavcodec6"
 short_desc="Firefox fork focused on privacy, security and freedom"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MPL-2.0 AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only"
@@ -45,9 +45,9 @@ distfiles="${MOZILLA_SITE}/firefox/releases/${version}/source/firefox-${version}
  https://codeberg.org/librewolf/source/archive/${version}-${_lwrel}.tar.gz>librewolf-source-${version}-${_lwrel}.tar.gz
  https://github.com/mozilla-l10n/firefox-l10n/archive/${_l10nrev}.tar.gz>firefox-l10n-${_l10nrev}.tar.gz"
 # the two git archives are generated on the fly: checksum their contents
-checksum="259c564dd4bbd56bbe8a9a6cf001fc8812853567fd3a78e77c9ddf10d7d4e982
- @d158f42a37e107e1b44ffd49ae5547a853d93ad2034e8554b3254d34204add10
- @e07f153fc4ee8c97d25f0a09a62fc7250ea5fd70f216cbf1d335930cc4011fbf"
+checksum="b5fe407199685f8bddf3b2c81feb8b805429e6f3d307c9430f53456f85b6e063
+ @8540a1af86cde465d6ee60e92de4daedd43ee4c8fb4a8b0c6e2591b79aff7793
+ @3e5c4ed9bf2605f076f409c6d78514b92a2ab7ee7f2363544fe7f3a3df3cca3a"
 skip_extraction="librewolf-source-${version}-${_lwrel}.tar.gz
  firefox-l10n-${_l10nrev}.tar.gz"
 replaces="librewolf-bin>=0"
