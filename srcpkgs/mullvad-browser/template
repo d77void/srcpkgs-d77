@@ -241,6 +241,17 @@ do_install() {
 	# source tree ships); merge in the rest of the set from _fontsfile.
 	tar -xf "${XBPS_SRCDISTDIR}/${pkgname}-${version}/${_fontsfile}" \
 		-C ${DESTDIR}/${_libdir}/fonts
+	# the portable tarballs (16.0's font set came from one) ship the fonts
+	# 0600, readable only by the owner; installed as root, users can't load
+	# them and the browser silently falls back to the system fonts
+	find ${DESTDIR}/${_libdir}/fonts -type f -exec chmod 644 {} +
+	# fonts.conf lists <dir prefix="cwd">fonts</dir>: relative to the
+	# working directory, which the official start script sets to the app
+	# dir. Launched from anywhere else (menus, a terminal in ~) fontconfig
+	# finds no fonts at all and every glyph renders as a hex box. Point it
+	# at the install dir instead; the font set itself is unchanged.
+	vsed -i 's|<dir prefix="cwd">fonts</dir>|<dir>/usr/lib/mullvadbrowser/fonts</dir>|' \
+		${DESTDIR}/${_libdir}/fonts/fonts.conf
 
 	if [ "$build_option_extensions" ]; then
 		vmkdir ${_libdir}/distribution/extensions
