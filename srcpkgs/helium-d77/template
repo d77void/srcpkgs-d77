@@ -1,17 +1,21 @@
 # Template file for 'helium-d77'
 pkgname=helium-d77
-version=0.1.10
+version=0.1.11
 revision=1
 build_style=cargo
 hostmakedepends="pkg-config"
 makedepends="wayland-devel libxkbcommon-devel fontconfig-devel freetype-devel pam-devel"
-depends="pam-libs wl-clipboard"
+# xbps has no optional dependencies, and unversioned ones never hold back
+# upgrades. helium-osd calls amixer, brightnessctl and powerprofilesctl;
+# amorphis (from the d77 repo) is what the session menu locks with.
+depends="pam-libs wl-clipboard alsa-utils brightnessctl power-profiles-daemon
+ amorphis"
 short_desc="Wayland shell built with the Helium shell framework"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://github.com/dani-77/helium-d77"
 distfiles="https://github.com/dani-77/helium-d77/archive/refs/tags/${version}.tar.gz"
-checksum=e5a573cc898bd8d036fdaff90dc48952901bb1bb96d4ee8f0a630b2f6221d744
+checksum=e2579ea56443253769ab0eef80d8e75dda4d60f94b965758d49e6a82334ee27d
 repository=d77
 
 # build_style=cargo's default do_install only installs a single binary named
