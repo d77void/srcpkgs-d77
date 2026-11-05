@@ -1,19 +1,19 @@
 # Template file for 'pwm'
 pkgname=pwm
-version=0.6.5
+version=0.6.7
 revision=1
 archs="x86_64 x86_64-musl"
 build_style=cargo
 hostmakedepends="pkg-config"
 makedepends="libXft-devel libX11-devel"
-depends="dmenu libX11 libXft d77-st wireless_tools"
+depends="dmenu libX11 libXft d77-st wireless_tools font-JetBrainsMono"
 short_desc="PipaWindowManager, a Penrose Lib Tiling Window Manager"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://github.com/dani-77/pwm"
 changelog="https://github.com/dani-77/${pkgname}/archive/refs/tags/${version}"
 distfiles="https://github.com/dani-77/${pkgname}/archive/refs/tags/${version}.tar.gz"
-checksum=c1357cb36638c0553efc0960a964ea174487041196fd165e07fe5f51d6c0b7b4
+checksum=fadfc12f38f39b6e1479ad88fc043280b25f86f0d5598732a521d9b21e6cc199
 repository=d77
 
 do_build() {

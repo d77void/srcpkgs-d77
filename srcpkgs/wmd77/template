@@ -1,19 +1,19 @@
 # Template file for 'wmd77'
 pkgname=wmd77
-version=0.4.1
-revision=2
+version=0.5.1
+revision=1
 archs="x86_64 x86_64-musl"
 build_style=cargo
 hostmakedepends="pkg-config"
 makedepends="libXft-devel libX11-devel"
-depends="dmenu libX11 libXft d77-st"
+depends="dmenu libX11 libXft d77-st font-JetBrainsMono"
 short_desc="Penrose Lib Tiling Window Manager"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://github.com/dani-77/wmd77"
 changelog="https://github.com/dani-77/${pkgname}/archive/refs/tags/${version}"
 distfiles="https://github.com/dani-77/${pkgname}/archive/refs/tags/${version}.tar.gz"
-checksum=a0c493e79a60ebd9739fc1fc23f86a2a77a91e5ea9c84344e71d3987ea869da9
+checksum=3936572a4e3386aa7cc599fdd0ff7db1789947dbe83eadfd84e099b952b5ecad
 repository=d77
 
 do_build() {
@@ -26,5 +26,6 @@ do_install() {
 	vinstall wmd77.desktop 644 usr/share/xsessions/
 	vmkdir /etc/xdg/wmd77
 	vcopy etc/xdg/wmd77/'*' /etc/xdg/wmd77/
+	vinstall usr/share/wmd77/config.toml.example 644 usr/share/wmd77
 	vlicense LICENSE
 }
