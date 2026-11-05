@@ -1,7 +1,7 @@
 # Template file for 'wmd77'
 pkgname=wmd77
 version=0.5.1
-revision=1
+revision=2
 archs="x86_64 x86_64-musl"
 build_style=cargo
 hostmakedepends="pkg-config"
@@ -24,6 +24,7 @@ do_install() {
 	sed -i '3i conky -c ~/.conkyrc1 &' etc/xdg/wmd77/startup.sh
 	vbin target/release/wmd77
 	vinstall wmd77.desktop 644 usr/share/xsessions/
+	vinstall wmd77.png 644 usr/share/pixmaps/
 	vmkdir /etc/xdg/wmd77
 	vcopy etc/xdg/wmd77/'*' /etc/xdg/wmd77/
 	vinstall usr/share/wmd77/config.toml.example 644 usr/share/wmd77
