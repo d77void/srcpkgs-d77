@@ -1,21 +1,21 @@
 # Template file for 'kantele'
 pkgname=kantele
-version=0.2.0
+version=0.3.0
 revision=1
 build_style=gnu-makefile
 make_install_args="PREFIX=/usr"
 checkdepends="python3-tomlkit lua54"
 depends="python3-pyqt6 python3-pyqt6-gui python3-pyqt6-widgets python3-tomlkit
- lua54 qt6-wayland"
+ lua54 qt6-wayland libnotify"
 python_version=3
 pycompile_dirs="usr/lib/kantele"
-short_desc="Settings GUI for the d77 window managers (pwm, wasp, spitfire)"
+short_desc="Settings GUI for the d77 window managers (pwm, wmd77, wasp, spitfire)"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://github.com/dani-77/kantele"
 changelog="https://github.com/dani-77/kantele/releases/tag/v${version}"
 distfiles="https://github.com/dani-77/kantele/archive/refs/tags/v${version}.tar.gz"
-checksum=9f4a9a654c4e92e2ddfee3f488a645b09559956210b0658fba55993f73f499c0
+checksum=ec4767ff8348c674f312630fa911af76151cac9b038f6e03bc77ac018fb17c06
 repository=d77
 
 do_check() {
