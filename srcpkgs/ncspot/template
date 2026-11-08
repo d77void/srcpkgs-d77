@@ -1,6 +1,6 @@
 # Template file for 'ncspot'
 pkgname=ncspot
-version=1.5.0
+version=1.5.1
 revision=1
 build_style=cargo
 build_helper="qemu"
@@ -14,7 +14,7 @@ license="BSD-2-Clause"
 homepage="https://github.com/hrkfdn/ncspot"
 changelog="https://raw.githubusercontent.com/hrkfdn/ncspot/main/CHANGELOG.md"
 distfiles="https://github.com/hrkfdn/ncspot/archive/refs/tags/v${version}.tar.gz"
-checksum=08a0be7e099bc40cf087a4ed8665a425c345a0e83019257d7c4affb7a1bbb881
+checksum=1c90dfcf33612ea408ad7af88749ee1d4f08cc242cf887337aacff18048c1aad
 repository=d77
 
 post_build() {
