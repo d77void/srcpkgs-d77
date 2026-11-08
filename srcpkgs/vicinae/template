@@ -8,13 +8,25 @@ configure_args="-DPROJECT_VERSION=${version} -DVICINAE_VERSION=${version} -DCMAK
 # qt6-tools ships Qt6LinguistTools' cmake config (find_package(Qt6 ...
 # LinguistTools) in src/server/CMakeLists.txt), needed at configure time.
 hostmakedepends="git pnpm pkg-config qt6-tools"
-makedepends="abseil-cpp-devel icu-devel openssl-devel protobuf-devel wayland-devel zlib-devel qt6-base-devel qt6-svg-devel qt6-declarative-devel qt6-base-private-devel qt6-shadertools-devel kf6-syntax-highlighting-devel qt6-wayland-devel layer-shell-qt-devel sqlcipher-devel qtkeychain-qt6-devel glyphy-devel libqalculate-devel cmark-devel cmark-gfm-devel minizip-devel"
+makedepends="abseil-cpp-devel icu-devel openssl-devel protobuf-devel wayland-devel zlib-devel qt6-base-devel qt6-svg-devel qt6-declarative-devel qt6-multimedia-devel qt6-base-private-devel qt6-shadertools-devel kf6-syntax-highlighting-devel qt6-wayland-devel layer-shell-qt-devel sqlcipher-devel qtkeychain-qt6-devel glyphy-devel libqalculate-devel cmark-devel cmark-gfm-devel minizip-devel"
 depends="nodejs rapidfuzz-cpp"
 short_desc="Focused launcher for your desktop"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="GPL-3.0-or-later"
 homepage="https://vicinae.com/"
 changelog="https://github.com/vicinaehq/vicinae/releases/tag/v${version}"
-distfiles="https://github.com/vicinaehq/vicinae/archive/refs/tags/v${version}.tar.gz"
-checksum=f6ddf9b9ecda6ca5b5a1a655e55c30b9b2352d399985ba9881e8309ef2ac2a99
+# cmake/MathText.cmake downloads JKQtPlotter by URL at configure time, which
+# xbps-src's cmake can't do (built without https). Fetch it as a distfile and
+# point the URL at the local copy; upstream's hash check and patches still
+# apply. The commit must match cmake/MathText.cmake: vsed fails if it moves.
+_jkqt_commit=d9b6f18eac22f5e9959a5415d7ba0d8780f24585
+distfiles="https://github.com/vicinaehq/vicinae/archive/refs/tags/v${version}.tar.gz
+ https://github.com/jkriege2/JKQtPlotter/archive/${_jkqt_commit}.tar.gz>jkqtplotter-${_jkqt_commit}.tar.gz"
+checksum="f6ddf9b9ecda6ca5b5a1a655e55c30b9b2352d399985ba9881e8309ef2ac2a99
+ e64716932c2e56e97041bcb4dbabe7c9045ea7d60addc4edb38eed43425286e8"
+skip_extraction="jkqtplotter-${_jkqt_commit}.tar.gz"
 repository=d77
+
+pre_configure() {
+	vsed -i cmake/MathText.cmake -e "s|URL https://github.com/jkriege2/JKQtPlotter/archive/${_jkqt_commit}.tar.gz|URL ${XBPS_SRCDISTDIR}/${pkgname}-${version}/jkqtplotter-${_jkqt_commit}.tar.gz|"
+}
