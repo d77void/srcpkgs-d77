@@ -87,7 +87,14 @@ PYPI_SITE="https://files.pythonhosted.org/packages/source"
 KERNEL_SITE="https://www.kernel.org/pub/linux"
 '''
 
-DUMP_VARS = ("pkgname", "version", "revision", "_commit", "distfiles", "checksum", "homepage")
+# Template variable -> git submodule path. GitHub tarballs don't include
+# submodules, so these templates download the submodule at a pinned commit as
+# a second distfile. The pin must match what the new tag records, or the
+# package builds against the wrong submodule. See submodule_commit().
+SUBMODULE_PINS = {"_duxcommon_commit": "dux-qml-common"}
+
+DUMP_VARS = ("pkgname", "version", "revision", "_commit", "distfiles", "checksum", "homepage",
+             *SUBMODULE_PINS)
 
 
 @dataclass
@@ -142,6 +149,7 @@ done
 
 GITHUB_RE = re.compile(r"https?://github\.com/([^/\s]+)/([^/\s]+?)(?:\.git)?/")
 CODEBERG_RE = re.compile(r"https?://codeberg\.org/([^/\s]+)/([^/\s]+?)(?:\.git)?/")
+TAG_URL_RE = re.compile(r"/archive/refs/tags/([^/\s]+?)\.tar\.gz")
 
 
 def detect_source(distfiles: str) -> tuple[str, str, str] | None:
@@ -178,6 +186,15 @@ def github_headers() -> dict[str, str]:
     if GITHUB_TOKEN:
         headers["Authorization"] = f"Bearer {GITHUB_TOKEN}"
     return headers
+
+
+def submodule_commit(owner: str, repo: str, path: str, ref: str) -> str:
+    """The commit that tag `ref` of owner/repo records for submodule `path`."""
+    url = f"https://api.github.com/repos/{owner}/{repo}/contents/{path}?ref={ref}"
+    info = http_get_json(url, github_headers())
+    if not isinstance(info, dict) or info.get("type") != "submodule" or not info.get("sha"):
+        raise ValueError(f"{path} is not a submodule at {ref}")
+    return info["sha"]
 
 
 def is_unstable_release(release: dict) -> bool:
@@ -284,7 +301,12 @@ def format_checksum(hashes: list[str]) -> str:
     return '"' + "\n ".join(hashes) + '"'
 
 
-def update_template_text(text: str, new_version: str, hashes: list[str]) -> str:
+def update_template_text(text: str, new_version: str, hashes: list[str],
+                         pins: dict[str, str] | None = None) -> str:
+    for var, commit in (pins or {}).items():
+        text, n = re.subn(rf"(?m)^{re.escape(var)}=.*$", f"{var}={commit}", text, count=1)
+        if n != 1:
+            raise ValueError(f"could not locate {var}= to rewrite")
     text = re.sub(r"(?m)^version=.*$", f"version={new_version}", text, count=1)
     text = re.sub(r"(?m)^revision=.*$", "revision=1", text, count=1)
     checksum_re = re.compile(r'checksum=("(?:[^"\\]|\\.)*"|\S+)', re.DOTALL)
@@ -339,6 +361,27 @@ def process_template(template: Path) -> Result:
         return Result(pkgname, old_version=version, status="skipped", reason="already up to date")
 
     new_distfiles = distfiles.replace(version, candidate)
+
+    # Move submodule pins to what the new tag records, before downloading, so
+    # the checksums below cover the right tarballs. If that can't be resolved
+    # the template is left alone: a stale pin would still build, but broken.
+    pins: dict[str, str] = {}
+    for var, path in SUBMODULE_PINS.items():
+        old_commit = fields.get(var, "")
+        if not old_commit:
+            continue
+        tag = TAG_URL_RE.search(new_distfiles)
+        if kind != "github" or tag is None:
+            return Result(pkgname, old_version=version, new_version=candidate, status="error",
+                           reason=f"can't resolve {var}: no GitHub tag URL in distfiles")
+        try:
+            commit = submodule_commit(owner, repo, path, tag.group(1))
+        except Exception as e:  # noqa: BLE001
+            return Result(pkgname, old_version=version, new_version=candidate, status="error",
+                           reason=f"failed to resolve {var} at {tag.group(1)}: {e}")
+        pins[var] = commit
+        new_distfiles = new_distfiles.replace(old_commit, commit)
+
     urls = [entry.split(">", 1)[0] for entry in new_distfiles.split()]
 
     try:
@@ -354,7 +397,7 @@ def process_template(template: Path) -> Result:
 
     raw_text = template.read_text()
     try:
-        new_text = update_template_text(raw_text, candidate, new_hashes)
+        new_text = update_template_text(raw_text, candidate, new_hashes, pins)
     except Exception as e:  # noqa: BLE001
         return Result(pkgname, old_version=version, new_version=candidate, status="error",
                        reason=f"failed to rewrite template: {e}")
