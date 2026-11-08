@@ -21,11 +21,11 @@ changelog="https://github.com/duxlabs-dev/dux-files/releases/tag/v${version}"
 # The QML UI is embedded in the dfiles binary at build time (core/Makefile
 # copies quickshell/ with tar -h, dereferencing the DCommon symlink), so
 # only the binary and the desktop integration files get installed.
-_duxcommon_commit=69971fe7203deaca031d04c434b3fcc016a2fb9e
+_duxcommon_commit=76277f04bf526164150efa857e3f225dc54cb090
 distfiles="https://github.com/duxlabs-dev/dux-files/archive/refs/tags/v${version}.tar.gz
  https://github.com/duxlabs-dev/dux-qml-common/archive/${_duxcommon_commit}.tar.gz>dux-qml-common-${_duxcommon_commit}.tar.gz"
 checksum="400c2f2fb3b88ae793535f81ca1e528686814991a7096a74c28488842280534c
- f70e7644bc09ee797e61462fe69b78164a7f329a08c02358ba673eabb040fc68"
+ f951442e3b1dcf1d62429c92b696deefb9ac922125d808f503dde513f282983d"
 skip_extraction="dux-qml-common-${_duxcommon_commit}.tar.gz"
 repository=d77
 

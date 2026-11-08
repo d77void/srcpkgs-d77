@@ -20,11 +20,11 @@ changelog="https://github.com/duxlabs-dev/dux-shell/releases/tag/v${version}"
 # content, so fetch it separately at the commit pinned by the v${version}
 # tag (see: git ls-tree v${version} dux-qml-common) and unpack it into
 # place. Same submodule/approach as srcpkgs/dankcalendar.
-_duxcommon_commit=be3e16ca62866a749b34cfefe1aaed81cfe21e94
+_duxcommon_commit=b02c0321263372a8c9d18c6648b4608a1865ff90
 distfiles="https://github.com/duxlabs-dev/dux-shell/archive/refs/tags/v${version}.tar.gz
  https://github.com/duxlabs-dev/dux-qml-common/archive/${_duxcommon_commit}.tar.gz>dux-qml-common-${_duxcommon_commit}.tar.gz"
 checksum="3ea414921aa2dc1b10aa53f9653c8101a69e9b393cd34882805080c8cb97a765
- 9659915ac72292895f148548f15e17e25149e71df9771b614f481a58513c29d5"
+ d67b3ad0416ebf9ab1ac914bcb490b1e6ff98b69aa74d20da95804c7d2527af2"
 skip_extraction="dux-qml-common-${_duxcommon_commit}.tar.gz"
 repository=d77
 
