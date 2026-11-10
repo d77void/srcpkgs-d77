@@ -75,8 +75,12 @@
 ;; Startup
 (run-shell-command "feh --bg-fill ~/Wallpaper/wallhaven-8xk6oo.png")
 (run-shell-command "synclient TapButton1=1")
-(run-shell-command "xcompmgr -c -f -n")
-(run-shell-command "xautolock -time 5 -locker slock")
-;;(run-shell-command "polybar")
-(run-shell-command "redshift")
+;; Daemons: only on the first start, not on every `loadrc`, otherwise each
+;; reload spawns duplicates (and stacked redshift instances keep darkening
+;; the screen). -P makes redshift start from neutral gamma regardless.
+(when *initializing*
+  (run-shell-command "xcompmgr -c -f -n")
+  (run-shell-command "xautolock -time 5 -locker slock")
+  ;;(run-shell-command "polybar")
+  (run-shell-command "redshift -P"))
 (run-shell-command "xset r rate 200 30") ; keyboard speed
