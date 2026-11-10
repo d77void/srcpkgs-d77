@@ -1,6 +1,6 @@
 # Template file for 'kantele'
 pkgname=kantele
-version=0.3.0
+version=0.3.1
 revision=1
 build_style=gnu-makefile
 make_install_args="PREFIX=/usr"
@@ -15,7 +15,7 @@ license="MIT"
 homepage="https://github.com/dani-77/kantele"
 changelog="https://github.com/dani-77/kantele/releases/tag/v${version}"
 distfiles="https://github.com/dani-77/kantele/archive/refs/tags/v${version}.tar.gz"
-checksum=ec4767ff8348c674f312630fa911af76151cac9b038f6e03bc77ac018fb17c06
+checksum=8f663b3d100391ddf09da53ebfbb282c59566199c09ec91e32891063aad93f27
 repository=d77
 
 do_check() {
