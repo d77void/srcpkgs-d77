@@ -1,6 +1,6 @@
 # Template file for 'noctalia-shell'
 pkgname=noctalia-shell
-version=5.4.1
+version=5.5.0
 revision=1
 archs="x86_64 x86_64-musl"
 build_style=meson
@@ -21,7 +21,7 @@ license="MIT"
 homepage="https://github.com/noctalia-dev/noctalia"
 changelog="https://github.com/noctalia-dev/noctalia/releases/tag/v${version}"
 distfiles="https://github.com/noctalia-dev/${pkgname}/releases/download/v${version}/noctalia-v${version}.tar.gz"
-checksum=46fe42df052b4cee4be0b8681936d3a5db05be9df04964fbface0694f0f67cf7
+checksum=a4ba61392de6024905513d6b070cf40839809f61953468bda7eb8272f7a7aa16
 CXXFLAGS+=" -std=c++23"
 repository=d77
 

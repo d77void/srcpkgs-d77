@@ -1,6 +1,6 @@
 # Template file for 'dankcalendar'
 pkgname=dankcalendar
-version=2.1.1
+version=2.1.2
 revision=1
 archs="x86_64 x86_64-musl"
 build_style=gnu-makefile
@@ -18,11 +18,11 @@ changelog="https://github.com/duxlabs-dev/dux-calendar/releases/tag/v${version}"
 # dux-qml-common is a git submodule; GitHub tarballs don't include submodule
 # content, so fetch it separately at the commit pinned by the v${version} tag
 # (see: git ls-tree v${version} dux-qml-common) and unpack it into place.
-_duxcommon_commit=76277f04bf526164150efa857e3f225dc54cb090
+_duxcommon_commit=b78c6fc861bcf1955d3db0c016779886add1f207
 distfiles="https://github.com/duxlabs-dev/dux-calendar/archive/refs/tags/v${version}.tar.gz
  https://github.com/duxlabs-dev/dux-qml-common/archive/${_duxcommon_commit}.tar.gz>dux-qml-common-${_duxcommon_commit}.tar.gz"
-checksum="999b4cf5b582b045dd3445c8a40b76b932b82ecae55b871c8e633dea92d6357c
- f951442e3b1dcf1d62429c92b696deefb9ac922125d808f503dde513f282983d"
+checksum="2728a8c7f4eb3c127f7c0a34c0fccd9b7f3190d2c97d8006164159a9a4087e3a
+ 01ae26e1ab6329df239395909b5a21066ee74f740cf37a7b5337d121be7873bf"
 skip_extraction="dux-qml-common-${_duxcommon_commit}.tar.gz"
 repository=d77
 
