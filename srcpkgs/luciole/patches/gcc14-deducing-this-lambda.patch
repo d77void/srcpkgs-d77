@@ -1,0 +1,54 @@
+diff --git a/src/browser/directory_model.cpp b/src/browser/directory_model.cpp
+index 39a23c3..2712be5 100644
+--- a/src/browser/directory_model.cpp
++++ b/src/browser/directory_model.cpp
+@@ -389,11 +389,12 @@ void luciole::DirectoryModel::rebuildProjection() {
+     }
+     m_rows.clear();
+     std::unordered_set<EntryId> visited;
++    auto* const self_ = this;
+     const auto append = [&](this auto&& self, EntryId id, std::size_t depth) -> void {
+       if (depth > 32 || !visited.insert(id).second) {
+         return;
+       }
+-      m_rows.push_back(id);
++      self_->m_rows.push_back(id);
+       if (const auto found = children.find(id); found != children.end()) {
+         for (const auto child : found->second) {
+           self(child, depth + 1);
+diff --git a/src/browser/directory_tree.cpp b/src/browser/directory_tree.cpp
+index 198831b..70ceda8 100644
+--- a/src/browser/directory_tree.cpp
++++ b/src/browser/directory_tree.cpp
+@@ -186,12 +186,13 @@ void luciole::DirectoryTree::publish() {
+   std::vector<DirectoryEntries::Index> rows;
+   std::unordered_map<EntryId, EntryId> parents;
+   std::set<EntryId> retained;
++  auto* const self_ = this;
+   const auto append = [&](this auto&& self, const DirectoryEntry& entry, std::size_t depth) -> void {
+     if (depth >= maxDepth + 1) {
+       return;
+     }
+-    const auto found = m_nodes.find(entry.id);
+-    if (found == m_nodes.end()) {
++    const auto found = self_->m_nodes.find(entry.id);
++    if (found == self_->m_nodes.end()) {
+       return;
+     }
+     auto& node = *found->second;
+@@ -210,12 +211,12 @@ void luciole::DirectoryTree::publish() {
+     for (std::size_t i = 0; i < children.size(); ++i) {
+       const auto& child = children[i];
+       currentIds.emplace(child.name, Node::Identity{child.id, child.identity()});
+-      if (m_foldersOnly && !child.isFolderLink()) {
++      if (self_->m_foldersOnly && !child.isFolderLink()) {
+         continue;
+       }
+       if (parents.empty()) {
+-        rows.reserve(m_root.entries.size() + children.size());
+-        for (std::size_t root = 0; root < m_root.entries.size(); ++root) {
++        rows.reserve(self_->m_root.entries.size() + children.size());
++        for (std::size_t root = 0; root < self_->m_root.entries.size(); ++root) {
+           rows.push_back({0, root});
+         }
+       }

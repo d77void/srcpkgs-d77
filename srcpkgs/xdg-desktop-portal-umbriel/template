@@ -1,0 +1,29 @@
+# Template file for 'xdg-desktop-portal-umbriel'
+pkgname=xdg-desktop-portal-umbriel
+version=0.1.0+20261117
+revision=1
+# No tagged releases yet: track a main-branch snapshot.
+# Parked: kept for reference only, do not publish until upstream tags a
+# release worth shipping.
+_commit=ed91d04331b03257d5bd58a075b9cd6743d3efb2
+build_style=meson
+configure_args="-Dtests=false -Dpicker=true"
+hostmakedepends="pkg-config wayland-devel"
+makedepends="sdbus-c++-devel pipewire-devel wayland-devel wayland-protocols
+ libdrm-devel MesaLib-devel libglvnd-devel cairo-devel pango-devel
+ freetype-devel fontconfig-devel harfbuzz-devel libxkbcommon-devel
+ libglib-devel tomlplusplus-devel json-c++ stb"
+depends="xdg-desktop-portal"
+short_desc="XDG Desktop Portal backend for the Umbriel compositor"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="MIT"
+homepage="https://github.com/noctalia-dev/xdg-desktop-portal-umbriel"
+distfiles="https://github.com/noctalia-dev/xdg-desktop-portal-umbriel/archive/${_commit}.tar.gz"
+checksum=e4ede7f3543b0387b223a7d9724dfb3e42bbc2ee8a4394ea65d88a3bb9435306
+CXXFLAGS+=" -std=c++23"
+repository=d77
+
+post_install() {
+	rm -rf ${DESTDIR}/usr/lib/systemd
+	vlicense LICENSE
+}

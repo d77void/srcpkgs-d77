@@ -1,0 +1,39 @@
+# Template file for 'umbriel'
+pkgname=umbriel
+version=0.1.0+20261117
+revision=1
+# No tagged releases yet: track a main-branch snapshot.
+# Parked: kept for reference only, do not publish until upstream tags a
+# release worth shipping.
+_commit=9223fa421352f19d2263add82b6ff311f7d08fc1
+build_style=meson
+# localed needs libsystemd (absent on Void): keyboards without an XKB config
+# fall back to libxkbcommon's defaults.
+configure_args="-Dtests=disabled -Dharness=disabled -Dlocaled=disabled
+ -Dlcms2=enabled -Dtracy=disabled"
+hostmakedepends="pkg-config wayland-devel"
+makedepends="wlroots0.20-devel wayland-devel wayland-protocols
+ libxkbcommon-devel libinput-devel libei-devel pixman-devel libdrm-devel
+ libdisplay-info-devel cairo-devel pango-devel tomlplusplus-devel json-c++
+ libxcb-devel xcb-util-wm-devel eudev-libudev-devel lcms2-devel
+ MesaLib-devel libglvnd-devel"
+depends="xorg-server-xwayland xdg-desktop-portal-umbriel"
+short_desc="Wayland compositor with scrolling, dwindle, master and stacking layouts"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="MIT"
+homepage="https://github.com/noctalia-dev/umbriel"
+distfiles="https://github.com/noctalia-dev/umbriel/archive/${_commit}.tar.gz"
+checksum=e83885fb6566639b3ddb73ec03a1de8fa811d0215dcdeeded2ee6de8464a2514
+CXXFLAGS+=" -std=c++23"
+repository=d77
+
+if [ "$XBPS_TARGET_LIBC" = "glibc" ]; then
+	makedepends+=" jemalloc-devel"
+fi
+
+post_install() {
+	# systemd user units: start-umbriel only uses them when a systemd user
+	# manager is reachable, which never happens on Void.
+	rm -rf ${DESTDIR}/usr/lib/systemd
+	vlicense LICENSE
+}

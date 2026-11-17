@@ -1,0 +1,31 @@
+# Template file for 'luciole'
+pkgname=luciole
+version=0.1.0+20261117
+revision=1
+# No tagged releases yet: track a main-branch snapshot.
+_commit=a3c9c7df232da426b3d9acf26dfe7c7ddeb0335e
+build_style=meson
+configure_args="-Dtests=disabled -Dnative_optimizations=false
+ -Dbenchmarks=false -Dwerror=false -Dbuild_revision=${_commit:0:12}"
+hostmakedepends="pkg-config wayland-devel glib-devel"
+makedepends="wayland-devel wayland-protocols MesaLib-devel libglvnd-devel
+ libglib-devel libcurl-devel libxml2-devel freetype-devel fontconfig-devel
+ cairo-devel pango-devel harfbuzz-devel libxkbcommon-devel gdk-pixbuf-devel
+ glycin-devel librsvg-devel libpng-devel libarchive-devel liblzma-devel
+ acl-devel tomlplusplus-devel json-c++ stb"
+depends="gvfs glycin-loaders shared-mime-info gsettings-desktop-schemas dconf
+ glib-networking"
+short_desc="Native Wayland file manager with previews, tabs and Miller columns"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="MIT"
+homepage="https://github.com/noctalia-dev/luciole"
+distfiles="https://github.com/noctalia-dev/luciole/archive/${_commit}.tar.gz"
+checksum=7d1e9ba1ff08e5994a3268e9170d91b229396ceb3278b535090d9479ba5080d4
+CXXFLAGS+=" -std=c++23"
+repository=d77
+
+pre_configure() {
+	# gdk-pixbuf >= 2.44 is only asked for its glycin-backed loaders; every
+	# gdk-pixbuf API Luciole calls already exists in 2.42.
+	vsed -i "s/'gdk-pixbuf-2.0', version: '>=2.44'/'gdk-pixbuf-2.0', version: '>=2.42'/" meson.build
+}
