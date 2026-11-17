@@ -1,0 +1,32 @@
+# Template file for 'whiplash'
+pkgname=whiplash
+version=0.1.1
+revision=1
+build_style=gnu-makefile
+# Only GHC boot packages are used and the Makefile runs
+# `cabal build --offline`, so nothing is fetched from Hackage; the haskell
+# helper gives cabal a writable CABAL_DIR inside the build.
+build_helper="haskell"
+hostmakedepends="ghc cabal-install pkg-config wayland-devel wayland-protocols"
+makedepends="wlroots0.20-devel libxkbcommon-devel libinput-devel libxcb-devel
+ xcb-util-wm-devel wayland-devel"
+depends="xorg-server-xwayland xdg-desktop-portal-wlr xdg-desktop-portal-gtk"
+conf_files="/etc/xdg-desktop-portal/whiplash-portals.conf"
+short_desc="Xmonad-style Wayland compositor with a Haskell brain and a TOML config"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="MIT"
+homepage="https://github.com/dani-77/whiplash"
+distfiles="https://github.com/dani-77/whiplash/archive/refs/tags/v${version}.tar.gz"
+checksum=d7d38fdc1ce8079fe1bda26038b44be193a827e7b4c746f4708c2d8cdf46e69c
+nopie_files="/usr/bin/whiplash"
+nocross=yes
+repository=d77
+
+do_install() {
+	# The project's own install rules: binary, session wrapper and entry,
+	# portals config, example config in /usr/share/whiplash, icons.
+	# build/whiplash is already up to date, so this does not run cabal
+	# again.
+	make install DESTDIR="${DESTDIR}" PREFIX=/usr
+	vlicense LICENSE
+}
