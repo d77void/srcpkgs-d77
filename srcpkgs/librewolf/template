@@ -4,12 +4,13 @@
 # LibreWolf layer already applied) after 153.0.3-1, so the tree is assembled
 # here the same way LibreWolf's own `make dir` does it:
 #  - Mozilla's Firefox ${version} release source (LibreWolf's Makefile fetches
-#    firefox-$(version) from archive.mozilla.org/pub/firefox/releases, where
-#    $(version) is the `version` file of the librewolf/source tag -- check it
-#    matches on every bump);
+#    firefox-$(VERSION) from archive.mozilla.org/pub/firefox/releases, where
+#    VERSION/RELEASE are set at the top of the librewolf/source Makefile --
+#    check they match on every bump);
 #  - the librewolf/source repo at tag ${version}-${_lwrel} (patches, settings,
-#    branding, LibreWolf's own strings), applied by its
-#    scripts/librewolf-patches.py in post_extract;
+#    branding, LibreWolf's own strings), applied by its scripts/patch.sh in
+#    post_extract (since 160.0.1-1; earlier tags had
+#    scripts/librewolf-patches.py and version/release files instead);
 #  - the full Firefox l10n, pinned to the firefox-l10n revision Firefox
 #    ${version} itself lists in browser/locales/l10n-changesets.json
 #    (_l10nrev), instead of the unpinned git clone the script would do.
@@ -18,11 +19,11 @@
 # same Firefox version.
 #
 pkgname=librewolf
-version=159.0.1
+version=160.0.1
 revision=1
 _lwrel=1
-# browser/locales/l10n-changesets.json at FIREFOX_159_0_1_RELEASE
-_l10nrev=4e2e25a0b94740a84c357e93346ec4f4c94521e3
+# browser/locales/l10n-changesets.json at FIREFOX_160_0_1_RELEASE
+_l10nrev=2727528d7a299d3d8f6d1b4f5cbbcb23a4c848c7
 _llvmver=23
 build_helper="rust"
 hostmakedepends="unzip zip pkg-config perl python3
@@ -45,9 +46,9 @@ distfiles="${MOZILLA_SITE}/firefox/releases/${version}/source/firefox-${version}
  https://codeberg.org/librewolf/source/archive/${version}-${_lwrel}.tar.gz>librewolf-source-${version}-${_lwrel}.tar.gz
  https://github.com/mozilla-l10n/firefox-l10n/archive/${_l10nrev}.tar.gz>firefox-l10n-${_l10nrev}.tar.gz"
 # the two git archives are generated on the fly: checksum their contents
-checksum="b5fe407199685f8bddf3b2c81feb8b805429e6f3d307c9430f53456f85b6e063
- @8540a1af86cde465d6ee60e92de4daedd43ee4c8fb4a8b0c6e2591b79aff7793
- @3e5c4ed9bf2605f076f409c6d78514b92a2ab7ee7f2363544fe7f3a3df3cca3a"
+checksum="7b9d95ddf24f7bbf5d0d05698bc02a66dac1eca438f80e093c5c76af7648b06d
+ @cfcd3757379b8ca2fe3a74ff946371fd4fe9084ffe3fb95e0f857eab48f5ecbd
+ @ccda3b7578cb568d1fbc4b44dcaf59823b05706756e42abb7092d11f59803e92"
 skip_extraction="librewolf-source-${version}-${_lwrel}.tar.gz
  firefox-l10n-${_l10nrev}.tar.gz"
 replaces="librewolf-bin>=0"
@@ -84,18 +85,18 @@ post_extract() {
 	tar -xf "${_dist}/firefox-l10n-${_l10nrev}.tar.gz" --strip-components=1 -C lw/l10n
 	rm -rf lw/l10n/.github lw/l10n/LICENSE lw/l10n/README*
 
-	# The script runs from the librewolf/source checkout and works on the
-	# Firefox tree at ./librewolf-<version>-<release>, using ../patches,
-	# ../assets, ../settings, ... -- so the tree has to physically sit there
-	# (a symlink would resolve .. against wrksrc's real parent).
+	# patch.sh runs inside the Firefox tree, which sits in the
+	# librewolf/source checkout at ./librewolf-<version>-<release>, and uses
+	# ../patches, ../assets, ../settings, ... -- so the tree has to physically
+	# sit there (a symlink would resolve .. against wrksrc's real parent).
 	rm -rf "${_lwsrc}"
 	mkdir -p "${_lwsrc}"
 	tar -xf "${_dist}/librewolf-source-${version}-${_lwrel}.tar.gz" --strip-components=1 -C "${_lwsrc}"
 	cd "${XBPS_BUILDDIR}"
 	mv "${wrksrc}" "${_lwtree}"
-	if ! (cd "${_lwsrc}" && SKIP_FETCHING_LOCALES=1 python3 scripts/librewolf-patches.py ${version} ${_lwrel}); then
+	if ! (cd "${_lwtree}" && SKIP_FETCHING_LOCALES=1 sh ../scripts/patch.sh ${version} ${_lwrel}); then
 		mv "${_lwtree}" "${wrksrc}"
-		msg_error "${pkgver}: scripts/librewolf-patches.py failed\n"
+		msg_error "${pkgver}: scripts/patch.sh failed\n"
 	fi
 	mv "${_lwtree}" "${wrksrc}"
 	rm -rf "${_lwsrc}"
@@ -261,8 +262,8 @@ do_build() {
 	export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=system
 
 	rm -f old-configure
-	# librewolf-patches.py installs LibreWolf's own mozconfig (with
-	# --enable-bootstrap); the one generated above replaces it
+	# patch.sh installs LibreWolf's own mozconfig (with --enable-bootstrap);
+	# the one generated above replaces it
 	rm -f mozconfig
 	export MOZCONFIG="${wrksrc}/.mozconfig"
 
