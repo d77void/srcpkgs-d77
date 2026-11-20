@@ -20,12 +20,12 @@
 # https://github.com/d77void/vendored-assets since it isn't otherwise
 # fetchable as a standalone, appropriately-sized distfile.
 pkgname=mullvad-browser
-version=16.0
+version=16.0.2
 revision=1
 # head of the mullvad-browser-${_esrver}esr-16.0-1 branch; the GitHub mirror
 # no longer carries the per-build tags
-_esrver=153.6.0
-_commit=a95cf214d39eaaf5a53576d80bc16f015a6e6cf1
+_esrver=153.7.0
+_commit=d1d14852c91c2533d40eae016b4254253ea7a4b5
 _fontsrel=mullvadbrowser-noto-fonts-2
 _fontsfile=mullvadbrowser-noto-fonts-20261104.tar.zst
 _llvmver=23
@@ -47,7 +47,7 @@ homepage="https://mullvad.net/browser"
 changelog="https://github.com/mullvad/mullvad-browser/releases/tag/${version}"
 distfiles="https://github.com/mullvad/mullvad-browser/archive/${_commit}.tar.gz
  https://github.com/d77void/vendored-assets/releases/download/${_fontsrel}/${_fontsfile}"
-checksum="2bd09e881bbacc452333f6a3011ccff9d4a8a2175241279595d8b36635ed7cfb
+checksum="77919b5168df20c54ff8d43b77b32bb207a13a00cd03c3fe14eea3d197bdd306
  af9898be5745ac3d246d4259f02d82f9f767cd4d375a48b109e37ec4535fd9f0"
 skip_extraction="${_fontsfile}"
 lib32disabled=yes
