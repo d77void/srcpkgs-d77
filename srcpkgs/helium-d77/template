@@ -1,28 +1,25 @@
 # Template file for 'helium-d77'
 pkgname=helium-d77
-version=0.2.0
+version=0.3.0
 revision=1
 build_style=cargo
 hostmakedepends="pkg-config"
 makedepends="wayland-devel libxkbcommon-devel fontconfig-devel freetype-devel pam-devel"
 # xbps has no optional dependencies, and unversioned ones never hold back
-# upgrades. helium-osd calls amixer, brightnessctl and powerprofilesctl;
-# amorphis (from the d77 repo) is what the session menu locks with.
-depends="pam-libs wl-clipboard alsa-utils brightnessctl power-profiles-daemon
- amorphis"
+# upgrades. helium-osd calls amixer, brightnessctl and powerprofilesctl.
+depends="pam-libs wl-clipboard alsa-utils brightnessctl power-profiles-daemon"
 short_desc="Wayland shell built with the Helium shell framework"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://github.com/dani-77/helium-d77"
 distfiles="https://github.com/dani-77/helium-d77/archive/refs/tags/${version}.tar.gz"
-checksum=730741bddb17d6210942f30984030b261695f5527929ca97fc43e4c192335852
+checksum=69cd869f7e4b9639c011d41c4505333a24fdb9b56e1871a95c1a3ff1e28be350
 repository=d77
+conf_files="/etc/pam.d/helium-locker"
 
 # build_style=cargo's default do_install only installs a single binary named
-# ${pkgname}. This crate produces seven -- mirrors the Makefile's BINS, which
-# deliberately leaves out helium-locker (see the README's Locker section for
-# the upstream niri/layer-shika incompatibility that keeps it out of
-# `make install` too).
+# ${pkgname}. This crate produces eight -- mirrors the Makefile's BINS, plus
+# helium-locker's PAM file.
 do_install() {
 	vbin target/x86_64-unknown-linux-gnu/release/helium-shell
 	vbin target/x86_64-unknown-linux-gnu/release/helium-launcher
@@ -31,6 +28,8 @@ do_install() {
 	vbin target/x86_64-unknown-linux-gnu/release/helium-wallpaper
 	vbin target/x86_64-unknown-linux-gnu/release/helium-backdrop
 	vbin target/x86_64-unknown-linux-gnu/release/helium-ollama
+	vbin target/x86_64-unknown-linux-gnu/release/helium-locker
+	vinstall pam.d/helium-locker 644 etc/pam.d
 	vinstall assets/d77-logo.svg 644 usr/share/helium-d77/
 	vlicense LICENSE
 	vdoc README.md
