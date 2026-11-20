@@ -87,6 +87,20 @@ PYPI_SITE="https://files.pythonhosted.org/packages/source"
 KERNEL_SITE="https://www.kernel.org/pub/linux"
 '''
 
+# Packages the bot can't update safely: a new version means syncing patches
+# (e.g. from void's firefox template) and checking that it still builds. The
+# bot only *reports* a newer upstream version for these; it never touches
+# their templates. pkgname -> (source, owner, repo, how to build the current
+# version string from the template's variables, where versions live:
+# "auto" = tags and releases as for any template, "tags" = tags only).
+# LibreWolf stopped publishing Codeberg releases at 153.x and only tags
+# newer versions; an old release flagged unstable would otherwise make the
+# bot trust those stale releases alone (see fetch_candidate_tags).
+MANUAL_UPDATES: dict[str, tuple[str, str, str, str, str]] = {
+    "librewolf": ("codeberg", "librewolf", "source", "{version}-{_lwrel}", "tags"),
+    "mullvad-browser": ("github", "mullvad", "mullvad-browser", "{version}", "auto"),
+}
+
 # Template variable -> git submodule path. GitHub tarballs don't include
 # submodules, so these templates download the submodule at a pinned commit as
 # a second distfile. The pin must match what the new tag records, or the
@@ -94,7 +108,7 @@ KERNEL_SITE="https://www.kernel.org/pub/linux"
 SUBMODULE_PINS = {"_duxcommon_commit": "dux-qml-common"}
 
 DUMP_VARS = ("pkgname", "version", "revision", "_commit", "distfiles", "checksum", "homepage",
-             *SUBMODULE_PINS)
+             "_lwrel", *SUBMODULE_PINS)
 
 
 @dataclass
@@ -102,7 +116,7 @@ class Result:
     pkgname: str
     old_version: str | None = None
     new_version: str | None = None
-    status: str = "skipped"  # updated | skipped | error
+    status: str = "skipped"  # updated | skipped | error | manual
     reason: str = ""
 
 
@@ -111,6 +125,7 @@ class Report:
     updated: list[Result] = field(default_factory=list)
     skipped: list[Result] = field(default_factory=list)
     errors: list[Result] = field(default_factory=list)
+    manual: list[Result] = field(default_factory=list)
 
 
 def log(msg: str) -> None:
@@ -210,6 +225,17 @@ def is_unstable_release(release: dict) -> bool:
         return True
     name = (release.get("name") or "").lower()
     return any(re.search(rf"\b{m}\b", name) for m in PRERELEASE_MARKERS)
+
+
+def fetch_raw_tags(source: str, owner: str, repo: str) -> list[str]:
+    """Tag names only, ignoring releases (see MANUAL_UPDATES)."""
+    if source == "github":
+        url = f"https://api.github.com/repos/{owner}/{repo}/tags?per_page={MAX_TAGS}"
+        return [t["name"] for t in http_get_json(url, github_headers())]
+    if source == "codeberg":
+        url = f"https://codeberg.org/api/v1/repos/{owner}/{repo}/tags?limit={MAX_TAGS}"
+        return [t["name"] for t in http_get_json(url)]
+    return []
 
 
 def fetch_candidate_tags(source: str, owner: str, repo: str) -> list[str]:
@@ -320,6 +346,30 @@ def update_template_text(text: str, new_version: str, hashes: list[str],
 # Per-package processing
 # --------------------------------------------------------------------------
 
+def check_manual(pkgname: str, fields: dict[str, str]) -> Result:
+    """For MANUAL_UPDATES packages: report a newer upstream version, if any,
+    without touching the template."""
+    source, owner, repo, fmt, where = MANUAL_UPDATES[pkgname]
+    try:
+        current = fmt.format(**{k: fields.get(k, "") for k in DUMP_VARS})
+    except (KeyError, IndexError) as e:
+        return Result(pkgname, status="error", reason=f"can't build the current version: {e}")
+    try:
+        if where == "tags":
+            tags = fetch_raw_tags(source, owner, repo)
+        else:
+            tags = fetch_candidate_tags(source, owner, repo)
+    except Exception as e:  # noqa: BLE001
+        return Result(pkgname, old_version=current, status="error",
+                       reason=f"failed to query {source} for {owner}/{repo}: {e}")
+    candidate = best_candidate(current, tags)
+    if candidate is None:
+        return Result(pkgname, old_version=current, status="skipped", reason="already up to date")
+    return Result(pkgname, old_version=current, new_version=candidate, status="manual",
+                   reason=f"{source}.org/{owner}/{repo}" if source == "codeberg"
+                   else f"github.com/{owner}/{repo}")
+
+
 def process_template(template: Path) -> Result:
     pkgname = template.parent.name
 
@@ -331,6 +381,9 @@ def process_template(template: Path) -> Result:
         fields = dump_template_vars(template)
     except Exception as e:  # noqa: BLE001
         return Result(pkgname, status="error", reason=f"failed to parse template: {e}")
+
+    if pkgname in MANUAL_UPDATES:
+        return check_manual(pkgname, fields)
 
     version = fields.get("version", "")
     distfiles = fields.get("distfiles", "")
@@ -424,6 +477,9 @@ def main() -> int:
         if result.status == "updated":
             log(f"  -> updated {result.old_version} -> {result.new_version}")
             report.updated.append(result)
+        elif result.status == "manual":
+            log(f"  -> manual update needed: {result.old_version} -> {result.new_version}")
+            report.manual.append(result)
         elif result.status == "error":
             log(f"  -> error: {result.reason}")
             report.errors.append(result)
@@ -442,6 +498,18 @@ def main() -> int:
     else:
         summary_lines.append("No template updates found.\n")
 
+    manual_lines = []
+    if report.manual:
+        manual_lines.append("## New versions that need a manual update\n")
+        manual_lines.append("The bot doesn't touch these templates: updating them means syncing "
+                            "patches and checking that the package still builds.\n")
+        manual_lines.append("| Package | Template | Upstream | Source |")
+        manual_lines.append("|---|---|---|---|")
+        for r in sorted(report.manual, key=lambda r: r.pkgname):
+            manual_lines.append(f"| `{r.pkgname}` | {r.old_version} | **{r.new_version}** | {r.reason} |")
+        manual_lines.append("")
+    summary_lines.extend(manual_lines)
+
     if report.errors:
         summary_lines.append("## Errors while checking for updates\n")
         for r in sorted(report.errors, key=lambda r: r.pkgname):
@@ -450,7 +518,8 @@ def main() -> int:
 
     summary_lines.append(
         f"<sub>{len(templates)} templates checked, {len(report.updated)} updated, "
-        f"{len(report.skipped)} skipped, {len(report.errors)} errored.</sub>"
+        f"{len(report.skipped)} skipped, {len(report.manual)} need a manual update, "
+        f"{len(report.errors)} errored.</sub>"
     )
 
     summary = "\n".join(summary_lines)
@@ -460,11 +529,18 @@ def main() -> int:
     if summary_path:
         Path(summary_path).write_text(summary + "\n")
 
+    # Body for the tracking issue the workflow keeps open while a manual
+    # update is pending (a PR only exists when some template changed).
+    manual_path = os.environ.get("MANUAL_SUMMARY_PATH")
+    if manual_path and manual_lines:
+        Path(manual_path).write_text("\n".join(manual_lines) + "\n")
+
     github_output = os.environ.get("GITHUB_OUTPUT")
     if github_output:
         with open(github_output, "a") as f:
             f.write(f"has_changes={'true' if report.updated else 'false'}\n")
             f.write(f"updated_count={len(report.updated)}\n")
+            f.write(f"has_manual={'true' if report.manual else 'false'}\n")
 
     step_summary = os.environ.get("GITHUB_STEP_SUMMARY")
     if step_summary:

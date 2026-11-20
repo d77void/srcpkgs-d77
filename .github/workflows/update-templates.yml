@@ -17,6 +17,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  issues: write
 
 concurrency:
   group: update-templates
@@ -35,6 +36,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           UPDATE_SUMMARY_PATH: ${{ github.workspace }}/update-summary.md
+          MANUAL_SUMMARY_PATH: ${{ github.workspace }}/manual-summary.md
         run: python3 scripts/update_templates.py
 
       - name: Open pull request
@@ -52,3 +54,26 @@ jobs:
             srcpkgs/*/template
             cosmic/*/template
             hyprland/*/template
+
+      # Packages in MANUAL_UPDATES (librewolf, mullvad-browser) are never
+      # edited by the bot, so a new version of one alone opens no PR. Keep a
+      # single issue open while any of them has a newer upstream version,
+      # and close it once the templates have caught up.
+      - name: Track manual updates
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HAS_MANUAL: ${{ steps.update.outputs.has_manual }}
+        run: |
+          title="Manual template updates available"
+          gh label create manual-update --color FBCA04 \
+            --description "New upstream version the bot can't update" 2>/dev/null || true
+          issue=$(gh issue list --state open --label manual-update --json number --jq '.[0].number')
+          if [ "$HAS_MANUAL" = "true" ]; then
+            if [ -n "$issue" ]; then
+              gh issue edit "$issue" --body-file manual-summary.md
+            else
+              gh issue create --title "$title" --label manual-update --body-file manual-summary.md
+            fi
+          elif [ -n "$issue" ]; then
+            gh issue close "$issue" --comment "All manual updates are done."
+          fi
