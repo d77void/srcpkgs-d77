@@ -1,0 +1,48 @@
+# Template file for 'strata'
+pkgname=strata
+version=1.2.1
+revision=1
+build_style=cargo
+hostmakedepends="pkg-config glib-devel"
+makedepends="gtk4-devel gtksourceview5-devel poppler-glib-devel gstreamer1-devel
+ gst-plugins-base1-devel fontconfig-devel libzstd-devel cairo-devel pango-devel
+ gdk-pixbuf-devel"
+# Runtime helpers, as listed in upstream's packaging/aur/PKGBUILD.in:
+# bubblewrap sandboxes the preview parsers, gvfs backs network locations,
+# librsvg's pixbuf loader renders SVG previews.
+depends="bubblewrap gvfs gst-plugins-base1 gst-plugins-good1 librsvg xdg-utils"
+short_desc="Fast, keyboard-first file manager for Linux"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="MIT"
+homepage="https://stratafiles.io/"
+changelog="https://github.com/lgse/strata/releases/tag/v${version}"
+distfiles="https://github.com/lgse/strata/archive/refs/tags/v${version}.tar.gz"
+checksum=007dfa3e8185206a2da45b509626ec9205fce9629c93c243485a383c54c36b19
+repository=d77
+
+# build.rs reads these:
+#  - STRATA_UPDATER=disabled: no built-in self-updater, xbps owns updates
+#    (upstream's own Nix package does the same);
+#  - STRATA_BUILD_COMMIT: the commit of the v${version} tag, so build.rs
+#    doesn't need a git checkout to stamp the version;
+#  - ZSTD_SYS_USE_PKG_CONFIG: link the system libzstd.
+_commit=491e6ba9735e821f9f49910ffd2582076196865c
+export STRATA_UPDATER=disabled
+export STRATA_BUILD_COMMIT="${_commit}"
+export ZSTD_SYS_USE_PKG_CONFIG=1
+
+post_install() {
+	vinstall data/io.github.lgse.Strata.desktop 644 usr/share/applications
+	vinstall data/icons/scalable/apps/io.github.lgse.Strata.svg 644 \
+		usr/share/icons/hicolor/scalable/apps
+	# org.freedesktop.FileManager1, as dux-files also provides: d77void
+	# ships one file manager per variant, never both.
+	vinstall data/io.github.lgse.Strata.FileManager1.service 644 \
+		usr/share/dbus-1/services
+	vlicense LICENSE
+	vlicense THIRD_PARTY_LICENSES.md
+	for f in data/licenses/*; do
+		vlicense "$f"
+	done
+	vdoc README.md
+}
