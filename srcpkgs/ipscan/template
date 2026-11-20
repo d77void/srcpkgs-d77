@@ -1,6 +1,6 @@
 # Template file for 'ipscan'
 pkgname=ipscan
-version=3.12.1
+version=3.12.2
 revision=1
 archs="x86_64"
 hostmakedepends="git openjdk25"
@@ -10,7 +10,7 @@ maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="GPL-2.0-only"
 homepage="https://angryip.org"
 distfiles="https://github.com/angryip/ipscan/archive/refs/tags/${version}.tar.gz"
-checksum=ea5a9c1e2548e30b25f00691a001849dca11c61732db05f47c14011bce1a3dc5
+checksum=8a2349b467d7985089855467a135c9ccac04c1ef9ca20ac55c3bd64da2917266
 nocross="gradle runs the host JVM"
 repository=d77
 
