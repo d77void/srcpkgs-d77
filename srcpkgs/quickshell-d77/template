@@ -1,6 +1,6 @@
 # Template file for 'quickshell-d77'
 pkgname=quickshell-d77
-version=1.7.0
+version=1.8.0
 revision=1
 build_style=gnu-makefile
 hostmakedepends="make rsync"
@@ -10,14 +10,14 @@ makedepends="wayland-devel"
 # installed. Install quickshell yourself alongside this package.
 # matugen (from the official Void repo) generates the wallpaper palette; xbps has no
 # optional dependencies, and an unversioned one never holds back upgrades.
-depends="power-profiles-daemon alsa-utils alsa-tools brightnessctl wireless_tools matugen"
+depends="power-profiles-daemon alsa-utils alsa-tools brightnessctl wireless_tools matugen eww dgop"
 short_desc="Quickshell d77 shell for wayland compositors"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://github.com/dani-77/quickshell-d77"
 changelog="https://github.com/dani-77/quickshell-d77/releases"
 distfiles="https://github.com/dani-77/quickshell-d77/archive/refs/tags/${version}.tar.gz"
-checksum=671927c95227924974cfa4305f524ac2b36512320553ae0ba9eac89744968950
+checksum=76cd490e416eb63502d9151429674febdb86c3ad0948ed2654b8b883337c375d
 repository=d77
 
 post_install() {

@@ -1,6 +1,6 @@
 # Template file for 'utumno'
 pkgname=utumno
-version=0.3.1
+version=0.4.0
 revision=1
 build_style=gnu-makefile
 hostmakedepends="make rsync"
@@ -10,14 +10,14 @@ makedepends="wayland-devel"
 # Install quickshell yourself alongside this package.
 # matugen (from the official Void repo) generates the wallpaper palette; xbps has no
 # optional dependencies, and an unversioned one never holds back upgrades.
-depends="power-profiles-daemon alsa-utils alsa-tools brightnessctl wireless_tools matugen"
+depends="power-profiles-daemon alsa-utils alsa-tools brightnessctl wireless_tools matugen eww dgop"
 short_desc="Minimal Quickshell shell for wayland compositors, lighter sibling of quickshell-d77"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://github.com/dani-77/utumno"
 changelog="https://github.com/dani-77/utumno/releases"
 distfiles="https://github.com/dani-77/utumno/archive/refs/tags/${version}.tar.gz"
-checksum=75605993a5004fa7dcbe52b45f6d4ff3e09d0b89948aacd4fdaa309fa8b10557
+checksum=2a606880fbe2530fa0ec9bbf172db118e37899b5fcd800a699caafc859d5bfbe
 repository=d77
 
 post_install() {

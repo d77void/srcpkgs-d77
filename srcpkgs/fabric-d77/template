@@ -1,19 +1,19 @@
 # Template file for 'fabric-d77'
 # See void/README.md in the fabric-d77 repo for how to build this with xbps-src.
 pkgname=fabric-d77
-version=1.5.0
+version=1.6.0
 revision=1
 depends="python3 python3-gobject python3-cairo python3-cffi python3-click
  python3-loguru python3-Pillow python3-psutil python3-rapidfuzz
  python3-requests python3-setproctitle python3-six python3-pam python3-thefuzz
- fabric gtk-session-lock alsa-utils brightnessctl matugen"
+ fabric gtk-session-lock alsa-utils brightnessctl matugen eww dgop"
 short_desc="GTK desktop shell for Wayland compositors, built on Fabric"
 maintainer="Daniel Azevedo <daniazevedo77@gmail.com>"
 license="MIT"
 homepage="https://github.com/dani-77/fabric-d77"
 
 distfiles="https://github.com/dani-77/fabric-d77/archive/refs/tags/${version}.tar.gz"
-checksum=d0c1d5c2f9826d89e07e69ab4584fbcc6540d915ba47e36fa36847141dcc69a0
+checksum=931401a6b1dfdbc6b97e4ca48f88e1fa273dfbd3395f03c269f166f075d5010c
 repository=d77
 
 do_install() {
@@ -27,6 +27,9 @@ do_install() {
 	vbin bin/fabric-d77-signal
 
 	vinstall pam/fabric-d77 644 etc/pam.d fabric-d77
+	vinstall monitor/d77-monitor 755 usr/share/fabric-d77/monitor
+	vinstall monitor/eww.yuck 644 usr/share/fabric-d77/monitor
+	vinstall monitor/eww.scss 644 usr/share/fabric-d77/monitor
 
 	vlicense LICENSE
 }
