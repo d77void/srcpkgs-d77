@@ -1,23 +1,26 @@
 # Template file for 'frost-d77'
 pkgname=frost-d77
-version=0.1.0
+version=0.2.0
 revision=1
 build_style=cargo
 hostmakedepends="pkg-config"
 makedepends="wayland-devel libxkbcommon-devel fontconfig-devel freetype-devel pam-devel"
-depends="wayland libxkbcommon pam-libs"
+depends="wayland libxkbcommon pam-libs glib cliphist wl-clipboard xdg-utils eww dgop"
 short_desc="Wayland desktop shell and session locker written in Rust"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://github.com/dani-77/frost"
 distfiles="https://github.com/dani-77/frost/archive/refs/tags/v${version}.tar.gz"
-checksum=483414adaa5278d12ddc9a8496ed73f3053f94fb8b02e9997aa5a97c95a4803d
+checksum=4fd843105ecd8f468058339bc3e3b9508f0a6e6f04a9870073b0eab602277df3
 repository=d77
 conf_files="/etc/pam.d/frost-locker"
 
 # The Cargo package is frost-d77, but its executable is named frost.
 do_install() {
 	vbin target/${RUST_TARGET}/release/frost
+	vbin monitor/d77-monitor
+	vinstall monitor/eww.yuck 644 usr/share/d77-monitor
+	vinstall monitor/eww.scss 644 usr/share/d77-monitor
 	vinstall pam.d/frost-locker.void 644 etc/pam.d frost-locker
 	vinstall config.example.toml 644 usr/share/frost
 	vinstall LICENSE 644 usr/share/licenses/frost
