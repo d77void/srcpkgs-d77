@@ -1,6 +1,6 @@
 # Template file for 'quickshell-d77'
 pkgname=quickshell-d77
-version=1.8.0
+version=1.8.1
 revision=1
 build_style=gnu-makefile
 hostmakedepends="make rsync"
@@ -17,7 +17,7 @@ license="MIT"
 homepage="https://github.com/dani-77/quickshell-d77"
 changelog="https://github.com/dani-77/quickshell-d77/releases"
 distfiles="https://github.com/dani-77/quickshell-d77/archive/refs/tags/${version}.tar.gz"
-checksum=76cd490e416eb63502d9151429674febdb86c3ad0948ed2654b8b883337c375d
+checksum=bd77e09329f7b4163d75c42737226187594cd29434d4c0e1443fe5c26ea8858a
 repository=d77
 
 post_install() {

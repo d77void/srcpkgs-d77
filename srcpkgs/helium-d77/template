@@ -1,6 +1,6 @@
 # Template file for 'helium-d77'
 pkgname=helium-d77
-version=0.5.0
+version=0.5.1
 revision=1
 build_style=cargo
 hostmakedepends="pkg-config"
@@ -13,7 +13,7 @@ maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://github.com/dani-77/helium-d77"
 distfiles="https://github.com/dani-77/helium-d77/archive/refs/tags/${version}.tar.gz"
-checksum=b85abc73b8b39578058bf97c0a4f1b2e0d82282ddf07109b77a7b1e79e2feacb
+checksum=141caab87cc05a577bc070c0603b585a61c7b7dfaac233af5bd139bb4a1b4078
 repository=d77
 conf_files="/etc/pam.d/helium-locker"
 

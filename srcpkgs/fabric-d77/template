@@ -1,7 +1,7 @@
 # Template file for 'fabric-d77'
 # See void/README.md in the fabric-d77 repo for how to build this with xbps-src.
 pkgname=fabric-d77
-version=1.6.0
+version=1.6.1
 revision=1
 depends="python3 python3-gobject python3-cairo python3-cffi python3-click
  python3-loguru python3-Pillow python3-psutil python3-rapidfuzz
@@ -13,7 +13,7 @@ license="MIT"
 homepage="https://github.com/dani-77/fabric-d77"
 
 distfiles="https://github.com/dani-77/fabric-d77/archive/refs/tags/${version}.tar.gz"
-checksum=931401a6b1dfdbc6b97e4ca48f88e1fa273dfbd3395f03c269f166f075d5010c
+checksum=c1f5f95fe61a73674875eab41c582e92ccb67a2cebf83871983b5a792e9d2b49
 repository=d77
 
 do_install() {
