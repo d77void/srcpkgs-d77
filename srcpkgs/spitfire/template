@@ -1,6 +1,6 @@
 # Template file for 'spitfire'
 pkgname=spitfire
-version=0.6.0
+version=0.6.1
 revision=1
 build_style=cargo
 # Same feature set the project's own `make install` builds with — see the
@@ -15,7 +15,7 @@ maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://github.com/dani-77/spitfire"
 distfiles="https://github.com/dani-77/spitfire/archive/refs/tags/v${version}.tar.gz"
-checksum=5d9045f71a7ffc77a136bf2c0599634f9af169d2a5ac2a505e17e005f2cf441a
+checksum=f8421ad2a838d8cd98c1444254fae4aa049d71c69e349649f30deea603e3451c
 # Config file installed under /etc, not something xbps should ever
 # overwrite silently on upgrade.
 conf_files="/etc/xdg-desktop-portal/spitfire-portals.conf"
