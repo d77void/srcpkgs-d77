@@ -1,6 +1,6 @@
 # Template file for 'helium-d77'
 pkgname=helium-d77
-version=0.4.0
+version=0.5.0
 revision=1
 build_style=cargo
 hostmakedepends="pkg-config"
@@ -13,22 +13,18 @@ maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://github.com/dani-77/helium-d77"
 distfiles="https://github.com/dani-77/helium-d77/archive/refs/tags/${version}.tar.gz"
-checksum=2b72337ac8e6971c4929fe6c070435c18dd23f42a387322938f055a30d87041d
+checksum=b85abc73b8b39578058bf97c0a4f1b2e0d82282ddf07109b77a7b1e79e2feacb
 repository=d77
 conf_files="/etc/pam.d/helium-locker"
 
-# build_style=cargo's default do_install only installs a single binary named
-# ${pkgname}. This crate produces eight -- mirrors the Makefile's BINS, plus
-# helium-locker's PAM file.
+# build_style=cargo's default do_install only installs a binary named
+# ${pkgname}. This crate builds one `helium` binary; every program is a
+# helium-<applet> symlink to it, as in the Makefile.
 do_install() {
-	vbin target/x86_64-unknown-linux-gnu/release/helium-shell
-	vbin target/x86_64-unknown-linux-gnu/release/helium-launcher
-	vbin target/x86_64-unknown-linux-gnu/release/helium-session
-	vbin target/x86_64-unknown-linux-gnu/release/helium-osd
-	vbin target/x86_64-unknown-linux-gnu/release/helium-wallpaper
-	vbin target/x86_64-unknown-linux-gnu/release/helium-backdrop
-	vbin target/x86_64-unknown-linux-gnu/release/helium-ollama
-	vbin target/x86_64-unknown-linux-gnu/release/helium-locker
+	vbin target/${RUST_TARGET}/release/helium
+	for applet in shell launcher session osd wallpaper backdrop ollama locker; do
+		ln -s helium ${DESTDIR}/usr/bin/helium-${applet}
+	done
 	vinstall pam.d/helium-locker 644 etc/pam.d
 	vinstall assets/d77-logo.svg 644 usr/share/helium-d77/
 	vinstall monitor/d77-monitor 755 usr/share/helium-d77/monitor
