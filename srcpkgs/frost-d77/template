@@ -1,6 +1,6 @@
 # Template file for 'frost-d77'
 pkgname=frost-d77
-version=0.2.1
+version=0.2.2
 revision=1
 build_style=cargo
 hostmakedepends="pkg-config"
@@ -11,7 +11,7 @@ maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://github.com/dani-77/frost"
 distfiles="https://github.com/dani-77/frost/archive/refs/tags/v${version}.tar.gz"
-checksum=e92435e14b7072589f3d39f0a6e238a308e6ed9104f3cd5ae01539826ff56191
+checksum=a7a8ce1e854eb4950bdf01325897e8138c401c41ddf9df99ca8914488524a3c8
 repository=d77
 conf_files="/etc/pam.d/frost-locker"
 
