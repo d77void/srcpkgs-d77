@@ -1,6 +1,6 @@
 # Template file for 'bitwarden'
 pkgname=bitwarden
-version=2026.10.4
+version=2026.11.0
 revision=1
 archs="x86_64"
 hostmakedepends="nodejs cargo pkg-config python3"
@@ -9,7 +9,7 @@ maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="GPL-3.0-only"
 homepage="https://bitwarden.com"
 distfiles="https://github.com/bitwarden/clients/archive/refs/tags/desktop-v${version}.tar.gz"
-checksum=cc209fd9fa10d79c8751c4b635ef6f66f6bbb384fd69d14388f24f8d1f2af67f
+checksum=3063af17647e0b153421586d2be2667dad0a388c76e3d4277754e3282a114a2c
 noverifyrdeps="libc.musl-x86_64.so.1"
 nocross="electron-builder packs the electron build for the host"
 repository=d77
