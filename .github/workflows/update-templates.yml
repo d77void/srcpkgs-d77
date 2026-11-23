@@ -24,6 +24,17 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  keepalive:
+    # GitHub disables scheduled workflows after 60 days without repository
+    # activity. This re-enables the workflow through the API on every
+    # scheduled run, without creating commits.
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - uses: liskin/gh-workflow-keepalive@v1
+
   update-templates:
     runs-on: ubuntu-latest
     timeout-minutes: 30
