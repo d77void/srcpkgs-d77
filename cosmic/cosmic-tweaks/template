@@ -1,6 +1,6 @@
 # Template file for 'cosmic-tweaks'
 pkgname=cosmic-tweaks
-version=0.2.5
+version=0.2.6
 revision=1
 archs="x86_64"
 hostmakedepends="pkg-config cargo just"
@@ -11,7 +11,7 @@ maintainer="Bella109 <belladev109@proton.me>"
 license="GPL-3.0-only"
 homepage="https://github.com/cosmic-utils/tweaks"
 distfiles="https://github.com/cosmic-utils/tweaks/archive/refs/tags/${version}.tar.gz"
-checksum=adc3c335d7bc0f9bb9b2882a8e53e15e75676021a1ed192d1171cf3cbaf15bc0
+checksum=cbe30e5f9bb44426cff6bee709ba1eeca5ee47da07f1458060a4208c39d9db3c
 repository=cosmic-d77
 
 do_build() {
