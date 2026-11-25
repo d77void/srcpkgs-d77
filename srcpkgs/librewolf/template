@@ -19,11 +19,11 @@
 # same Firefox version.
 #
 pkgname=librewolf
-version=160.0.1
+version=161.0
 revision=1
 _lwrel=1
-# browser/locales/l10n-changesets.json at FIREFOX_160_0_1_RELEASE
-_l10nrev=2727528d7a299d3d8f6d1b4f5cbbcb23a4c848c7
+# browser/locales/l10n-changesets.json at FIREFOX_161_0_RELEASE
+_l10nrev=42a7ce6302b5a5214997f637a18ce68ca1103e3d
 _llvmver=23
 build_helper="rust"
 hostmakedepends="unzip zip pkg-config perl python3
@@ -46,9 +46,9 @@ distfiles="${MOZILLA_SITE}/firefox/releases/${version}/source/firefox-${version}
  https://codeberg.org/librewolf/source/archive/${version}-${_lwrel}.tar.gz>librewolf-source-${version}-${_lwrel}.tar.gz
  https://github.com/mozilla-l10n/firefox-l10n/archive/${_l10nrev}.tar.gz>firefox-l10n-${_l10nrev}.tar.gz"
 # the two git archives are generated on the fly: checksum their contents
-checksum="7b9d95ddf24f7bbf5d0d05698bc02a66dac1eca438f80e093c5c76af7648b06d
- @cfcd3757379b8ca2fe3a74ff946371fd4fe9084ffe3fb95e0f857eab48f5ecbd
- @ccda3b7578cb568d1fbc4b44dcaf59823b05706756e42abb7092d11f59803e92"
+checksum="c649de11e4dc6266bc905ce4b33eb8672a1947c2e210ec53dce285cb86296a5a
+ @d62f905909e86b976890071ec953689bdb1cdf315584266137e457742a6bc8e3
+ @062809dd133b0d8d4cc3ce68c8fff807b32f4e7de3df41a975485016fd99c1d6"
 skip_extraction="librewolf-source-${version}-${_lwrel}.tar.gz
  firefox-l10n-${_l10nrev}.tar.gz"
 replaces="librewolf-bin>=0"

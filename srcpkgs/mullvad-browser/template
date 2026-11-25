@@ -4,9 +4,7 @@
 # base-browser + Mullvad patches), from the GitHub mirror of its gecko
 # repository. The build setup and the patches/ directory follow
 # void-packages' srcpkgs/firefox-esr, so keep them in sync with the
-# firefox-esr template of the same ESR version (_esrver). Void's firefox-esr
-# was still on ESR 140 when Mullvad Browser 16.0 moved to ESR 153, so 16.x
-# follows srcpkgs/firefox at 153.0.3 (183be43e014) instead: same Gecko.
+# firefox-esr template of the same ESR version (_esrver).
 #
 # --enable-bundled-fonts (below) only wires up the packaging mechanism; it
 # doesn't supply the actual Noto/Arimo/Tinos/Cousine/STIX font set Mullvad
@@ -20,12 +18,12 @@
 # https://github.com/d77void/vendored-assets since it isn't otherwise
 # fetchable as a standalone, appropriately-sized distfile.
 pkgname=mullvad-browser
-version=16.0.2
+version=16.0.3
 revision=1
 # head of the mullvad-browser-${_esrver}esr-16.0-1 branch; the GitHub mirror
 # no longer carries the per-build tags
-_esrver=153.7.0
-_commit=d1d14852c91c2533d40eae016b4254253ea7a4b5
+_esrver=153.8.0
+_commit=d049dd26e9836b8ae025b2addc44ad52672c84ac
 _fontsrel=mullvadbrowser-noto-fonts-2
 _fontsfile=mullvadbrowser-noto-fonts-20261104.tar.zst
 _llvmver=23
@@ -47,7 +45,7 @@ homepage="https://mullvad.net/browser"
 changelog="https://github.com/mullvad/mullvad-browser/releases/tag/${version}"
 distfiles="https://github.com/mullvad/mullvad-browser/archive/${_commit}.tar.gz
  https://github.com/d77void/vendored-assets/releases/download/${_fontsrel}/${_fontsfile}"
-checksum="77919b5168df20c54ff8d43b77b32bb207a13a00cd03c3fe14eea3d197bdd306
+checksum="a6ccb0793bf1d246b62fe2cb9472f7161712e53335c20b647adae3651790cea9
  af9898be5745ac3d246d4259f02d82f9f767cd4d375a48b109e37ec4535fd9f0"
 skip_extraction="${_fontsfile}"
 lib32disabled=yes

@@ -1,0 +1,32 @@
+# Template file for 'atg'
+pkgname=atg
+version=0.1.0
+revision=1
+build_style=gnu-makefile
+makedepends="libX11-devel"
+# quickshell is required at runtime but intentionally NOT listed in depends=:
+# pinning it here holds back system upgrades whenever atg is installed.
+# Install quickshell yourself alongside this package.
+# Network status uses NetworkManager (through Quickshell.Networking); it is not
+# pulled in here so it doesn't replace whatever network setup is in use.
+depends="bash curl feh jq util-linux python3 xrandr ImageMagick matugen eww dgop
+ pulseaudio-utils brightnessctl power-profiles-daemon upower amorphis"
+short_desc="At the Gates, a Quickshell desktop shell for Xorg and wmd77"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="MIT"
+homepage="https://github.com/d77void/ATG"
+changelog="https://github.com/d77void/ATG/releases"
+distfiles="https://github.com/d77void/ATG/archive/refs/tags/${version}.tar.gz"
+checksum=6eb65f849e71bbbef75d26bc0e7039cb98a346c6733442b1ba9511e9b40fa075
+repository=d77
+
+post_install() {
+	# No ELF files in /usr/share: the QML finds the helper through
+	# Quickshell.shellPath("atg-ewmh"), so leave a symlink in its place.
+	vmkdir usr/libexec/atg
+	mv ${DESTDIR}/usr/share/quickshell/atg/atg-ewmh ${DESTDIR}/usr/libexec/atg/
+	ln -s /usr/libexec/atg/atg-ewmh ${DESTDIR}/usr/share/quickshell/atg/atg-ewmh
+
+	vlicense LICENSE
+	vdoc README.md
+}
