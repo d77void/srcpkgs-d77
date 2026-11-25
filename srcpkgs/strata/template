@@ -1,6 +1,6 @@
 # Template file for 'strata'
 pkgname=strata
-version=1.2.1
+version=1.2.2
 revision=1
 build_style=cargo
 hostmakedepends="pkg-config glib-devel"
@@ -17,7 +17,7 @@ license="MIT"
 homepage="https://stratafiles.io/"
 changelog="https://github.com/lgse/strata/releases/tag/v${version}"
 distfiles="https://github.com/lgse/strata/archive/refs/tags/v${version}.tar.gz"
-checksum=007dfa3e8185206a2da45b509626ec9205fce9629c93c243485a383c54c36b19
+checksum=857b784edd448b72857cc27f0b8ee28811070cfbb45ed5f898387942a8a28269
 repository=d77
 
 # build.rs reads these:

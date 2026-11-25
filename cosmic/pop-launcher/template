@@ -1,6 +1,6 @@
 # Template file for 'pop-launcher'
 pkgname=pop-launcher
-version=1.11.0
+version=1.12.0
 revision=1
 build_style="cargo"
 configure_args="--all"
@@ -14,7 +14,7 @@ maintainer="Bella Wagner <belladev109@proton.me>"
 license="MPL-2.0"
 homepage="https://github.com/pop-os/launcher"
 distfiles="https://github.com/pop-os/launcher/archive/refs/tags/epoch-${version}.tar.gz"
-checksum=5c36c3304c48c047b5b6a1ae645f0ceb44447aec82db862fb93be6184af3fdc7
+checksum=2d3a8d31b374db5661062623bc86d64ea9b09d28aff65f8f4cd71f44dd74c941
 repository=cosmic-d77
 
 pre_build() {
