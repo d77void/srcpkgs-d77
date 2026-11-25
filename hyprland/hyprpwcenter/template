@@ -1,11 +1,11 @@
 # Template file for 'hyprpwcenter'
 pkgname=hyprpwcenter
 version=0.1.2
-revision=3
+revision=4
 build_style=cmake
 hostmakedepends="pkgconf"
 makedepends="hyprtoolkit hyprutils cairo-devel libdrm-devel pipewire-devel
-	libxkbcommon-devel pango-devel pixman-devel"
+	libxkbcommon-devel pango-devel pixman-devel libglvnd-devel"
 short_desc="GUI Pipewire control center"
 maintainer="Nizarjh <chel773@tutamail.com>"
 license="BSD-3-Clause"

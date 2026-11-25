@@ -1,10 +1,11 @@
 # Template file for 'hyprsysteminfo'
 pkgname=hyprsysteminfo
 version=0.2.0
-revision=4
+revision=5
 build_style=cmake
 hostmakedepends="pkgconf xxd"
-makedepends="hyprtoolkit hyprutils glaze cairo-devel libdrm-devel pciutils-devel pixman-devel"
+makedepends="hyprtoolkit hyprutils glaze cairo-devel libdrm-devel pciutils-devel pixman-devel
+ pango-devel libglvnd-devel"
 short_desc="Tiny application to display information about the running system"
 maintainer="Nizarjh <chel773@tutamail.com>"
 license="BSD-3-Clause"

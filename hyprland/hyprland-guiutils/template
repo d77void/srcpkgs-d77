@@ -1,11 +1,12 @@
 # Template file for 'hyprland-guiutils'
 pkgname=hyprland-guiutils
 version=0.2.2
-revision=2
+revision=3
 build_style=cmake
 hostmakedepends="ninja pkgconf"
 makedepends="aquamarine cairo-devel hyprgraphics hyprlang
- hyprtoolkit hyprutils libdrm-devel pixman-devel libxkbcommon-devel"
+ hyprtoolkit hyprutils libdrm-devel pixman-devel libxkbcommon-devel pango-devel
+ libglvnd-devel"
 depends="hyprland-qt-support"
 short_desc="Hyprland GUI utilities (successor to hyprland-qtutils)"
 maintainer="Nizarjh <chel773@tutamail.com>"

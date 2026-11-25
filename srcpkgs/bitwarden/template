@@ -42,6 +42,8 @@ do_build() {
 do_install() {
 	vmkdir opt/Bitwarden
 	cp -a apps/desktop/dist/linux-unpacked/. ${DESTDIR}/opt/Bitwarden/
+	# 2026.11.0's Electron ships some locales/*.pak world-writable
+	chmod -R go-w ${DESTDIR}/opt/Bitwarden
 
 	vmkdir usr/bin
 	ln -s /opt/Bitwarden/bitwarden ${DESTDIR}/usr/bin/bitwarden

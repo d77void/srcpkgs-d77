@@ -19,9 +19,9 @@ to `common/shlibs` in your void-packages checkout.**
 Directly needed by `hyprland` (repository `hypr-d77`):
 
 ```
-libaquamarine.so.14 aquamarine-0.15.1_1
+libaquamarine.so.15 aquamarine-0.16.0_1
 libhyprcursor.so.0 hyprcursor-0.1.13_1
-libhyprgraphics.so.4 hyprgraphics-0.5.1_2
+libhyprgraphics.so.6 hyprgraphics-0.7.0_1
 libhyprlang.so.2 hyprlang-0.6.8_5
 libhyprutils.so.13 hyprutils-0.14.2_1
 libhyprwire.so.3 hyprwire-0.3.1_1
@@ -33,7 +33,7 @@ Needed by the rest of the Hyprland ecosystem (`hyprpaper`, `hyprland-guiutils`,
 `hyprpolkitagent`; repository `hypr-d77`):
 
 ```
-libhyprtoolkit.so.6 hyprtoolkit-0.6.0_1
+libhyprtoolkit.so.7 hyprtoolkit-0.7.0_1
 ```
 
 Needed by `mango` (repository `d77`):
@@ -55,13 +55,13 @@ while read -r lib pkg; do
         echo "${lib} ${pkg}" >> common/shlibs
     fi
 done <<'EOF'
-libaquamarine.so.14 aquamarine-0.15.1_1
+libaquamarine.so.15 aquamarine-0.16.0_1
 libhyprcursor.so.0 hyprcursor-0.1.13_1
-libhyprgraphics.so.4 hyprgraphics-0.5.1_2
+libhyprgraphics.so.6 hyprgraphics-0.7.0_1
 libhyprlang.so.2 hyprlang-0.6.8_5
 libhyprutils.so.13 hyprutils-0.14.2_1
 libhyprwire.so.3 hyprwire-0.3.1_1
-libhyprtoolkit.so.6 hyprtoolkit-0.6.0_1
+libhyprtoolkit.so.7 hyprtoolkit-0.7.0_1
 liblua5.5.so.5.5 lua55-5.5.0_1
 libscenefx-0.5.so scenefx0.5-0.5_1
 EOF
@@ -84,8 +84,8 @@ musl.
 - When a package's SONAME changes, `xbps-src` refuses to package it and prints
   the exact line to use (`please update common/shlibs with this line: ...`) and
   the list of reverse dependencies that must be revbumped and rebuilt. Update
-  the line and revbump those templates. Example: `hyprtoolkit` 0.5.4 -> 0.6.0
-  changed `libhyprtoolkit.so.5` to `libhyprtoolkit.so.6`.
+  the line and revbump those templates. Example: `hyprtoolkit` 0.6.0 -> 0.7.0
+  changed `libhyprtoolkit.so.6` to `libhyprtoolkit.so.7`.
 - Whenever you update one of the templates listed above, re-check this file
   (the `libaquamarine`, `libhypr*` and `libscenefx` entries follow the
   versions in `hyprland/*/template` and `srcpkgs/scenefx0.5/template`).
