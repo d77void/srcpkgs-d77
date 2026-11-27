@@ -1,6 +1,6 @@
 # Template file for 'atg'
 pkgname=atg
-version=0.1.3
+version=0.1.4
 revision=1
 build_style=gnu-makefile
 makedepends="libX11-devel"
@@ -18,7 +18,7 @@ license="MIT"
 homepage="https://github.com/d77void/ATG"
 changelog="https://github.com/d77void/ATG/releases"
 distfiles="https://github.com/d77void/ATG/archive/refs/tags/${version}.tar.gz"
-checksum=c29ada75a37e40621a296cfe3b3e0ce57e803309bb5fcfc45eaac7a6a1029277
+checksum=4c4db5e1d580940217f0ba159b83d1f3be85d8bd30255dc8ce4acf82e20f1c04
 repository=d77
 
 post_install() {
