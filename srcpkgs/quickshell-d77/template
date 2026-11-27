@@ -1,4 +1,6 @@
 # Template file for 'quickshell-d77'
+# ARCHIVED: quickshell-d77 is no longer maintained and has been superseded by utumno
+# (https://github.com/dani-77/utumno). Kept only so existing installs keep working.
 pkgname=quickshell-d77
 version=1.8.1
 revision=1
