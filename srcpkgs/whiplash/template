@@ -1,6 +1,6 @@
 # Template file for 'whiplash'
 pkgname=whiplash
-version=0.3.1
+version=0.4.0
 revision=1
 build_style=gnu-makefile
 # Only GHC boot packages are used and the Makefile runs
@@ -11,13 +11,14 @@ hostmakedepends="ghc cabal-install pkg-config wayland-devel wayland-protocols"
 makedepends="wlroots0.20-devel libxkbcommon-devel libinput-devel libxcb-devel
  xcb-util-wm-devel wayland-devel"
 depends="xorg-server-xwayland xdg-desktop-portal-wlr xdg-desktop-portal-gtk"
-conf_files="/etc/xdg-desktop-portal/whiplash-portals.conf"
-short_desc="Xmonad-style Wayland compositor with a Haskell brain and a TOML config"
+conf_files="/etc/xdg-desktop-portal/whiplash-portals.conf
+ /etc/xdg/whiplash-x11/xdg-desktop-portal/whiplash-portals.conf"
+short_desc="Xmonad-style Wayland compositor and X11 WM with a Haskell brain"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://github.com/dani-77/whiplash"
 distfiles="https://github.com/dani-77/whiplash/archive/refs/tags/v${version}.tar.gz"
-checksum=5ec9d7b1e744217876a3a3782d6a94a6605998e6110081e9602ee0b096ae829d
+checksum=5aa3fbd6482499158ff2207eefb5d35a7a3ddc0b69ce8b82aabc1e85745ef271
 nopie_files="/usr/bin/whiplash"
 nocross=yes
 repository=d77
