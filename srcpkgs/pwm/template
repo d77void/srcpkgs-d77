@@ -1,6 +1,6 @@
 # Template file for 'pwm'
 pkgname=pwm
-version=0.6.9
+version=0.6.12
 revision=1
 archs="x86_64 x86_64-musl"
 build_style=cargo
@@ -13,7 +13,7 @@ license="MIT"
 homepage="https://github.com/dani-77/pwm"
 changelog="https://github.com/dani-77/${pkgname}/archive/refs/tags/${version}"
 distfiles="https://github.com/dani-77/${pkgname}/archive/refs/tags/${version}.tar.gz"
-checksum=828dc82cce6bdac43b407b94028c91c0b906bddf7a61d521fc70428587742829
+checksum=4e0ddd05435427958fea7241a17816714109420ede9c92103e410ac073f287aa
 repository=d77
 
 do_build() {
