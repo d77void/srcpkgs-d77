@@ -1,6 +1,6 @@
 # Template file for 'wasp'
 pkgname=wasp
-version=0.12.1
+version=0.13.0
 revision=1
 build_style=gnu-makefile
 # config.mk derives VERSION from `git describe`, which a release tarball
@@ -18,7 +18,7 @@ license="GPL-3.0-or-later, MIT"
 homepage="https://github.com/dani-77/wasp"
 changelog="https://github.com/dani-77/wasp/releases/tag/v${version}"
 distfiles="https://github.com/dani-77/wasp/archive/refs/tags/v${version}.tar.gz"
-checksum=332c31868414bb67e48db9c32e4e6038cd848dd946479004a8cb9acf3077379a
+checksum=1d5826accf67e78f8cf30c27743077235e2b96aa6feacc7689f17c469e5862e3
 repository=d77
 
 do_install() {
