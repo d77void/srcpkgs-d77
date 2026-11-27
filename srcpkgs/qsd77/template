@@ -1,15 +1,15 @@
 # Template file for 'qsd77'
 pkgname=qsd77
-version=1.3.3
+version=1.4.0
 revision=1
 hostmakedepends="go"
-short_desc="Cli bridge for quickshell-d77"
+short_desc="Cli bridge for Utumno"
 maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://github.com/dani-77/qsd77"
 changelog="https://github.com/dani-77/qsd77/releases/tag/${version}"
 distfiles="https://github.com/dani-77/qsd77/archive/refs/tags/${version}.tar.gz"
-checksum=507508dfd0fd33aaf095ad75d454340dfec4db0a9824197345dfe08a8fd4c0d8
+checksum=27ec3c221e30b8f426978b047a8b694c0476901ba564a979890b91e5daada0c8
 nopie=yes
 repository=d77
 
