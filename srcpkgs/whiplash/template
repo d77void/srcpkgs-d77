@@ -1,6 +1,6 @@
 # Template file for 'whiplash'
 pkgname=whiplash
-version=0.4.0
+version=0.4.1
 revision=1
 build_style=gnu-makefile
 # Only GHC boot packages are used and the Makefile runs
@@ -18,7 +18,7 @@ maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
 license="MIT"
 homepage="https://github.com/dani-77/whiplash"
 distfiles="https://github.com/dani-77/whiplash/archive/refs/tags/v${version}.tar.gz"
-checksum=5aa3fbd6482499158ff2207eefb5d35a7a3ddc0b69ce8b82aabc1e85745ef271
+checksum=c79a3c7033409d3a10a69cdf3e3ee45f2f9f8f257685f87befe31130e1c5857b
 nopie_files="/usr/bin/whiplash"
 nocross=yes
 repository=d77
