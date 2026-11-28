@@ -1,0 +1,35 @@
+# Template file for 'pmmac'
+pkgname=pmmac
+version=0.1.0
+revision=1
+build_style=gnu-makefile
+wrksrc="pmMac-${version}"
+hostmakedepends="gtk-update-icon-cache tar"
+# Install a compatible Quickshell separately, as with ATG. NetworkManager
+# is optional so the package works with existing network configurations.
+depends="python3 gtk+3 qsd77 awww matugen pipewire brightnessctl
+ power-profiles-daemon upower amorphis"
+short_desc="A macOS-inspired desktop shell for Niri and Quickshell"
+maintainer="Daniel Azevedo <daniazevedo77@posteo.net>"
+license="MIT, GPL-3.0-only"
+homepage="https://github.com/d77void/pmMac"
+changelog="https://github.com/d77void/pmMac/releases"
+_whitesur_rev=73d8040da51a9ed74e47c7366e7e9ff437601a5c
+_whitesur_archive="whitesur-icon-theme-${_whitesur_rev}.tar.gz"
+distfiles="https://github.com/d77void/pmMac/archive/refs/tags/${version}.tar.gz
+ https://codeload.github.com/vinceliuice/WhiteSur-icon-theme/tar.gz/${_whitesur_rev}>${_whitesur_archive}"
+checksum="9ca3ff803f23440d9ebe5f2fe855d62d7e51f112c5549fe36cf48eedda8025e3
+ 96661649071d8a9664b40d42abea75286175234473106156e9a4b25f54e6cb0c"
+skip_extraction="${_whitesur_archive}"
+repository=d77
+
+do_install() {
+	make DESTDIR="${DESTDIR}" PREFIX=/usr \
+		WHITESUR_ARCHIVE="${XBPS_SRCDISTDIR}/${pkgname}-${version}/${_whitesur_archive}" install
+
+	vlicense LICENSE
+	vlicense "${DESTDIR}/usr/share/icons/WhiteSur-pmMac/COPYING" WhiteSur-COPYING
+	vdoc README.md
+	vinstall doc/README.md 644 usr/share/doc/pmmac/doc
+	vinstall assets/logo.png 644 usr/share/doc/pmmac/assets
+}
