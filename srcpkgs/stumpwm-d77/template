@@ -1,7 +1,7 @@
 # Template file for 'stumpwm-d77'
 pkgname=stumpwm-d77
-version=24.11
-revision=3
+version=26.11
+revision=1
 hostmakedepends="autoconf sbcl"
 depends="feh redshift rofi d77-slock d77-st xautolock xcompmgr alsa-utils"
 conflicts="stumpwm"
@@ -18,7 +18,7 @@ distfiles="https://github.com/stumpwm/stumpwm/archive/refs/tags/${version}.tar.g
  http://beta.quicklisp.org/archive/cl-ppcre/2025-06-22/cl-ppcre-20250622-git.tgz
  http://beta.quicklisp.org/archive/clx/2026-01-01/clx-20260101-git.tgz
  https://github.com/stumpwm/stumpwm-contrib/archive/${_contrib_commit}.tar.gz>stumpwm-contrib-${_contrib_commit}.tar.gz"
-checksum="1f2a5edf30dc8897234845514ea927478645cf8fb6b05b9ba7fe7a898720e08d
+checksum="6a9f3c86882eac3ae3ba033bf55471f94b8e0f8f11994500adf591cb4630145e
  dcdfc5bac229a952358dfe661f0860e8a02480e406d0d95dee4300cdc3d45b31
  a9d6a9ca9eb862283f6079856629c8b19254f108fcde065d61f280e7c2c6ec39
  59b567981e151804983fddde74343b3a44127f39741987211f26b607ae203ba8
